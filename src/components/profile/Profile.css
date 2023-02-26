@@ -1,0 +1,53 @@
+/* profile image */
+.profile-image__wrapper {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+.profile-image__clear {
+    width: 60%;
+    position: relative;
+    box-shadow: 0 5px 75px 0 rgba(0, 0, 0, .65);
+    z-index: 3;
+}
+
+.profile-image__cut {
+    width: 100%;
+    height: 100%;
+    display: block;
+    cursor: pointer;
+    z-index: 3;
+}
+
+.profile-image__overlay {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background-color: rgba(0, 0, 0, .4);
+    z-index: 2;
+}
+
+.profile-image__blur {
+    width: 100%;
+    height: 100%;
+    transform: scaleY(1.1);
+    filter: blur(.25rem);
+    position: absolute;
+}
+
+/* profile info */
+
+.profile-info__container {
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+    background: var(--black);
+}
+
+.profile-info__inner {
+    display: flex;
+}
+

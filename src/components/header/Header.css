@@ -6,6 +6,9 @@
     width: 100%;
     min-height: 5rem;
     align-items: center;
+/*     it is to stand out from image profile */ 
+    position: relative;
+    z-index: 10;
 }
 
 .header__left {
