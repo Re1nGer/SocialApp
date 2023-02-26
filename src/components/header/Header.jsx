@@ -1,35 +1,55 @@
-import "./Header.css";
 import { useState } from "react";
+import "./Header.css";
+import "./ProfileMenu.css";
+import { HeaderHamburgerMenu } from "./HeaderHamburgerMenu";
+import ProfileImage from "../../assets/profileImage.jpg";
+import { HeaderIcon } from "../svg/HeaderIcon";
 
-function Header() {
+const Header = () => {
     return (
         <header className="header">
             <div className="header__left">
                 <HeaderHamburgerMenu />
-                <img className="header__left_icon" />
+                <HeaderIcon />
             </div>
             <div className="header__right">
-                <HeaderProfileMenu />
+                <HeaderProfileMenu imgSrc={''} />
             </div>
         </header>
     );
 }
 
 
-const HeaderHamburgerMenu = () => {
+const HeaderProfileMenu = ({ imgSrc }) => {
 
     const [open, setOpen] = useState(false);
 
-    return (
-        <div className="ham_menu" onClick={() => setOpen(prevState => !prevState)}>
-            <span className={`ham_menu__bar ham_menu__bar_first ${open ? 'ham_menu__bar_first--open' : null}`}> </span>
-            <span className={`ham_menu__bar ham_menu__bar_second ${open ? 'ham_menu__bar_second--open' : null}`}></span>
-            <span className={`ham_menu__bar ham_menu__bar_third ${open ? 'ham_menu__bar_third--open' : null}`}></span>
-            <span className={`ham_menu__bar ham_menu__bar_fourth ${open ? 'ham_menu__bar_fourth--open' : null}`}></span>
-        </div>
-    )
-}
+    const handleDropdownOverlayClose = () => {
+        setOpen(false);
+    }
 
-const HeaderProfileMenu = () => {}
+    const handleDropdownMenuOpen = (event) => {
+        setOpen(prevState => !prevState);
+    }
+
+    return (
+        <>
+            { open ?  <div className="profile_menu__overlay" onClick={handleDropdownOverlayClose}></div> : null }
+            <div className="profile_menu__container">
+                <div className="profile_menu" onClick={handleDropdownMenuOpen}>
+                    <div className="profile_menu__picture_container">
+                        <img className="profile_menu__picture" src={ProfileImage} alt={'profile'} />
+                    </div>
+                </div>
+                <div className={`profile_menu__dropdown ${open ? 'profile_menu__dropdown--open' : ''}`}>
+                    <div className="profile_menu__dropdown-item">Username</div>
+                    <div className="profile_menu__dropdown-item">Light Mode</div>
+                    <div className="profile_menu__dropdown-item">Logout</div>
+                </div>
+            </div>
+        </>
+    )
+
+}
 
 export default Header;

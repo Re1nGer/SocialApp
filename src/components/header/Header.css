@@ -5,19 +5,16 @@
     color: var(--white);
     width: 100%;
     min-height: 5rem;
+    align-items: center;
 }
 
 .header__left {
-    display: flex;
     height: 100%;
-    width: 100%;
-    padding: 1rem;
+    padding: 1rem 0;
+    align-items: baseline;
+    display: flex;
+    gap: 2rem;
 }
-
-.header__right {
-
-}
-
 
 .ham_menu {
     margin: 0;
@@ -93,7 +90,3 @@
     width: 0;
     left: 50%;
 }
-
-
-
-
