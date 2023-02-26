@@ -1,0 +1,30 @@
+:root {
+    --bc: #04020a;
+    --header-bc: #f0f1f2;
+    --bc-secondary: #111112;
+    --bc-bright: #161617;
+    --primary: #17a2b8;
+    --white: #ffffff;
+    --black: #000000;
+    /* Colors */
+    --blue-darker: #0C84B3;
+    /* Gray Colors */
+    --gray: #6c757d;
+    --gray-light: #fcf1ec;
+    --gray-extra-dark: #343a40;
+    /* Sizes */
+    --heading: 3.4rem;
+    --heading-large: 7.5rem;
+    --heading-medium: 2rem;
+    --paragraph: 1.1rem;
+    /* Fonts */
+    --font-main: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+    --font-poppins: "Poppins";
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
