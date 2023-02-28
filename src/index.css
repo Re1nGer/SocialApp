@@ -31,5 +31,6 @@
 body {
   background: var(--black);
   font-family: var(--font-main);
+  transition: background .2s linear;
 }
 

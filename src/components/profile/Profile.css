@@ -116,6 +116,8 @@
     align-items: center;
     gap: .5rem;
     font-size: var(--paragraph);
+    transition: color .2s linear;
+    cursor: pointer;
 }
 
 .posts__images {
@@ -124,6 +126,8 @@
     align-items: center;
     gap: .5rem;
     font-size: var(--paragraph);
+    transition: color .2s linear;
+    cursor: pointer;
 }
 
 .posts__saved {
@@ -132,6 +136,12 @@
     align-items: center;
     gap: .5rem;
     font-size: var(--paragraph);
+    transition: color .2s linear;
+    cursor: pointer;
+}
+
+.posts__posts:hover, .posts__images:hover, .posts__saved:hover {
+    color: var(--gray);
 }
 
 .posts__wrapper {

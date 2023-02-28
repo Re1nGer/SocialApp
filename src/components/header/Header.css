@@ -9,6 +9,7 @@
 /*     it is to stand out from image profile */ 
     position: relative;
     z-index: 10;
+    transition: background .2s linear;
 }
 
 .header__left {

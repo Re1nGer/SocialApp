@@ -70,6 +70,7 @@
     align-items: center;
     gap: .5rem;
     justify-content: center;
+    cursor: pointer;
 }
 
 .profile_menu__dropdown-item:hover {

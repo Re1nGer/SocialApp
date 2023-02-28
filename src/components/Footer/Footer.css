@@ -1,0 +1,14 @@
+.footer {
+    max-width: 1150px;
+    margin: 0 auto;
+    align-items: center;
+    margin-top: 8rem;
+    margin-bottom: 2rem;
+}
+
+.footer__inner {
+    justify-content: center;
+    display: flex;
+    height: 50px;
+    width: 100%;
+}

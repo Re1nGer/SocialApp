@@ -1,10 +1,13 @@
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import ProfileImage from "../../assets/profileImage.jpg";
 import { Icon } from '@iconify/react';
+import { ThemeContext } from "../contexts/ThemeContext";
 
 export const HeaderProfileMenu = ({ imgSrc }) => {
 
     const [open, setOpen] = useState(false);
+
+    const {isLightTheme, setIsLightTheme} = useContext(ThemeContext);
 
     const handleDropdownOverlayClose = () => {
         setOpen(false);
@@ -28,7 +31,7 @@ export const HeaderProfileMenu = ({ imgSrc }) => {
                         <Icon fontSize={16} icon="mdi:user" />
                         Username
                     </div>
-                    <div className="profile_menu__dropdown-item">
+                    <div className="profile_menu__dropdown-item" onClick={() => setIsLightTheme(prevState => !prevState)}>
                         <Icon fontSize={16} icon="mdi:weather-sunset-down" />
                         Light Mode
                     </div>

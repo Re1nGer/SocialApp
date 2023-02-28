@@ -3,13 +3,34 @@ import { Icon } from '@iconify/react';
 import "./Profile.css";
 import PostImage from '../../assets/post.jpg';
 
+const dummyPosts = [
+    {
+        id: 1,
+        imgSrc: '',
+        likes: 150,
+        comments: 89
+    },
+    {
+        id: 2,
+        imgSrc: '',
+        likes: 150,
+        comments: 89
+    },
+    {
+        id: 3,
+        imgSrc: '',
+        likes: 150,
+        comments: 89
+    }
+];
+
 const Posts = () => {
 
     const renderPosts = () => {
         const posts = [];
 
         for(let idx = 0; idx < 9; idx++) {
-            posts.push(<Post />)
+            posts.push(<Post key={idx} />)
         }
 
         return posts;
@@ -48,8 +69,8 @@ const Post = ({ imgSrc }) => {
             <div className='post__overlay'>
                 <div className='post__likes'>
                     <div className='post__like'>
-                        <Icon fontSize={20} icon="mdi:cards-heart-outline" />
                         100
+                        <Icon fontSize={20} icon="mdi:cards-heart-outline" />
                     </div>
                     <div className='post__comment'>
                         100
