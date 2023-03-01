@@ -2,39 +2,86 @@ import React from 'react';
 import { Icon } from '@iconify/react';
 import "./Profile.css";
 import PostImage from '../../assets/post.jpg';
+import CarPostImage from '../../assets/carPost.jpg';
+import HomePostImage from '../../assets/postHome.jpg';
+import CafePostImage from '../../assets/cafePost.jpg';
 
 const dummyPosts = [
     {
         id: 1,
-        imgSrc: '',
+        imgSrc: PostImage,
         likes: 150,
         comments: 89
     },
     {
         id: 2,
-        imgSrc: '',
+        imgSrc: 'https://images.unsplash.com/photo-1452626212852-811d58933cae?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80',
         likes: 150,
         comments: 89
     },
     {
         id: 3,
-        imgSrc: '',
+        imgSrc: 'https://images.unsplash.com/photo-1567270671170-fdc10a5bf831?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2134&q=80',
         likes: 150,
         comments: 89
-    }
+    },
+    {
+        id: 4,
+        imgSrc: 'https://images.unsplash.com/photo-1599506059562-61051e711cdc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80',
+        likes: 150,
+        comments: 89
+    },
+    {
+        id: 5,
+        imgSrc: CafePostImage,
+        likes: 150,
+        comments: 89
+    },
+    {
+        id: 6,
+        imgSrc: 'https://images.unsplash.com/photo-1600706844152-3a29fce003b7?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80',
+        likes: 150,
+        comments: 89
+    },
+    {
+        id: 7,
+        imgSrc: 'https://images.unsplash.com/photo-1551107696-a4b0c5a0d9a2?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2000&q=80',
+        likes: 150,
+        comments: 89
+    },
+    {
+        id: 8,
+        imgSrc: HomePostImage,
+        likes: 150,
+        comments: 89
+    },
+    {
+        id: 9,
+        imgSrc: CarPostImage,
+        likes: 150,
+        comments: 89
+    },
+    {
+        id: 10,
+        imgSrc: 'https://images.unsplash.com/photo-1582205524573-ac35c641d947?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80',
+        likes: 150,
+        comments: 89
+    },
+    {
+        id: 11,
+        imgSrc: 'https://images.unsplash.com/photo-1562103608-104fa5589661?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2134&q=80',
+        likes: 150,
+        comments: 89
+    },
+    {
+        id: 12,
+        imgSrc: 'https://images.unsplash.com/photo-1591075005914-6579beba9c51?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2134&q=80',
+        likes: 150,
+        comments: 89
+    },
 ];
 
 const Posts = () => {
-
-    const renderPosts = () => {
-        const posts = [];
-
-        for(let idx = 0; idx < 9; idx++) {
-            posts.push(<Post key={idx} />)
-        }
-
-        return posts;
-    }
 
     return (
         <div className='posts__container'>
@@ -54,26 +101,26 @@ const Posts = () => {
                 </div>
             </div>
             <div className='posts__wrapper'>
-                {renderPosts()}
+                { dummyPosts.map(post => <Post key={post.id} {...post} />) }
             </div>
         </div>
      );
 }
 
 
-const Post = ({ imgSrc }) => {
+const Post = ({ imgSrc, likes, comments }) => {
 
     return (
         <div className='post'>
-            <img className='post__image' src={PostImage} alt='post' />
+            <img className='post__image' src={imgSrc} alt='post' />
             <div className='post__overlay'>
                 <div className='post__likes'>
                     <div className='post__like'>
-                        100
+                        {likes}
                         <Icon fontSize={20} icon="mdi:cards-heart-outline" />
                     </div>
                     <div className='post__comment'>
-                        100
+                        {comments}
                         <Icon fontSize={20} icon="uil:comment" />
                     </div>
                 </div>
