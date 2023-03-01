@@ -1,13 +1,13 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import ProfileImage from "../../assets/profileImage.jpg";
 import { Icon } from '@iconify/react';
 import { ThemeContext } from "../contexts/ThemeContext";
 
 export const HeaderProfileMenu = ({ imgSrc }) => {
 
-    const [open, setOpen] = useState(false);
-
     const {isLightTheme, setIsLightTheme} = useContext(ThemeContext);
+
+    const [open, setOpen] = useState(false);
 
     const handleDropdownOverlayClose = () => {
         setOpen(false);

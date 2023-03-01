@@ -12,6 +12,10 @@
     transition: background .2s linear;
 }
 
+.header--light {
+    background: #f0f1f2;
+}
+
 .header__left {
     height: 100%;
     padding: 1rem 0;
@@ -56,6 +60,10 @@
     -moz-transition: .35s cubic-bezier(.175,.685,.32,1.175);
     -o-transition: .35s cubic-bezier(.175,.685,.32,1.175);
     transition: .35s cubic-bezier(.175,.685,.32,1.175);
+}
+
+.ham_menu__bar--light {
+    background: var(--black);
 }
 
 .ham_menu__bar_first {
