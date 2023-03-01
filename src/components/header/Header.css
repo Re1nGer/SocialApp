@@ -18,8 +18,8 @@
 
 .header__left {
     height: 100%;
-    padding: 1rem 0;
-    align-items: baseline;
+    padding: 1rem;
+    align-items: center;
     display: flex;
     gap: 2rem;
 }
