@@ -44,6 +44,7 @@
     width: 100%;
     margin: 4rem auto;
     margin-bottom: 8rem;
+    background: var(--bc);
 }
 
 .profile-info__inner {
@@ -89,6 +90,7 @@
     width: 100%;
     height: 100%;
     position: relative;
+    background: var(--bc);
 }
 
 .posts__tags {
@@ -152,11 +154,18 @@
     gap: 1rem;
 }
 
+@media screen and (max-width: 750px) {
+    .posts__wrapper {
+        justify-content: center;
+    }
+}
+
 /* profile post */
 .post {
     width: 371px;
     height: 371px;
     position: relative;
+    cursor: pointer;
 }
 
 .post__overlay {

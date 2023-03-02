@@ -5,6 +5,7 @@ import PostImage from '../../assets/post.jpg';
 import CarPostImage from '../../assets/carPost.jpg';
 import HomePostImage from '../../assets/postHome.jpg';
 import CafePostImage from '../../assets/cafePost.jpg';
+import Post from './Post';
 
 const dummyPosts = [
     {
@@ -105,28 +106,6 @@ const Posts = () => {
             </div>
         </div>
      );
-}
-
-
-const Post = ({ imgSrc, likes, comments }) => {
-
-    return (
-        <div className='post'>
-            <img className='post__image' src={imgSrc} alt='post' />
-            <div className='post__overlay'>
-                <div className='post__likes'>
-                    <div className='post__like'>
-                        {likes}
-                        <Icon fontSize={20} icon="mdi:cards-heart-outline" />
-                    </div>
-                    <div className='post__comment'>
-                        {comments}
-                        <Icon fontSize={20} icon="uil:comment" />
-                    </div>
-                </div>
-            </div>
-        </div>
-    )
 }
 
 export default Posts;
