@@ -8,7 +8,8 @@ import { ThemeContext } from "../contexts/ThemeContext";
 
 const Header = () => {
 
-    const { isLightTheme } = useContext(ThemeContext);
+    const { isLightTheme, isLoggedIn } = useContext(ThemeContext);
+
 
     return (
         <header className={`header ${isLightTheme ? 'header--light' : ''}`}>
@@ -17,7 +18,7 @@ const Header = () => {
                 <HeaderIcon />
             </div>
             <div className="header__right">
-                <HeaderProfileMenu imgSrc={''} />
+                { isLoggedIn ? <HeaderProfileMenu imgSrc={''} /> : null }
             </div>
         </header>
     );

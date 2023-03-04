@@ -6,10 +6,13 @@ export const ThemeContext = createContext();
 export const ThemeContextProvider = ({ children }) => {
 
     const [isLightTheme, setIsLightTheme] = useState(false);
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
 
     const value = {
         isLightTheme,
-        setIsLightTheme
+        isLoggedIn,
+        setIsLightTheme,
+        setIsLoggedIn
     };
 
     return <ThemeContext.Provider value={value}>
