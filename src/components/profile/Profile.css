@@ -161,14 +161,14 @@
 }
 
 /* profile post */
-.post {
+.post__card {
     width: 371px;
     height: 371px;
     position: relative;
     cursor: pointer;
 }
 
-.post__overlay {
+.post__card-overlay {
     height: 100%;
     width: 100%;
     position: absolute;
@@ -179,18 +179,18 @@
     z-index: 10;
 }
 
-.post__image {
+.post__card-image {
     height: 100%;
     width: 100%;
     object-fit: cover;
 }
 
-.post__overlay:hover {
+.post__card-overlay:hover {
     background: rgba(0, 0, 0, .55);
     opacity: 1;
 }
 
-.post__likes {
+.post__card-likes {
     position: absolute;
     height: 100%;
     width: 100%;
@@ -205,17 +205,17 @@
     font-size: 18px;
 }
 
-.post__likes:hover {
+.post__card-likes:hover {
     opacity: 1;
 }
 
-.post__like {
+.post__card-like {
     display: flex;
     align-items: center;
     gap: .5rem;
 }
 
-.post__comment {
+.post__card-comment {
     display: flex;
     align-items: center;
     gap: .5rem;

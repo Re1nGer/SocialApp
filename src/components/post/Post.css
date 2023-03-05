@@ -1,0 +1,65 @@
+.post {
+    max-width: 1150px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.post__inner {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+}
+
+.post__location {
+    color: var(--white);
+    margin: .5rem 0;
+    display: flex;
+    gap: .5rem;
+    align-items: center;
+}
+
+.post__img-container {
+    height: 50%;
+}
+
+.post__img {
+    height: 100%;
+    width: 100%;
+    object-fit: contain;
+}
+
+.post__description {
+    color: var(--white);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.post__info {
+    display: flex;
+    gap: 1rem;
+    margin: 1rem 0;
+}
+
+.post__likes {
+    gap: .5rem;
+    display: flex;
+    color: var(--white);
+}
+
+.post__comments {
+    gap: .5rem;
+    display: flex;
+    color: var(--white);
+}
+
+.post__comments-icon:hover {
+    fill: black;
+}
+
+.post__comments-preview {
+    color: var(--gray);
+    margin: 1rem 0;
+    cursor: pointer;
+}

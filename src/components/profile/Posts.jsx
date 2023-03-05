@@ -5,7 +5,7 @@ import PostImage from '../../assets/post.jpg';
 import CarPostImage from '../../assets/carPost.jpg';
 import HomePostImage from '../../assets/postHome.jpg';
 import CafePostImage from '../../assets/cafePost.jpg';
-import Post from './Post';
+import Post from './PostCard';
 
 const dummyPosts = [
     {
@@ -86,7 +86,7 @@ const Posts = () => {
 
     return (
         <div className='posts__container'>
-            <div className='posts__divider'></div>
+            <div className='posts__divider' />
             <div className='posts__tags'>
                 <div className='posts__posts'>
                     <Icon fontSize={16} icon="ic:baseline-chat" />
