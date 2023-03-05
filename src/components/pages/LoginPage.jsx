@@ -1,6 +1,8 @@
+import LoginContainer from "../login/LoginContainer";
+
 const LoginPage = () => {
     return (
-        <>Juxstoposition of components representing login page</>
+        <LoginContainer />
      );
 }
 

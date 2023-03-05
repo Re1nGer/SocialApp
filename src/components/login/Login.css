@@ -1,0 +1,73 @@
+.login__container {
+    display: flex;
+}
+
+.login__left {
+    flex: .6;
+    padding: 1rem 0;
+}
+
+.login__left_img {
+    height: 100%;
+    width: 100%;
+    object-fit: contain;
+}
+
+.login__right {
+    flex: .5;
+}
+
+.form__login {
+    height: 50%;
+    width: 100%;
+}
+
+.form__wrapper {
+    display: flex;
+    height: 100%;
+    width: 100%;
+/*     background: var(--bc-login); */
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.form__title {
+    text-align: center;
+    color: var(--white);
+    animation: text-flicker 3s linear infinite;
+}
+
+.form__email, .form__password {
+    border: none;
+    border-radius: 1rem;
+    padding: 1rem;
+    margin: 1rem 0;
+    font-size: 14px;
+    background: #f0f5ff;
+    transition: all .2s linear;
+    border: 2px solid black;
+}
+
+
+.form__email:focus, .form__password:focus {
+    outline: none;
+    border-color: #794bc4;
+}
+
+.form__btn {
+    background:  #794bc4;
+    font-size: 16px;
+    font-weight: bold;
+    color: white;
+    border: none;
+    border-radius: .7rem;
+    padding: .7rem 1rem;
+    cursor: pointer;
+    transition: background .2s linear;
+}
+
+.form__btn:hover {
+    background: #875ad1;
+}
+
