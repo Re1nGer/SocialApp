@@ -17,8 +17,18 @@
     flex: .5;
 }
 
+.login__right_reveal {
+    align-items: flex-end;
+    text-align: center;
+}
+
+.login__right_reveal-text {
+    color: var(--white);
+    opacity: 0;
+}
+
 .form__login {
-    height: 50%;
+    height: 60%;
     width: 100%;
 }
 
@@ -35,7 +45,12 @@
 .form__title {
     text-align: center;
     color: var(--white);
-    animation: text-flicker 3s linear infinite;
+/*     animation: text-flicker 5s linear infinite; */
+    transition: text-shadow .2s linear;
+}
+
+.form__title:hover {
+    text-shadow: 5px 2px 2px #794bc4;
 }
 
 .form__email, .form__password {
@@ -70,4 +85,3 @@
 .form__btn:hover {
     background: #875ad1;
 }
-
