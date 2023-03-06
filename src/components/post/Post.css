@@ -62,4 +62,9 @@
     color: var(--gray);
     margin: 1rem 0;
     cursor: pointer;
+    transition: color .2s linear;
+}
+
+.post__comments-preview:hover {
+    color: var(--white);
 }

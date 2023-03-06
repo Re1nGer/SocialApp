@@ -13,7 +13,7 @@ const Post = ({id, imgSrc, likes, comments }) => {
 
     return (
         <div className='post__card' onClick={handleNavigateClick}>
-            <img className='post__card-image' src={imgSrc} alt='post' />
+            <img className='post__card-image' src={imgSrc} alt='post' loading='lazy' />
             <div className='post__card-overlay'>
                 <div className='post__card-likes'>
                     <div className='post__card-like'>
