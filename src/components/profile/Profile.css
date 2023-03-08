@@ -54,10 +54,25 @@
 .profile-info__image-container {
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.profile-info__file-input_label {
+    padding: 1rem 0;
+    display: flex;
 }
 
 .profile-info__file-input {
     display: none;
+}
+
+.profile-info__file-input_btn {
+    padding: .5rem;
+    border: 0;
+    background: var(--bc-login-btn);
+    border-radius: .5rem;
+    cursor: pointer;
 }
 
 .profile-info__image {

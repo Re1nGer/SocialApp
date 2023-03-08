@@ -15,9 +15,11 @@ const ProfileInfo = () => {
             <div className="profile-info__inner">
                 <div className="profile-info__image-container">
                     <img className="profile-info__image" src={profileImage || ProfilePhoto} alt="profile" />
-                    <label htmlFor="file" id="file-id">
-                        <button type="button">Upload Profile Picture</button>
-                        <input aria-labelledby="file-id" className="profile-info__file-input" onChange={handleProfileImageUpload} id="file" accept="*" type='file' />
+                    <label className="profile-info__file-input_label" aria-label="file" htmlFor="file" id="file-id">
+                        <button type="button" className="profile-info__file-input_btn">
+                            Upload Profile Picture
+                        </button>
+                        <input hidden aria-labelledby="file-id" id="file" accept="*" type='file' />
                     </label>
                 </div>
                 <div className="profile-info__details">
