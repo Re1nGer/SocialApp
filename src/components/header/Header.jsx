@@ -19,22 +19,24 @@ const Header = () => {
         navigate("/feed");
     }
 
-    return (<>
-
-        <ChatDrawer />
-        <header className={`header ${isLightTheme ? 'header--light' : ''}`}>
-            <div className="header__left">
-                <HeaderHamburgerMenu isLightTheme={isLightTheme} />
-                <HeaderLogoIcon onClick={handleIconClick} />
-            </div>
-            <div className="header__right">
-                { isLoggedIn ? <HeaderProfileMenu imgSrc={''} /> : null }
-                <div className="header__right-chat_icon">
-                    <Icon icon="ph:paper-plane-tilt-bold" fontSize={"25px"} onClick={() => setIsChatDrawerOpen(true)} />
+    return (
+        <>
+            <ChatDrawer />
+            <header className={`header ${isLightTheme ? 'header--light' : ''}`}>
+                <div className="header__left">
+                    <HeaderHamburgerMenu isLightTheme={isLightTheme} />
+                    <HeaderLogoIcon onClick={handleIconClick} />
                 </div>
-            </div>
-        </header>
-    </>
+                <div className="header__right">
+                    { isLoggedIn ? <HeaderProfileMenu imgSrc={''} /> : null }
+                    { isLoggedIn ? (
+                        <div className="header__right-chat_icon">
+                            <Icon icon="ph:paper-plane-tilt-bold" fontSize={"25px"} onClick={() => setIsChatDrawerOpen(true)} />
+                        </div>
+                    ) : null }
+                </div>
+            </header>
+        </>
     );
 }
 

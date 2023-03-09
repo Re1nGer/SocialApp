@@ -8,7 +8,7 @@
     background: #111;
     overflow-x: hidden;
     transition: .5s;
-    padding-top: 60px;
+    padding-top: .5rem;
 }
 
 .drawer__overlay {
@@ -22,4 +22,77 @@
 
 .drawer--open {
     width: 350px;
+}
+
+.drawer__close {
+    cursor: pointer;
+    
+}
+
+.drawer__title {
+    color: var(--white);
+    font-size: 20px;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 .5rem;
+}
+
+.drawer__input-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin: .5rem 0;
+}
+
+.drawer__input {
+    padding: .5rem;
+    outline: 0;
+    border-radius: .5rem;
+    border: 1px solid var(--bc-login-btn)
+}
+
+.drawer__results-container {
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+}
+
+
+/* user card */
+
+.user-card {
+    display: flex;
+    border: 1px solid var(--white);
+    padding: .5rem;
+    cursor: pointer;
+
+    transition: all .2s linear;
+}
+
+.user-card:hover {
+    background: var(--gray);
+}
+
+.user-card__img-container {
+    width: 50px;
+    height: 50px;
+}
+
+.user-card__img {
+    border-radius: 50%;
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
+.user-card__text-container {
+    display: flex;
+    flex-direction: column;
+    margin-left: .5rem;
+}
+
+.user-card__username {
+    color: #fff;
+    font-weight: 500;
+    font-size: 16px;
 }
