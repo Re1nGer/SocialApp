@@ -12,7 +12,6 @@ const ProfileImage = ({ imgSrc }) => {
                 <div className="profile-image__overlay"></div>
                 <img className="profile-image__blur" src={ProfileHeaderImage} alt="profile header" />
             </div>
-
         </>
      );
 }

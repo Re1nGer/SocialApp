@@ -1,26 +1,40 @@
 import "./Header.css";
 import "./ProfileMenu.css";
 import { HeaderHamburgerMenu } from "./HeaderHamburgerMenu";
-import { HeaderIcon } from "../svg/HeaderIcon";
+import { HeaderLogoIcon } from "../svg/HeaderLogoIcon";
 import { HeaderProfileMenu } from "./HeaderProfileMenu";
 import { useContext } from "react";
 import { ThemeContext } from "../contexts/ThemeContext";
+import { useNavigate } from "react-router-dom";
+import { Icon } from "@iconify/react";
+import ChatDrawer from "../drawer/ChatDrawer";
 
 const Header = () => {
 
-    const { isLightTheme, isLoggedIn } = useContext(ThemeContext);
+    const { isLightTheme, isLoggedIn, setIsChatDrawerOpen } = useContext(ThemeContext);
 
+    const navigate = useNavigate();
 
-    return (
+    const handleIconClick = () => {
+        navigate("/feed");
+    }
+
+    return (<>
+
+        <ChatDrawer />
         <header className={`header ${isLightTheme ? 'header--light' : ''}`}>
             <div className="header__left">
                 <HeaderHamburgerMenu isLightTheme={isLightTheme} />
-                <HeaderIcon />
+                <HeaderLogoIcon onClick={handleIconClick} />
             </div>
             <div className="header__right">
                 { isLoggedIn ? <HeaderProfileMenu imgSrc={''} /> : null }
+                <div className="header__right-chat_icon">
+                    <Icon icon="ph:paper-plane-tilt-bold" fontSize={"25px"} onClick={() => setIsChatDrawerOpen(true)} />
+                </div>
             </div>
         </header>
+    </>
     );
 }
 

@@ -7,12 +7,15 @@ export const ThemeContextProvider = ({ children }) => {
 
     const [isLightTheme, setIsLightTheme] = useState(false);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [isChatDrawerOpen, setIsChatDrawerOpen] = useState(false);
 
     const value = {
         isLightTheme,
         isLoggedIn,
+        isChatDrawerOpen,
         setIsLightTheme,
-        setIsLoggedIn
+        setIsLoggedIn,
+        setIsChatDrawerOpen
     };
 
     return <ThemeContext.Provider value={value}>

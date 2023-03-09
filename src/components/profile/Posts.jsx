@@ -104,6 +104,11 @@ const Posts = () => {
             <div className='posts__wrapper'>
                 { dummyPosts.map(post => <Post key={post.id} {...post} />) }
             </div>
+            { dummyPosts.length > 10 ? (
+                <div className='posts__load-more'>
+                    Load More
+                </div>
+            ) : null }
         </div>
      );
 }

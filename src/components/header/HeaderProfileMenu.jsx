@@ -19,7 +19,7 @@ export const HeaderProfileMenu = ({ imgSrc }) => {
 
     return (
         <>
-            {open ? <div className="profile_menu__overlay" onClick={handleDropdownOverlayClose}></div> : null}
+            { open ? <div className="profile_menu__overlay" onClick={handleDropdownOverlayClose}></div> : null }
             <div className="profile_menu__container">
                 <div className="profile_menu" onClick={handleDropdownMenuOpen}>
                     <div className="profile_menu__picture_container">

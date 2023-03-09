@@ -49,6 +49,18 @@
 
 .profile-info__inner {
     display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.profile-info_user-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.profile-info_user-edit {
+    cursor: pointer;
 }
 
 .profile-info__image-container {
@@ -70,9 +82,16 @@
 .profile-info__file-input_btn {
     padding: .5rem;
     border: 0;
-    background: var(--bc-login-btn);
+    background: var(--white);
+    color: var(--black);
     border-radius: .5rem;
     cursor: pointer;
+    transition: all .2s linear;
+}
+
+.profile-info__file-input_btn:hover {
+    background: var(--black);
+    color: var(--white);
 }
 
 .profile-info__image {
@@ -243,5 +262,12 @@
     display: flex;
     align-items: center;
     gap: .5rem;
+}
+
+.posts__load-more {
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    margin: 1rem 0;
 }
 

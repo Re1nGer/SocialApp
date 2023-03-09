@@ -1,8 +1,8 @@
 import "./HeaderIcon.css";
 
-export const HeaderIcon = () => {
+export const HeaderLogoIcon = ({ onClick }) => {
     return (
-        <div className="m-icon">
+        <div className="m-icon" onClick={onClick}>
             <svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-name="Layer 1" viewBox="0 0 766.15 715.7">
                 <defs>
                     <style>{`.cls-1{fill:var(--primary);}.cls-2{fill:var(--primary);}.cls-3{fill:var(--primary);} `}</style>

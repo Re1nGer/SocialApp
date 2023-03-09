@@ -24,6 +24,17 @@
     gap: 2rem;
 }
 
+.header__right {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-right: 1rem;
+}
+
+.header__right-chat_icon {
+    cursor: pointer;
+}
+
 .ham_menu {
     margin: 0;
     width: 2em;

@@ -1,0 +1,25 @@
+.drawer {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 11;
+    top: 0;
+    right: 0;
+    background: #111;
+    overflow-x: hidden;
+    transition: .5s;
+    padding-top: 60px;
+}
+
+.drawer__overlay {
+    position: fixed;
+    z-index: 10;
+    height: 100%;
+    width: 100%;
+    transition: background .3s linear;
+    background: rgba(0,0,0,0.4);
+}
+
+.drawer--open {
+    width: 350px;
+}
