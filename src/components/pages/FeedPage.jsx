@@ -1,5 +1,7 @@
+import Feed from "../feed/Feed";
+
 const FeedPage = () => {
-    return ( <div>Feed</div> );
+    return ( <Feed /> );
 }
 
 export default FeedPage;

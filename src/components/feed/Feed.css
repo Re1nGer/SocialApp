@@ -1,0 +1,105 @@
+.feed {
+    max-width: 1440px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+
+.feed__profile {
+    border-radius: 1rem;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    max-width: 350px;
+    background: var(--gray-extra-dark);
+}
+
+.feed__profile-cap {
+    width: 100%;
+}
+
+.feed__profile-cap_img {
+    width: 100%;
+    object-fit: contain;
+    border-radius: 1rem 1rem 0 0;
+}
+
+.feed__profile-info {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    flex-direction: column;
+    padding: 1rem 0;
+}
+
+.feed__profile-circle {
+    margin-top: -3rem;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.feed__profile-circle_img {
+    border-radius: 50%;
+    height: 75px;
+    width: 75px;
+    object-fit: contain;
+}
+
+.feed__profile-name {
+    color: var(--white);
+    text-align: center;
+    margin: .5rem 0;
+}
+
+.feed__profile-username {
+    color: var(--gray);
+    margin: .5rem 0;
+    font-size: 12px;
+    text-align: center;
+}
+
+.feed__profile-bio {
+    text-align: center;
+    color: var(--white);
+    text-align: center;
+    margin: .5rem 0;
+}
+
+.feed__profile-stats {
+    border-top: 1px solid var(--white);
+    border-bottom: 1px solid var(--white);
+    display: flex;
+    justify-content: space-around;
+    padding: 1rem 0;
+    position: relative;
+}
+
+.feed__profile-following {
+    color: var(--white);
+}
+
+.feed__profile-divider::after {
+    content: '';
+    position: absolute;
+    height: 50%;
+    width: 1px;
+    background: var(--white);
+}
+
+.feed__profile-followers {
+    color: var(--white);
+}
+
+.feed__profile-link {
+    text-align: center;
+    padding: 1rem;
+    color: var(--primary);
+}
+
+.feed__trends {
+
+}
+
