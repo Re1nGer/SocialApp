@@ -15,6 +15,7 @@ const Feed = () => {
 }
 
 const FeedProfile = () => {
+
     return (
         <div className="feed__profile">
             <div className="feed__profile-cap">
@@ -86,9 +87,11 @@ const FeedFollow = () => {
                 </div>
                 <button className="feed__follow-card_btn">Follow</button>
             </div>
+
             <div className="feed__follow-more">
                 Show More
             </div>
+
         </div>
     )
 }
@@ -97,10 +100,26 @@ const FeedMain = () => {
 
 
     return (
-        <div>
-
+        <div className="feed__main">
+            <div className="feed__input-container">
+                <img src={ProfileImage} className="feed__input-img" alt="profile" />
+                <div className="feed__input-form_container">
+                    <input className="feed__input-input" />
+                    <div className="feed__input-options">
+                        <div className="feed__input--photo"></div>
+                        <div className="feed__input--video"></div>
+                        <div className="feed__input--thread"></div>
+                        <div className="feed__input--schedule"></div>
+                    </div>
+                </div>
+            </div>
         </div>
     )
+
+}
+
+
+const FeedPost = () => {
 
 }
 

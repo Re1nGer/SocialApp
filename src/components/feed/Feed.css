@@ -4,7 +4,6 @@
     margin: 0 auto;
 }
 
-
 .feed__profile {
     border-radius: 1rem;
     width: 100%;
@@ -157,7 +156,23 @@
     text-align: start;
     width: 100%;
     margin: 1rem 0;
+    font-size: 14px;
 }
+
+/* feed main  */
+
+.feed__main {
+    display: flex;
+    flex-direction: column;
+    max-width: 600px;
+    width: 100%;
+}
+
+.feed__input-container {
+    background: var(--gray-extra-dark);
+    display: flex;
+}
+
 
 .feed__trends {
 
