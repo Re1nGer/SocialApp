@@ -1,14 +1,17 @@
+import React from 'react';
 import { useContext, useEffect, useState } from "react";
 import { ThemeContext } from "../contexts/ThemeContext";
 import { Icon } from "@iconify/react";
 import TestImage from '../../assets/loveSand.jpg';
+import "./animations.css";
 import "./Drawer.css";
-import { useNavigate } from "react-router-dom";
 
 const ChatDrawer = () => {
 
     //const [isDrawerOpen, setIsDrawerOpen] = useState(false);
     const { isChatDrawerOpen, setIsChatDrawerOpen } = useContext(ThemeContext);
+
+    const [isLoading, setIsLoading] = useState(false);
 
     const [chatId, setChatId] = useState(null);
 
@@ -20,6 +23,16 @@ const ChatDrawer = () => {
         setChatId(id);
     }
 
+    const handleBack = () => {
+        setChatId(null);
+    }
+
+    const fetchExistingChats = () => {}
+
+    React.useEffect(() => {
+        fetchExistingChats();
+    },[])
+
     return (
         <>
             { isChatDrawerOpen ? <div className="drawer__overlay" onClick={handleDrawerClose}></div> : null }
@@ -30,18 +43,21 @@ const ChatDrawer = () => {
                         <Icon onClick={handleDrawerClose} icon="ic:round-close" color={"#fff"} fontSize={'20px'} />
                     </div>
                 </div>
-                <div className="drawer__input-container">
-                    <input className="drawer__input" placeholder="Type In Username" />
-                </div>
                 { chatId ? (
-                    <ChatDrawerRoom />
+                    <div className='drawer__back' onClick={handleBack}>
+                        <Icon icon="material-symbols:arrow-back-rounded" color={"#fff"} fontSize={"25px"} />
+                    </div>
+                ) : null }
+                { chatId ? (
+                    <ChatDrawerRoom id={chatId} />
                 ) : (
                     <div className="drawer__results-container">
-                        <ChatDrawerUserCard />
-                        <ChatDrawerUserCard />
-                        <ChatDrawerUserCard />
-                        <ChatDrawerUserCard />
-                        <ChatDrawerUserCard />
+{/*                         exising chats need to be fetched from server */}
+                        <ChatDrawerUserCard setChatId={setChatId} id={2} />
+                        <ChatDrawerUserCard setChatId={setChatId} id={2} />
+                        <ChatDrawerUserCard setChatId={setChatId} id={2} />
+                        <ChatDrawerUserCard setChatId={setChatId} id={2} />
+                        <ChatDrawerUserCard setChatId={setChatId} id={2} />
                     </div>
                 ) }
             </div>
@@ -52,12 +68,16 @@ const ChatDrawer = () => {
 export default ChatDrawer;
 
 
-const ChatDrawerUserCard = ({ onClick }) => {
+const ChatDrawerUserCard = ({ setChatId, id }) => {
     
-    const id = "2";
+    //const id = "2";
+
+    const handleUserCardClick = () => {
+        setChatId(id);
+    }
 
     return (
-        <div className="user-card" onClick={onClick}>
+        <div className="user-card" onClick={handleUserCardClick}>
             <div className="user-card__img-container">
                 <img className="user-card__img" src={TestImage} />
             </div>
@@ -72,13 +92,24 @@ const ChatDrawerUserCard = ({ onClick }) => {
 }
 
 
-const ChatDrawerRoom = () => {
+const ChatDrawerRoom = ({ id }) => {
 
     const [isLoading, setIsLoading] = useState(false);
 
-    const fetchMessages = async () => {}
+    const [messages, setMessages] = useState(Array.from(Array(10).keys()));
+
+    const fetchMessages = async () => {
+/*         id of the chat necessary to fetch messages  */
+    };
+
+    const handleSendMessage = (event) => {
+        event.preventDefault();
+        setMessages(prevState => [...prevState, prevState.length + 1]);
+    }
 
     useEffect(() => {
+        //intersection api to fetch more if the beginning has been reached
+        //fetch last 50 messages
         //fetchMessages();
     },[]);
 
@@ -88,12 +119,29 @@ const ChatDrawerRoom = () => {
                 <div className="chat__room-username">
                     Conversation With: Username
                 </div>
-                <div className="chat__room-input_container">
-                    <Icon icon="material-symbols:attach-file-add" color={"#fff"} fontSize={'20px'} />
-                    <input className="chat__room-input" type={'text'} />
-                    <Icon icon="ic:round-close" color={"#fff"} fontSize={'20px'} />
+
+                <div className='chat__room-messages'>
+                    { messages.map(item => <ChatDrawerRoomMessage />) }
                 </div>
+                <form onSubmit={handleSendMessage}>
+                    <div className="chat__room-input_container">
+                        <Icon icon="material-symbols:attach-file-add" color={"#fff"} fontSize={'25px'} />
+                        <input className="chat__room-input" type={'text'} placeholder={'Type in message'} />
+                        <Icon icon="ph:paper-plane-tilt-bold" color={'#fff'} fontSize={"25px"} onClick={() => setIsChatDrawerOpen(true)} />
+                    </div>
+                </form>
             </div>
         </div>
-    )
+    );
+}
+
+const ChatDrawerRoomMessage = () => {
+
+    return (
+        <>
+            <div className='chat__room-message chat__room-message--show'>
+                SomeMessage
+            </div>
+        </>
+    );
 }
