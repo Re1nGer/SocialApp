@@ -19,6 +19,12 @@ const Header = () => {
         navigate("/feed");
     }
 
+    const handleDrawerOpen = () => {
+        setIsChatDrawerOpen(true);
+        document.body.style.height = '100vh';
+        document.body.style.overflow = 'hidden';
+    }
+
     return (
         <>
             <ChatDrawer />
@@ -31,7 +37,7 @@ const Header = () => {
                     { isLoggedIn ? <HeaderProfileMenu imgSrc={''} /> : null }
                     { isLoggedIn ? (
                         <div className="header__right-chat_icon">
-                            <Icon icon="ph:paper-plane-tilt-bold" fontSize={"25px"} onClick={() => setIsChatDrawerOpen(true)} />
+                            <Icon icon="ph:paper-plane-tilt-bold" fontSize={"25px"} onClick={handleDrawerOpen} />
                         </div>
                     ) : null }
                 </div>

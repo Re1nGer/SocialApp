@@ -54,6 +54,14 @@
     color: var(--white);
 }
 
+.post__share {
+    color: var(--white);
+}
+
+.post__share-icon {
+    cursor: pointer;
+}
+
 .post__comments-icon:hover {
     fill: black;
 }

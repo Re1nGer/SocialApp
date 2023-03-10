@@ -73,6 +73,9 @@ const Post = ({ imgSrc, id }) => {
                         <Icon className="post__comments-icon" fontSize={20} icon="uil:comment" />
                         42
                     </div>
+                    <div className="post__share">
+                        <Icon className="post__share-icon" icon="ph:share-fat-thin" fontSize={20} />
+                    </div>
                 </div>
                 <div className="post__description">
                     Lorem ipsum dolor sit amet consectetur adipisicing elit. Non ducimus dolor nulla incidunt optio, repellat et neque velit, similique tenetur reiciendis pariatur consectetur. Esse consequuntur vitae rerum commodi laborum odio ratione dicta illum id, expedita iure repellat minus illo modi magni aliquam aut aperiam accusamus ducimus ex possimus. Eum praesentium minima soluta. Cumque in ad beatae nesciunt placeat illum excepturi ex consectetur suscipit, ipsa culpa dolor quos explicabo delectus dolore rem ducimus. Tempore nostrum iste eum facere itaque quis at ipsum perspiciatis cum deserunt, voluptas voluptate voluptatum temporibus debitis. Tenetur, ea id. Quis, repudiandae officia accusamus enim ex quae nostrum!

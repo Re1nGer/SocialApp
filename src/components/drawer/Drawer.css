@@ -121,11 +121,7 @@
 }
 
 .chat__room-messages {
-    overflow-y: hidden;
-}
-
-.chat__room-message {
-    overflow-y:hidden;
+    overflow-y: auto;
 }
 
 .chat__room-input_container {

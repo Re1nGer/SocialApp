@@ -17,14 +17,14 @@ const ChatDrawer = () => {
 
     const handleDrawerClose = () => {
         setIsChatDrawerOpen(false);
-    }
-
-    const handleChatDrawerUserCardClick = (id) => {
-        setChatId(id);
+        document.body.style.overflow = 'unset';
+        document.body.style.height = 'unset';
     }
 
     const handleBack = () => {
         setChatId(null);
+        document.body.style.overflow = 'unset';
+        document.body.style.height = 'unset';
     }
 
     const fetchExistingChats = () => {}
@@ -74,6 +74,8 @@ const ChatDrawerUserCard = ({ setChatId, id }) => {
 
     const handleUserCardClick = () => {
         setChatId(id);
+        document.body.style.overflow = 'hidden';
+        document.body.style.height = '100vh';
     }
 
     return (
@@ -127,7 +129,7 @@ const ChatDrawerRoom = ({ id }) => {
                     <div className="chat__room-input_container">
                         <Icon icon="material-symbols:attach-file-add" color={"#fff"} fontSize={'25px'} />
                         <input className="chat__room-input" type={'text'} placeholder={'Type in message'} />
-                        <Icon icon="ph:paper-plane-tilt-bold" color={'#fff'} fontSize={"25px"} onClick={() => setIsChatDrawerOpen(true)} />
+                        <Icon icon="ph:paper-plane-tilt-bold" color={'#fff'} fontSize={"25px"} />
                     </div>
                 </form>
             </div>
