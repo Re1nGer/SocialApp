@@ -174,16 +174,30 @@
 }
 
 .feed__input-container {
+    border-radius: 2rem;
     background: var(--gray-extra-dark);
     display: flex;
     padding: 1rem;
-    gap: .5rem;
+    gap: 1rem;
 }
 
 .feed__input-form_container {
     display: flex;
     flex-direction: column;
-    gap: .5rem;
+    gap: 1rem;
+}
+
+.feed__input-input {
+    padding: 1rem;
+    outline: 0;
+    border-radius: 1rem;
+    border: none;
+    background: var(--gray);
+    color: var(--white);
+}
+
+.feed__input-input::placeholder {
+    color: var(--white);
 }
 
 .feed__input-img {
