@@ -24,7 +24,7 @@ const LoginForm = () => {
                 <button className="form__btn" type={'submit'}>Login</button>
             </form>
         </div>
-     );
+    );
 }
 
 export default LoginForm;

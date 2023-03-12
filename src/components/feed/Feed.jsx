@@ -1,15 +1,26 @@
 import "./Feed.css";
 import ProfileImageCap from "../../assets/profileHeaderImage.jpg";
 import ProfileImage from '../../assets/profileImage.jpg';
+import { Icon } from '@iconify/react';
 import { Link } from "react-router-dom";
 
 const Feed = () => {
     return (
         <div className="feed">
-            <FeedProfile />
-            <br />
-            <br />
-            <FeedFollow />
+            <div className="feed__inner">
+                <div className="feed__left">
+                    <FeedProfile />
+                    <br />
+                    <br />
+                    <FeedFollow />
+                </div>
+                <div className="feed__center">
+                    <FeedMain />
+                </div>
+                <div className="feed__right">
+                    <FeedTrends />
+                </div>
+            </div>
         </div>
      );
 }
@@ -102,14 +113,34 @@ const FeedMain = () => {
     return (
         <div className="feed__main">
             <div className="feed__input-container">
-                <img src={ProfileImage} className="feed__input-img" alt="profile" />
+                <img className="feed__input-img" src={ProfileImage} alt="profile" />
                 <div className="feed__input-form_container">
-                    <input className="feed__input-input" />
+                    <input className="feed__input-input" placeholder="What's happening" />
                     <div className="feed__input-options">
-                        <div className="feed__input--photo"></div>
-                        <div className="feed__input--video"></div>
-                        <div className="feed__input--thread"></div>
-                        <div className="feed__input--schedule"></div>
+                        <div className="feed__input--photo">
+                            <button className="feed__input-btn">
+                                <Icon icon="gg:image" fontSize={20} />
+                                Photo
+                            </button>
+                        </div>
+                        <div className="feed__input--video">
+                            <button className="feed__input-btn">
+                                <Icon icon="ic:twotone-slow-motion-video" fontSize={20} /> 
+                                Video
+                            </button>
+                        </div>
+                        <div className="feed__input--thread">
+                            <button className="feed__input-btn">
+                                <Icon icon="ic:twotone-slow-motion-video" fontSize={20} />
+                                Thread
+                            </button>
+                        </div>
+                        <div className="feed__input--schedule">
+                            <button className="feed__input-btn">
+                                <Icon icon="fa6-solid:calendar-days" fontSize={20} />
+                                Schedule
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -123,7 +154,7 @@ const FeedPost = () => {
 
 }
 
-const FeedMainTrends = () => {
+const FeedTrends = () => {
 
 }
 
