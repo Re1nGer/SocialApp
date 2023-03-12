@@ -237,7 +237,39 @@
 
 }
 
-.feed__trends {
+/* feed trends */
 
+.feed__trends {
+    min-width: 300px;
+    width: 100%;
+    background: var(--gray-extra-dark);
+    border-radius: 1rem;
+    color: var(--white);
+    padding: 1rem;
 }
 
+.feed__trends-hash_block {
+    display: flex;
+    justify-content: space-between;
+}
+
+.feed__trends-title_container {
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+}
+
+.feed__trends-title {
+    color: var(--white);
+    font-weight: 600;
+}
+
+.feed__trends-subtitle {
+    color: var(--gray-extra-dark);
+    text-transform: capitalize;
+    margin: 1rem 0;
+}
+
+.feed__trends-hash_block-subtitle {
+    color: var(--gray);
+}
