@@ -6,6 +6,7 @@ import ProfilePage from './components/pages/ProfilePage'
 import LoginPage from './components/pages/LoginPage'
 import PostPage from './components/pages/PostPage'
 import FeedPage from './components/pages/FeedPage'
+import SignUpPage from './components/pages/SignUp'
 
 const App = () => {
 
@@ -17,6 +18,7 @@ const App = () => {
             <Route element={<Layout />}>
               <Route path='/' index element={<LoginPage />} />
               <Route path='/login' element={<LoginPage />} />
+              <Route path='/signup' element={<SignUpPage />} />
               <Route path='/mypage' element={<ProfilePage />}/>
               <Route path='/post/:id' element={<PostPage />}/>
               <Route path='/feed' element={<FeedPage />}/>
