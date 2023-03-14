@@ -2,10 +2,14 @@ import { useContext, useState } from "react";
 import ProfileImage from "../../assets/profileImage.jpg";
 import { Icon } from '@iconify/react';
 import { ThemeContext } from "../contexts/ThemeContext";
+import { axios } from "../../axios";
+import { useNavigate } from "react-router-dom";
 
 export const HeaderProfileMenu = ({ imgSrc }) => {
 
-    const {isLightTheme, setIsLightTheme} = useContext(ThemeContext);
+    const {isLightTheme, setIsLightTheme, setIsLoggedIn} = useContext(ThemeContext);
+
+    const navigate = useNavigate();
 
     const [open, setOpen] = useState(false);
 
@@ -16,6 +20,26 @@ export const HeaderProfileMenu = ({ imgSrc }) => {
     const handleDropdownMenuOpen = (event) => {
         setOpen(prevState => !prevState);
     };
+
+    const revokeToken = async () => {
+        try {
+            await axios.post('/api/v1/account/revoke');
+        } catch (error) {
+            console.log(error);
+        }
+        finally {
+            axios.defaults.headers.common['Authorization'] = ``;
+            sessionStorage.clear();
+        }
+    }
+
+    const handleLogout = async () => {
+        //await revokeToken();
+        axios.defaults.headers.common['Authorization'] = ``;
+        sessionStorage.clear();
+        setIsLoggedIn(false);
+        navigate('/');
+    }
 
     return (
         <>
@@ -35,7 +59,7 @@ export const HeaderProfileMenu = ({ imgSrc }) => {
                         <Icon fontSize={16} icon="mdi:weather-sunset-down" />
                         Light Mode
                     </div>
-                    <div className="profile_menu__dropdown-item">
+                    <div className="profile_menu__dropdown-item" onClick={handleLogout}>
                         <Icon fontSize={16} icon="mdi:arrow-right-thick" />
                         Logout
                     </div>

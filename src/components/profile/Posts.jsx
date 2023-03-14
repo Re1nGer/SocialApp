@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Icon } from '@iconify/react';
 import "./Profile.css";
 import PostImage from '../../assets/post.jpg';
@@ -6,6 +6,8 @@ import CarPostImage from '../../assets/carPost.jpg';
 import HomePostImage from '../../assets/postHome.jpg';
 import CafePostImage from '../../assets/cafePost.jpg';
 import Post from './PostCard';
+import { axios } from '../../axios';
+import { motion, useAnimation, useInView } from 'framer-motion';
 
 const dummyPosts = [
     {
@@ -84,6 +86,27 @@ const dummyPosts = [
 
 const Posts = () => {
 
+    const [posts, setPosts] = useState([]);
+
+    //const controls = useAnimation();
+
+    const ref = useRef(null);
+
+    const inView = useInView(ref, { once: true, amount: 'some' });
+
+    const fetchProfilePosts = async () => {
+        try {
+            const { data } = await axios.get('/list');
+            setPosts(data);
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    useEffect(() => {
+        fetchProfilePosts();
+    },[]);
+
     return (
         <div className='posts__container'>
             <div className='posts__divider' />
@@ -102,7 +125,11 @@ const Posts = () => {
                 </div>
             </div>
             <div className='posts__wrapper'>
-                { dummyPosts.map(post => <Post key={post.id} {...post} />) }
+                { dummyPosts.map(post => (
+                    <AnimatedPostInView>
+                        <Post key={post.id} {...post}  />
+                    </AnimatedPostInView>
+                )) }
             </div>
             { dummyPosts.length > 10 ? (
                 <div className='posts__load-more'>
@@ -110,7 +137,37 @@ const Posts = () => {
                 </div>
             ) : null }
         </div>
-     );
+    );
+}
+
+
+//const AnimatedPost = motion(Post);
+
+const AnimatedPostInView = ({ children }) => {
+
+    const ref = useRef(null);
+
+    const inView = useInView(ref, { once: true });
+
+    const controls = useAnimation();
+
+    React.useEffect(() => {
+        if (inView) {
+            controls.start({ opacity: 1, scale: 1 });
+        }
+
+    },[inView, controls]);
+
+    return (
+        <motion.section
+            ref={ref}
+            initial={{ opacity: 0, scale: 0.5 }}
+            animate={controls}
+            transition={{ duration: 0.5 }}
+         >
+            { children }
+        </motion.section>
+    )
 }
 
 export default Posts;

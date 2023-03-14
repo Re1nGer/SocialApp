@@ -144,6 +144,7 @@ const FeedMain = () => {
                     </div>
                 </div>
             </div>
+            <FeedPost />
         </div>
     )
 
@@ -152,6 +153,11 @@ const FeedMain = () => {
 
 const FeedPost = () => {
 
+    return (
+        <div>
+            No Posts at the moment
+        </div>
+    )
 }
 
 const FeedTrends = () => {
@@ -164,6 +170,32 @@ const FeedTrends = () => {
             </div>
             <div className="feed__trends-subtitle">
                 Trending in Sweden
+            </div>
+            <div className="feed__trends-hash_block">
+                <div className="feed__trends-title_container">
+                    <div className="feed__trends-hash_block-title">
+                        #SWE
+                    </div>
+                    <div className="feed__trends-hash_block-subtitle">
+                        97.7 k Tweets
+                    </div>
+                </div>
+                <div className="feed__trends-hash_block-icon">
+                    <Icon icon="ph:dots-three-outline" fontSize={20} />
+                </div>
+            </div>
+            <div className="feed__trends-hash_block">
+                <div className="feed__trends-title_container">
+                    <div className="feed__trends-hash_block-title">
+                        #SWE
+                    </div>
+                    <div className="feed__trends-hash_block-subtitle">
+                        97.7 k Tweets
+                    </div>
+                </div>
+                <div className="feed__trends-hash_block-icon">
+                    <Icon icon="ph:dots-three-outline" fontSize={20} />
+                </div>
             </div>
             <div className="feed__trends-hash_block">
                 <div className="feed__trends-title_container">

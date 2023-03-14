@@ -7,6 +7,7 @@ import LoginPage from './components/pages/LoginPage'
 import PostPage from './components/pages/PostPage'
 import FeedPage from './components/pages/FeedPage'
 import SignUpPage from './components/pages/SignUp'
+import PrivateRoute from './components/route/PrivateRoute'
 
 const App = () => {
 
@@ -19,9 +20,11 @@ const App = () => {
               <Route path='/' index element={<LoginPage />} />
               <Route path='/login' element={<LoginPage />} />
               <Route path='/signup' element={<SignUpPage />} />
-              <Route path='/mypage' element={<ProfilePage />}/>
-              <Route path='/post/:id' element={<PostPage />}/>
-              <Route path='/feed' element={<FeedPage />}/>
+              <Route element={<PrivateRoute />}>
+                <Route path='/mypage' element={<ProfilePage />}/>
+                <Route path='/post/:id' element={<PostPage />}/>
+                <Route path='/feed' element={<FeedPage />}/>
+              </Route>
             </Route>
           </Routes>
         </Router>

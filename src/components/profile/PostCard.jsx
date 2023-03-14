@@ -2,7 +2,7 @@ import React from 'react';
 import { Icon } from '@iconify/react';
 import { useNavigate } from 'react-router-dom';
 
-const Post = ({id, imgSrc, likes, comments }) => {
+const Post = React.forwardRef(({id, imgSrc, likes, comments }, ref) => {
 
     const navigate = useNavigate();
 
@@ -12,7 +12,7 @@ const Post = ({id, imgSrc, likes, comments }) => {
     }
 
     return (
-        <div className='post__card' onClick={handleNavigateClick}>
+        <div className='post__card' onClick={handleNavigateClick} ref={ref}>
             <img className='post__card-image' src={imgSrc} alt='post' loading='lazy' />
             <div className='post__card-overlay'>
                 <div className='post__card-likes'>
@@ -28,5 +28,5 @@ const Post = ({id, imgSrc, likes, comments }) => {
             </div>
         </div>
     );
-};
+});
 export default Post;
