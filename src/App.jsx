@@ -8,6 +8,7 @@ import PostPage from './components/pages/PostPage'
 import FeedPage from './components/pages/FeedPage'
 import SignUpPage from './components/pages/SignUp'
 import PrivateRoute from './components/route/PrivateRoute'
+import NewPostPage from './components/pages/NewPostPage'
 
 const App = () => {
 
@@ -24,6 +25,7 @@ const App = () => {
                 <Route path='/mypage' element={<ProfilePage />}/>
                 <Route path='/post/:id' element={<PostPage />}/>
                 <Route path='/feed' element={<FeedPage />}/>
+                <Route path='/post/new' element={<NewPostPage />}/>
               </Route>
             </Route>
           </Routes>

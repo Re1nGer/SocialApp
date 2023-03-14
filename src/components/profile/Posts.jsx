@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Icon } from '@iconify/react';
 import "./Profile.css";
 import PostImage from '../../assets/post.jpg';
@@ -7,7 +7,7 @@ import HomePostImage from '../../assets/postHome.jpg';
 import CafePostImage from '../../assets/cafePost.jpg';
 import Post from './PostCard';
 import { axios } from '../../axios';
-import { motion, useAnimation, useInView } from 'framer-motion';
+import { AnimatedPostInView } from './AnimatedPostInView';
 
 const dummyPosts = [
     {
@@ -88,12 +88,6 @@ const Posts = () => {
 
     const [posts, setPosts] = useState([]);
 
-    //const controls = useAnimation();
-
-    const ref = useRef(null);
-
-    const inView = useInView(ref, { once: true, amount: 'some' });
-
     const fetchProfilePosts = async () => {
         try {
             const { data } = await axios.get('/list');
@@ -102,6 +96,7 @@ const Posts = () => {
             console.log(error);
         }
     }
+
 
     useEffect(() => {
         fetchProfilePosts();
@@ -125,7 +120,7 @@ const Posts = () => {
                 </div>
             </div>
             <div className='posts__wrapper'>
-                { dummyPosts.map(post => (
+                { posts.map(post => (
                     <AnimatedPostInView>
                         <Post key={post.id} {...post}  />
                     </AnimatedPostInView>
@@ -140,34 +135,5 @@ const Posts = () => {
     );
 }
 
-
-//const AnimatedPost = motion(Post);
-
-const AnimatedPostInView = ({ children }) => {
-
-    const ref = useRef(null);
-
-    const inView = useInView(ref, { once: true });
-
-    const controls = useAnimation();
-
-    React.useEffect(() => {
-        if (inView) {
-            controls.start({ opacity: 1, scale: 1 });
-        }
-
-    },[inView, controls]);
-
-    return (
-        <motion.section
-            ref={ref}
-            initial={{ opacity: 0, scale: 0.5 }}
-            animate={controls}
-            transition={{ duration: 0.5 }}
-         >
-            { children }
-        </motion.section>
-    )
-}
 
 export default Posts;
