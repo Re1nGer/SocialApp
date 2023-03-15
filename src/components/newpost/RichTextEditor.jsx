@@ -6,18 +6,18 @@ import { createEditor } from "slate";
 const initialValue = [
   {
     type: 'paragraph',
-    children: [{ text: 'A line of text in a paragraph.' }],
+    children: [{ text: '' }],
   },
 ]
 
-const RichTextEditor = () => {
+const RichTextEditor = ({className}) => {
 
     const [editor] = useState(() => withReact(createEditor()))
 
     return (
         // Add the editable component inside the context.
         <Slate editor={editor} value={initialValue}>
-            <Editable />
+            <Editable className={className} placeholder={"What's on your mind"} maxLength={500} rows={10} />
         </Slate>
     );
 }

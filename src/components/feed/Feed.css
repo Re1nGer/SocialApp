@@ -275,7 +275,8 @@
 /* Post Form */
 .feed__post-form_overlay {
     max-height: 1920px;
-    max-width: 1080px;
+    position: absolute;
+    max-width: 2000px;
     height: 100%;
     width: 100%;
     background: rgba(0,0,0,0.4);
@@ -320,13 +321,14 @@
 
 .feed__post-form_input,
 .feed__post-form_btn {
-  border: none;
   border-radius: 5px;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
   padding: 10px;
   width: 100%;
   font-size: 16px;
   margin-bottom: 20px;
+  color: var(--white);
+  border: 1px solid var(--white);
 }
 
 .feed__post-form-input:focus {
@@ -347,6 +349,14 @@
   border-radius: 5px;
   padding: 20px;
   text-align: center;
+  width: 100%;
+}
+
+.feed__post-drag {
+    width: 100%;
+    max-height: 400px;
+    
+    object-fit: contain;
 }
 
 .feed__post-drag-drop p {
@@ -362,29 +372,30 @@
 
 .feed__post-form_upload-btn {
   background-color: transparent;
-  color: var(--black);
+  color: var(--white);
   font-weight: bold;
   border: none;
   padding: .5rem;
   transition: background-color 0.2s ease;
   cursor: pointer;
-  margin: 2rem 0;
+  margin: 1rem 0;
+  transition: all .2s linear;
 }
 
 .feed__post-form_upload-btn:hover {
-    background-color: var(--white);
+/*     background: var(--black); */
+    box-shadow: 1px 1px 2px 2px #777;
 }
 
 .feed__post-form_btn {
-  background-color: #007bff;
+  background: var(--primary);
   color: #fff;
-  font-weight: bold;
+  border: 0;
   transition: background-color 0.2s ease;
   cursor: pointer;
   margin: 2rem 0;
 }
 
 .feed__post-form_btn:hover {
-  background-color: #0062cc;
+  background-color: var(--gray);
 }
-
