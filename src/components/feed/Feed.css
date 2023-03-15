@@ -2,6 +2,7 @@
     max-width: 1440px;
     width: 100%;
     margin: 0 auto;
+    position: relative;
 }
 
 .feed__inner {
@@ -269,3 +270,121 @@
 .feed__trends-hash_block-subtitle {
     color: var(--gray);
 }
+
+
+/* Post Form */
+.feed__post-form_overlay {
+    max-height: 1920px;
+    max-width: 1080px;
+    height: 100%;
+    width: 100%;
+    background: rgba(0,0,0,0.4);
+    z-index: 10;
+}
+
+.feed__post-form {
+    -webkit-box-shadow: 0 10px 6px -6px #777;
+    -moz-box-shadow: 0 10px 6px -6px #777;
+    box-shadow: 0 10px 6px -6px #777;
+
+    position: absolute;
+    width: 100%;
+    left: 0;
+    right: 0;
+    border-radius: 10px;
+    background: var(--gray-extra-dark);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    max-width: 500px;
+    margin: 0 auto;
+    z-index: 10;
+}
+
+.feed__post-form_title-container {
+    display: flex;
+}
+
+.feed__post-form_title {
+    font-size: 24px;
+    margin-bottom: 20px;
+    text-align: center;
+    color: var(--white);
+    flex: 1;
+}
+
+.feed__post-form_title-icon {
+    color: var(--white);
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.feed__post-form_input,
+.feed__post-form_btn {
+  border: none;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  width: 100%;
+  font-size: 16px;
+  margin-bottom: 20px;
+}
+
+.feed__post-form-input:focus {
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+.feed__post-image {
+    color: var(--white);
+}
+
+.feed__post-image_input {
+    display: none;
+}
+
+.feed__post-drag-drop {
+  border: 2px dashed #ddd;
+  border-radius: 5px;
+  padding: 20px;
+  text-align: center;
+}
+
+.feed__post-drag-drop p {
+  color: #aaa;
+  font-size: 16px;
+  margin-top: 10px;
+}
+
+/* .post-modal .drag-drop.drag-over {
+  background-color: #f9f9f9;
+  border-color: #aaa;
+} */
+
+.feed__post-form_upload-btn {
+  background-color: transparent;
+  color: var(--black);
+  font-weight: bold;
+  border: none;
+  padding: .5rem;
+  transition: background-color 0.2s ease;
+  cursor: pointer;
+  margin: 2rem 0;
+}
+
+.feed__post-form_upload-btn:hover {
+    background-color: var(--white);
+}
+
+.feed__post-form_btn {
+  background-color: #007bff;
+  color: #fff;
+  font-weight: bold;
+  transition: background-color 0.2s ease;
+  cursor: pointer;
+  margin: 2rem 0;
+}
+
+.feed__post-form_btn:hover {
+  background-color: #0062cc;
+}
+
