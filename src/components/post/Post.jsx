@@ -29,6 +29,8 @@ const Post = () => {
 
     const [likeCount, setLikeCount] = useState(0);
 
+    const [like, setLike] = useState(false);
+
     const [isCommentShown, setIsCommentShown] = useState(false);
 
     const [isLoading, setIsLoading] = useState(false);
@@ -55,18 +57,40 @@ const Post = () => {
         }
     }
 
+    const hasLike = async () => {
+        try {
+            const { data } = await axios.get(`/api/v1/like/${id}`);
+            setLike(data);
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
     const putLikeToPost = async (e) => {
         try {
-            await axios.put(`/api/like/${id}`);
+            await axios.put(`/api/v1/like/${id}`);
             setLikeCount(prevState => prevState + 1);
+            setLike(true);
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    const deleteLike = async () => {
+        try {
+            await axios.delete(`/api/v1/like/${id}`);
+            setLike(false);
+            setLikeCount(prevState => prevState - 1);
         } catch (error) {
             console.log(error);
         }
     }
 
     useEffect(() => {
-        if (id)
+        if (id) {
             fetchPostData();
+            hasLike();
+        }
     }, [id]);
 
 
@@ -94,7 +118,11 @@ const Post = () => {
                 </div>
                 <div className="post__info">
                     <div className="post__likes">
-                        <Icon className="post__likes-icon" fontSize={20} icon="mdi:cards-heart-outline" onClick={putLikeToPost} />
+                        { like ? (
+                            <Icon icon="mdi:cards-heart" className="post__likes-icon" fontSize={20} onClick={deleteLike} />
+                        ) : (
+                            <Icon className="post__likes-icon" fontSize={20} icon="mdi:cards-heart-outline" onClick={putLikeToPost} />
+                        ) }
                         { likeCount }
                     </div>
                     <div className="post__comments">
