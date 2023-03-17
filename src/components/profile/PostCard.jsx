@@ -10,7 +10,7 @@ const Post = React.forwardRef(({id, imgSrc, likes, comments }, ref) => {
 
     //for now imgSrc can be transferred from state prop
     const handleNavigateClick = () => {
-        navigate(`/post/${id}`, { state: { imgSrc } });
+        navigate(`/post/${id}`);
     }
 
     return (

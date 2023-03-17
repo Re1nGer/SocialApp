@@ -4,6 +4,7 @@ import { Icon } from '@iconify/react';
 import Comment from "../comment/Comment";
 import { axios } from '../../axios'
 import "./Post.css";
+import CircleLoader from "../loader/CircleLoader";
 
 /*Post json format
     {
@@ -21,7 +22,6 @@ import "./Post.css";
 */
 
 
-const toImgSrc = (base64Str) => `data:image/jpeg;base64,${base64Str}`;
 
 const Post = () => {
 
@@ -30,6 +30,12 @@ const Post = () => {
     const [likeCount, setLikeCount] = useState(0);
 
     const [like, setLike] = useState(false);
+
+    const [lowResImage, setLowResImage] = useState(null);
+
+    const [highResImage, setHighResImage] = useState(null);
+
+    const [isHighQualityImageLoading, setIsHighQualityImageLoading] = useState(false);
 
     const [isCommentShown, setIsCommentShown] = useState(false);
 
@@ -54,6 +60,27 @@ const Post = () => {
             setIsError(true);
         } finally {
             setIsLoading(false);
+        }
+    }
+
+    const fetchLowResImage = async () => {
+        try {
+            const { data } = await axios.get(`/lowres/${id}`);
+            setLowResImage(data);
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    const fetchHighResImage = async () => {
+        try {
+            setIsHighQualityImageLoading(true);
+            const { data } = await axios.get(`/highres/${id}`);
+            setHighResImage(data);
+        } catch (error) {
+            console.log(error);
+        } finally {
+            setIsHighQualityImageLoading(false);
         }
     }
 
@@ -88,8 +115,10 @@ const Post = () => {
 
     useEffect(() => {
         if (id) {
+            fetchLowResImage();
             fetchPostData();
             hasLike();
+            fetchHighResImage();
         }
     }, [id]);
 
@@ -102,7 +131,7 @@ const Post = () => {
 
     if (isLoading) {
         return (
-            <h1>Loading ....</h1>
+            <CircleLoader />
         )
     }
 
@@ -114,7 +143,11 @@ const Post = () => {
                     San Francisko
                 </div>
                 <div className="post__img-container">
-                    <img className="post__img" src={toImgSrc(post?.imgSrc)} alt={'post'} loading={'lazy'} />
+                    { isHighQualityImageLoading ? (
+                        <BlurredImage src={lowResImage}  />
+                    ) : (
+                        <img className="post__img" src={highResImage} alt={'post'} loading={'lazy'} />
+                    ) }
                 </div>
                 <div className="post__info">
                     <div className="post__likes">
@@ -143,6 +176,11 @@ const Post = () => {
             </div>
         </div>
     );
+}
+
+
+const BlurredImage = ({ src, alt }) => {
+    return <img className="post__img" src={src} alt={alt} /> //style={{ filter: 'blur(10px)' }} />
 }
 
 const dummyComments = [

@@ -1,99 +1,26 @@
 import React, { useEffect, useState } from 'react';
 import { Icon } from '@iconify/react';
 import "./Profile.css";
-import PostImage from '../../assets/post.jpg';
-import CarPostImage from '../../assets/carPost.jpg';
-import HomePostImage from '../../assets/postHome.jpg';
-import CafePostImage from '../../assets/cafePost.jpg';
 import Post from './PostCard';
 import { axios } from '../../axios';
 import { AnimatedPostInView } from './AnimatedPostInView';
+import CircleLoader from '../loader/CircleLoader';
 
-const dummyPosts = [
-    {
-        id: 1,
-        imgSrc: PostImage,
-        likes: 150,
-        comments: 89
-    },
-    {
-        id: 2,
-        imgSrc: 'https://images.unsplash.com/photo-1452626212852-811d58933cae?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80',
-        likes: 150,
-        comments: 89
-    },
-    {
-        id: 3,
-        imgSrc: 'https://images.unsplash.com/photo-1567270671170-fdc10a5bf831?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2134&q=80',
-        likes: 150,
-        comments: 89
-    },
-    {
-        id: 4,
-        imgSrc: 'https://images.unsplash.com/photo-1599506059562-61051e711cdc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80',
-        likes: 150,
-        comments: 89
-    },
-    {
-        id: 5,
-        imgSrc: CafePostImage,
-        likes: 150,
-        comments: 89
-    },
-    {
-        id: 6,
-        imgSrc: 'https://images.unsplash.com/photo-1600706844152-3a29fce003b7?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80',
-        likes: 150,
-        comments: 89
-    },
-    {
-        id: 7,
-        imgSrc: 'https://images.unsplash.com/photo-1551107696-a4b0c5a0d9a2?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2000&q=80',
-        likes: 150,
-        comments: 89
-    },
-    {
-        id: 8,
-        imgSrc: HomePostImage,
-        likes: 150,
-        comments: 89
-    },
-    {
-        id: 9,
-        imgSrc: CarPostImage,
-        likes: 150,
-        comments: 89
-    },
-    {
-        id: 10,
-        imgSrc: 'https://images.unsplash.com/photo-1582205524573-ac35c641d947?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80',
-        likes: 150,
-        comments: 89
-    },
-    {
-        id: 11,
-        imgSrc: 'https://images.unsplash.com/photo-1562103608-104fa5589661?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2134&q=80',
-        likes: 150,
-        comments: 89
-    },
-    {
-        id: 12,
-        imgSrc: 'https://images.unsplash.com/photo-1591075005914-6579beba9c51?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2134&q=80',
-        likes: 150,
-        comments: 89
-    },
-];
 
 const Posts = () => {
 
     const [posts, setPosts] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
 
     const fetchProfilePosts = async () => {
         try {
+            setIsLoading(true);
             const { data } = await axios.get('/list');
             setPosts(data);
         } catch (error) {
             console.log(error);
+        } finally {
+            setIsLoading(false);
         }
     }
 
@@ -120,13 +47,14 @@ const Posts = () => {
                 </div>
             </div>
             <div className='posts__wrapper'>
+                { isLoading ? <CircleLoader /> : null }
                 { posts.map(post => (
                     <AnimatedPostInView>
                         <Post key={post.id} {...post}  />
                     </AnimatedPostInView>
                 )) }
             </div>
-            { dummyPosts.length > 10 ? (
+            { posts.length > 10 ? (
                 <div className='posts__load-more'>
                     Load More
                 </div>

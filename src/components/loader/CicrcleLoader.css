@@ -1,0 +1,33 @@
+.loader__circle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.loader__circle-content {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  border: 0.2rem solid transparent;
+  border-top-color: var(--white);
+  animation: circling-around-loader__animation 1s ease-in-out infinite;
+}
+
+@keyframes circling-around-loader__animation {
+  0% {
+    transform: rotate(0deg) scale(1);
+  }
+  25% {
+    transform: rotate(180deg) scale(0.8);
+  }
+  50% {
+    transform: rotate(360deg) scale(1);
+  }
+  75% {
+    transform: rotate(540deg) scale(0.8);
+  }
+  100% {
+    transform: rotate(720deg) scale(1);
+  }
+}
