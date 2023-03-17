@@ -1,12 +1,13 @@
 import { useState } from "react";
+import React from 'react';
 import "./Comment.css";
 
-const Comment = ({ postedBy, content, datePosted }) => {
+const Comment = React.forwardRef(({ postedBy, content, datePosted }, ref) => {
 
     const [isAnswerInputFieldOpen, setIsAnswerInputFieldOpen] = useState(false);
 
     return (
-            <div className="comment">
+            <div className="comment" ref={ref}>
                 <div className="comment__by">{postedBy}</div>
                 <div className="comment__content">{content}</div>
                 <div className="comment__time">{datePosted}</div>
@@ -18,6 +19,6 @@ const Comment = ({ postedBy, content, datePosted }) => {
                 </div> : null }
             </div>
     );
-}
+});
 
 export default Comment; 

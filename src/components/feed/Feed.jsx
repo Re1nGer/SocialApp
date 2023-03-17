@@ -28,8 +28,6 @@ const Feed = () => {
 
     const handleSubmit = async (data, event) => {
         event.preventDefault();
-/*         const htmlFormContent = htmlContent.text;
-        const image = event.target[0].files[0]; */
         const { htmlContent } = data || {}
         const image = event.target[1].files[0];
         try {
@@ -39,7 +37,7 @@ const Feed = () => {
             form.append('htmlContent', htmlContent);
             console.log(image);
             form.append('image', image);
-            await axios.post("/post", form, { headers: {
+            await axios.post("/api/v1/post", form, { headers: {
                 "Content-Type": "multipart/form-data",
             } });
             setIsPostFormOpen(false);

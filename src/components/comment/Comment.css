@@ -44,3 +44,27 @@
     transition: all .2s linear;
     border: 2px solid black;
 }
+
+/* comment form */
+.comment__form {
+    padding: 1rem;
+    width: 100%;
+}
+
+.comment__form-input {
+  background-color: #222;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  width: 100%;
+  padding: 10px;
+  overflow: hidden;
+  font-size: 14px;
+  font-family: Arial, sans-serif;
+  resize: none;
+}
+
+.comment__form-input:focus {
+    outline: none;
+    box-shadow: 0 0 5px #fff;
+}

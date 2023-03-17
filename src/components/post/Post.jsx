@@ -5,23 +5,8 @@ import Comment from "../comment/Comment";
 import { axios } from '../../axios'
 import "./Post.css";
 import CircleLoader from "../loader/CircleLoader";
-
-/*Post json format
-    {
-        id: 'someGuid',
-        likes: 456,
-
-        comments: [
-            id: 1, 
-            text: 'Some Comment',
-            userId: "userId",
-            username: 'someusername',
-            datePosted: new Date()
-        ]
-    }
-*/
-
-
+import { AnimatePresence, motion } from "framer-motion";
+import CommentForm from "../comment/CommentForm";
 
 const Post = () => {
 
@@ -39,11 +24,17 @@ const Post = () => {
 
     const [isCommentShown, setIsCommentShown] = useState(false);
 
+    const [isCommentFormShown, setIsCommentFormShown] = useState(false);
+
     const [isLoading, setIsLoading] = useState(false);
 
     const { id } = useParams();
 
     const [post, setPost] = useState(null);
+
+    const handleShowCommentForm = () => {
+        setIsCommentFormShown(true);
+    }
 
     const handleShowCommentSection = () => {
         setIsCommentShown(prevState => !prevState);
@@ -52,7 +43,7 @@ const Post = () => {
     const fetchPostData = async () => {
         try {
             setIsLoading(true);
-            const { data } = await axios.get(`/${id}`);
+            const { data } = await axios.get(`/api/v1/post/${id}`);
             setPost(data);
             setLikeCount(data.likeCount);
         } catch (error) {
@@ -65,7 +56,7 @@ const Post = () => {
 
     const fetchLowResImage = async () => {
         try {
-            const { data } = await axios.get(`/lowres/${id}`);
+            const { data } = await axios.get(`/api/v1/post/lowres/${id}`);
             setLowResImage(data);
         } catch (error) {
             console.log(error);
@@ -75,7 +66,7 @@ const Post = () => {
     const fetchHighResImage = async () => {
         try {
             setIsHighQualityImageLoading(true);
-            const { data } = await axios.get(`/highres/${id}`);
+            const { data } = await axios.get(`/api/v1/post/highres/${id}`);
             setHighResImage(data);
         } catch (error) {
             console.log(error);
@@ -113,6 +104,14 @@ const Post = () => {
         }
     }
 
+    const handleCommentFormSubmit = async (data, event) => {
+        try {
+
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
     useEffect(() => {
         if (id) {
             fetchLowResImage();
@@ -126,13 +125,13 @@ const Post = () => {
     if (isError) {
         return (
             <h1>Error Fetching Post Data</h1>
-        )
+        );
     }
 
     if (isLoading) {
         return (
             <CircleLoader />
-        )
+        );
     }
 
     return (
@@ -159,8 +158,8 @@ const Post = () => {
                         { likeCount }
                     </div>
                     <div className="post__comments">
-                        <Icon className="post__comments-icon" fontSize={20} icon="uil:comment" />
-                        42
+                        <Icon className="post__comments-icon" fontSize={20} icon="uil:comment" onClick={handleShowCommentForm} />
+                        { post?.commentCount }
                     </div>
                     <div className="post__share">
                         <Icon className="post__share-icon" icon="ph:share-fat-thin" fontSize={20} />
@@ -169,6 +168,9 @@ const Post = () => {
                 <div className="post__description">
                     { post?.htmlContent }
                 </div>
+                { isCommentFormShown ? (
+                    <AnimatedCommentForm onSubmit={handleCommentFormSubmit} initial={{opacity: 0}} animate={{opacity: 1}} />
+                ) : null }
                 <div className="post__comments-preview" onClick={handleShowCommentSection}>
                     { isCommentShown ? "Close Comments" : "View Comments" }
                 </div>
@@ -182,6 +184,8 @@ const Post = () => {
 const BlurredImage = ({ src, alt }) => {
     return <img className="post__img" src={src} alt={alt} /> //style={{ filter: 'blur(10px)' }} />
 }
+
+const AnimatedCommentForm = motion(CommentForm);
 
 const dummyComments = [
     {
@@ -218,7 +222,7 @@ const CommentSection = ({ postId }) => {
     const fetchComments = async () => {
         try {
             isLoading(true);
-            const { data } = await axios.get(`/api/post/`);
+            const { data } = await axios.get(`/api/v1/comment/${postId}`);
             setComments(data);
         } catch (error) {
             setIsError(true);
@@ -238,15 +242,26 @@ const CommentSection = ({ postId }) => {
     }
 
     if (isLoading) {
-        return <h1>Loading component</h1>
+        return <CircleLoader />
     }
 
     return (
         <>
-            { dummyComments.map(item => <Comment key={item.id} {...item} />) }
+            { dummyComments.map(item => ( 
+                <AnimatePresence>
+                    <AnimatedComment
+                            key={item.id}
+                            {...item}
+                            initial={{opacity : 0}}
+                            animate={{opacity: 1}}
+                            exit={{opacity: 0}}
+                        />
+                </AnimatePresence>
+            )) }
         </>
     )
-
 }
+
+const AnimatedComment = motion(Comment);
 
 export default Post;

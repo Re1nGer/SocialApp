@@ -15,7 +15,7 @@ const Posts = () => {
     const fetchProfilePosts = async () => {
         try {
             setIsLoading(true);
-            const { data } = await axios.get('/list');
+            const { data } = await axios.get('/api/v1/post/list');
             setPosts(data);
         } catch (error) {
             console.log(error);

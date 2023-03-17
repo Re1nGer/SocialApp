@@ -71,8 +71,13 @@
     cursor: pointer;
 }
 
+.post__comments-icon {
+    transition: color .2s linear; 
+    cursor: pointer;
+}
+
 .post__comments-icon:hover {
-    fill: black;
+    color: var(--gray);
 }
 
 .post__comments-preview {
