@@ -48,6 +48,15 @@
     color: var(--white);
 }
 
+.post__likes-icon {
+    transition: color .2s linear;
+    cursor: pointer;
+}
+
+.post__likes-icon:hover {
+    color: var(--black);
+}
+
 .post__comments {
     gap: .5rem;
     display: flex;

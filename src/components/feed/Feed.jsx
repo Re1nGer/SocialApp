@@ -6,8 +6,9 @@ import { FeedProfile } from "./FeedProfile";
 import { FeedFollow } from "./FeedFollow";
 import { AnimatePresence, motion } from "framer-motion";
 import { Icon } from "@iconify/react";
-import RichTextEditor from "../newpost/RichTextEditor";
 import { axios } from "../../axios";
+import { useForm } from "react-hook-form";
+
 
 const Feed = () => {
 
@@ -17,12 +18,6 @@ const Feed = () => {
 
     const [error, setError] = React.useState(null);
 
-    const [htmlContent, setHtmlContent] = React.useState(null);
-
-    const handleRichTextChange = (event) => {
-        setHtmlContent(event[0].children.reduce((acc, item) => acc.concat(item.text)));
-    }
-
     const handleClose = () => {
         setIsPostFormOpen(false);
     }
@@ -31,15 +26,18 @@ const Feed = () => {
         setIsPostFormOpen(true);
     }
 
-    const handleSubmit = async (event) => {
+    const handleSubmit = async (data, event) => {
         event.preventDefault();
-        const htmlFormContent = htmlContent.text;
-        const image = event.target[0].files[0];
+/*         const htmlFormContent = htmlContent.text;
+        const image = event.target[0].files[0]; */
+        const { htmlContent } = data || {}
+        const image = event.target[1].files[0];
         try {
             setIsLoading(true);
 
             const form = new FormData();
-            form.append('htmlContent', htmlFormContent);
+            form.append('htmlContent', htmlContent);
+            console.log(image);
             form.append('image', image);
             await axios.post("/post", form, { headers: {
                 "Content-Type": "multipart/form-data",
@@ -56,7 +54,6 @@ const Feed = () => {
 
     return (
         <>
-{/*             Better idea is to wrap it around the context */}
             <AnimatePresence>
                 { isPostFormOpen ? (
                     <AnimatedPostForm
@@ -64,9 +61,8 @@ const Feed = () => {
                         exit={{opacity: 0, scale: .5}}
                         initial={{ opacity: 0, scale: .5 }}
                         animate={{ opacity: 1, scale: 1 }}
-                        onChange={handleRichTextChange}
                         handleClose={handleClose}
-                        handleSubmit={handleSubmit}
+                        handleSubmitForm={handleSubmit}
                     />
                 ) : null }
             </AnimatePresence>
@@ -91,26 +87,28 @@ const Feed = () => {
         );
     }
 
-export const FeedPostFormModal = React.forwardRef(({ handleClose, handleSubmit, onChange }, ref) => {
+export const FeedPostFormModal = React.forwardRef(({ handleClose, handleSubmitForm }, ref) => {
 
     const [imageSrc, setImageSrc] = React.useState(null);
 
-    const onImageChange = (e) => {
+    const onImagePreviewChange = (e) => {
         setImageSrc(URL.createObjectURL(e.target.files[0]));
     }
+
+    const { register, handleSubmit } = useForm();
 
     return (
         <>
             <div className="feed__post-form_overlay" onClick={handleClose}></div>
-            <form onSubmit={handleSubmit} className="feed__post-form" ref={ref} onClick={(e) => e.stopPropagation()}>
+            <form onSubmit={handleSubmit(handleSubmitForm)} className="feed__post-form" ref={ref} onClick={(e) => e.stopPropagation()}>
                 <div className="feed__post-form_title-container">
                     <div className="feed__post-form_title">Create Post</div>
                     <Icon className="feed__post-form_title-icon" icon="material-symbols:close" onClick={handleClose} />
                 </div>
                 <div className="feed__post-form_input-container">
-                    <RichTextEditor className={"feed__post-form_input"} onChange={onChange} />
+                    <textarea className={"feed__post-form_input"} {...register('htmlContent')} placeholder={"What's on your mind ?"}  />
                 </div>
-                <label for="feed__post-image" className="feed__post-image">
+                <label htmlFor="feed__post-image" className="feed__post-image">
                     { imageSrc ? 'Added Image' : 'Add an Image:' }
                 </label>
                 <div className="feed__post-drag-drop">
@@ -119,7 +117,7 @@ export const FeedPostFormModal = React.forwardRef(({ handleClose, handleSubmit, 
                     ) : (
                         <p>Drag and drop your files here</p>
                     ) }
-                    <div class="overlay"></div>
+                    <div className="overlay"></div>
                 </div>
                 <input
                     accept="image/*"
@@ -127,7 +125,7 @@ export const FeedPostFormModal = React.forwardRef(({ handleClose, handleSubmit, 
                     type={'file'}
                     id={'postfile'}
                     name={'postfile'}
-                    onChange={onImageChange}
+                    onChange={onImagePreviewChange}
                 />
                 { imageSrc ? null : (
                     <label htmlFor="postfile" id="postfilelabel">

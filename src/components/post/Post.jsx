@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { Icon } from '@iconify/react';
 import Comment from "../comment/Comment";
+import { axios } from '../../axios'
 import "./Post.css";
 
 /*Post json format
@@ -19,15 +20,22 @@ import "./Post.css";
     }
 */
 
-const Post = ({ imgSrc, id }) => {
+
+const toImgSrc = (base64Str) => `data:image/jpeg;base64,${base64Str}`;
+
+const Post = () => {
 
     const [isError, setIsError] = useState();
 
+    const [likeCount, setLikeCount] = useState(0);
+
     const [isCommentShown, setIsCommentShown] = useState(false);
 
-    const [post, setPost] = useState(null);
+    const [isLoading, setIsLoading] = useState(false);
 
-    const { state } = useLocation();
+    const { id } = useParams();
+
+    const [post, setPost] = useState(null);
 
     const handleShowCommentSection = () => {
         setIsCommentShown(prevState => !prevState);
@@ -35,22 +43,42 @@ const Post = ({ imgSrc, id }) => {
 
     const fetchPostData = async () => {
         try {
-            const request = await fetch(`/api/posts/${id}`);
-            setPost(request.json());
+            setIsLoading(true);
+            const { data } = await axios.get(`/${id}`);
+            setPost(data);
+            setLikeCount(data.likeCount);
         } catch (error) {
             console.log(error);
             setIsError(true);
+        } finally {
+            setIsLoading(false);
+        }
+    }
+
+    const putLikeToPost = async (e) => {
+        try {
+            await axios.put(`/api/like/${id}`);
+            setLikeCount(prevState => prevState + 1);
+        } catch (error) {
+            console.log(error);
         }
     }
 
     useEffect(() => {
-        //fetchPostData();
-    },[])
+        if (id)
+            fetchPostData();
+    }, [id]);
 
 
     if (isError) {
         return (
             <h1>Error Fetching Post Data</h1>
+        )
+    }
+
+    if (isLoading) {
+        return (
+            <h1>Loading ....</h1>
         )
     }
 
@@ -62,12 +90,12 @@ const Post = ({ imgSrc, id }) => {
                     San Francisko
                 </div>
                 <div className="post__img-container">
-                    <img className="post__img" src={state?.imgSrc} alt={'post'} />
+                    <img className="post__img" src={toImgSrc(post?.imgSrc)} alt={'post'} loading={'lazy'} />
                 </div>
                 <div className="post__info">
                     <div className="post__likes">
-                        <Icon fontSize={20} icon="mdi:cards-heart-outline" />
-                        150
+                        <Icon className="post__likes-icon" fontSize={20} icon="mdi:cards-heart-outline" onClick={putLikeToPost} />
+                        { likeCount }
                     </div>
                     <div className="post__comments">
                         <Icon className="post__comments-icon" fontSize={20} icon="uil:comment" />
@@ -78,7 +106,7 @@ const Post = ({ imgSrc, id }) => {
                     </div>
                 </div>
                 <div className="post__description">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Non ducimus dolor nulla incidunt optio, repellat et neque velit, similique tenetur reiciendis pariatur consectetur. Esse consequuntur vitae rerum commodi laborum odio ratione dicta illum id, expedita iure repellat minus illo modi magni aliquam aut aperiam accusamus ducimus ex possimus. Eum praesentium minima soluta. Cumque in ad beatae nesciunt placeat illum excepturi ex consectetur suscipit, ipsa culpa dolor quos explicabo delectus dolore rem ducimus. Tempore nostrum iste eum facere itaque quis at ipsum perspiciatis cum deserunt, voluptas voluptate voluptatum temporibus debitis. Tenetur, ea id. Quis, repudiandae officia accusamus enim ex quae nostrum!
+                    { post?.htmlContent }
                 </div>
                 <div className="post__comments-preview" onClick={handleShowCommentSection}>
                     { isCommentShown ? "Close Comments" : "View Comments" }
@@ -124,8 +152,8 @@ const CommentSection = ({ postId }) => {
     const fetchComments = async () => {
         try {
             isLoading(true);
-            const request = await fetch(`/api/post/`);
-            setComments(request.json());
+            const { data } = await axios.get(`/api/post/`);
+            setComments(data);
         } catch (error) {
             setIsError(true);
             console.log(error);
