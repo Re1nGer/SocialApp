@@ -141,13 +141,5 @@ export const FeedPostFormModal = React.forwardRef(({ handleClose, handleSubmitFo
 const AnimatedPostForm = motion(FeedPostFormModal);
 
 
-export const FeedPost = () => {
-
-    return (
-        <div>
-            No Posts at the moment
-        </div>
-    )
-}
 
 export default Feed;

@@ -1,6 +1,6 @@
 import ProfileImage from '../../assets/profileImage.jpg';
 import { Icon } from '@iconify/react';
-import { FeedPost } from "./Feed";
+import { FeedPosts } from "./FeedPosts";
 
 export const FeedMain = ({ onClick }) => {
 
@@ -39,7 +39,7 @@ export const FeedMain = ({ onClick }) => {
                         </div>
                     </div>
                 </div>
-                <FeedPost />
+                <FeedPosts />
             </div>
         </>
     );
