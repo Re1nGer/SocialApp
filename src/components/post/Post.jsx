@@ -106,7 +106,10 @@ const Post = () => {
 
     const handleCommentFormSubmit = async (data, event) => {
         try {
-
+            const body = { postId: id, message: data.message };
+            await axios.post('/api/v1/comment', body);
+            setIsCommentFormShown(false);
+            setIsCommentShown(true);
         } catch (error) {
             console.log(error);
         }
@@ -187,30 +190,6 @@ const BlurredImage = ({ src, alt }) => {
 
 const AnimatedCommentForm = motion(CommentForm);
 
-const dummyComments = [
-    {
-        id: 1,
-        datePosted: new Date().toLocaleDateString(),
-        content: "Some Gibberish  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorum, officiis!Some Gibberish  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorum, officiis!",
-        postedBy: "Some Random User" ,
-        userId: "1"
-    },
-    {
-        id: 2,
-        datePosted: new Date().toLocaleDateString(),
-        content: "Some Gibberish",
-        postedBy: "Some Random User",
-        userId: "2"
-    },
-    {
-        id: 3,
-        datePosted: new Date().toLocaleDateString(),
-        content: "Some Gibberish",
-        postedBy: "Some Random User",
-        userId: "3"
-    },
-];
-
 const CommentSection = ({ postId }) => {
 
     const [isLoading, setIsLoading] = useState(false);
@@ -221,7 +200,7 @@ const CommentSection = ({ postId }) => {
 
     const fetchComments = async () => {
         try {
-            isLoading(true);
+            setIsLoading(true);
             const { data } = await axios.get(`/api/v1/comment/${postId}`);
             setComments(data);
         } catch (error) {
@@ -233,7 +212,7 @@ const CommentSection = ({ postId }) => {
     }
 
     useEffect(() => {
-        //fetchComments();
+        fetchComments();
     },[postId]);
 
 
@@ -245,9 +224,15 @@ const CommentSection = ({ postId }) => {
         return <CircleLoader />
     }
 
+    if (comments.length === 0) {
+        return (
+            <h5 style={{color: "#fff"}}>No Comments Yet</h5>
+        )
+    }
+
     return (
         <>
-            { dummyComments.map(item => ( 
+            { comments.map(item => ( 
                 <AnimatePresence>
                     <AnimatedComment
                             key={item.id}
