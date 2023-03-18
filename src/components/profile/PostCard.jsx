@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 const toImcSrc = (base64Str) => `data:image/jpeg;base64,${base64Str}`;
 
-const Post = React.forwardRef(({id, imgSrc, likes, comments }, ref) => {
+const Post = React.forwardRef(({id, imgSrc, likeCount, commentCount }, ref) => {
 
     const navigate = useNavigate();
 
@@ -19,11 +19,11 @@ const Post = React.forwardRef(({id, imgSrc, likes, comments }, ref) => {
             <div className='post__card-overlay'>
                 <div className='post__card-likes'>
                     <div className='post__card-like'>
-                        {likes || 1245}
+                        {likeCount}
                         <Icon fontSize={20} icon="mdi:cards-heart-outline" />
                     </div>
                     <div className='post__card-comment'>
-                        {comments || 124}
+                        {commentCount}
                         <Icon fontSize={20} icon="uil:comment" />
                     </div>
                 </div>

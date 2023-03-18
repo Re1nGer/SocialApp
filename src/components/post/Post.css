@@ -33,7 +33,7 @@
     color: var(--white);
     overflow: hidden;
     text-overflow: ellipsis;
-    white-space: nowrap;
+/*     white-space: nowrap; */
 }
 
 .post__info {

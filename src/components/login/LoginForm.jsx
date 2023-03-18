@@ -41,7 +41,7 @@ const LoginForm = () => {
 
             sessionStorage.setItem('isAuthenticated', 'true');
 
-            navigate('/mypage');
+            navigate('/mypage', { replace: true });
 
         } catch (error) {
             console.log(error);

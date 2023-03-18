@@ -146,7 +146,7 @@ const Post = () => {
                 </div>
                 <div className="post__img-container">
                     { isHighQualityImageLoading ? (
-                        <BlurredImage src={lowResImage}  />
+                        <BlurredImage src={lowResImage} alt={'blurred'}  />
                     ) : (
                         <img className="post__img" src={highResImage} alt={'post'} loading={'lazy'} />
                     ) }
@@ -172,7 +172,11 @@ const Post = () => {
                     { post?.htmlContent }
                 </div>
                 { isCommentFormShown ? (
-                    <AnimatedCommentForm onSubmit={handleCommentFormSubmit} initial={{opacity: 0}} animate={{opacity: 1}} />
+                    <AnimatedCommentForm    
+                        onSubmit={handleCommentFormSubmit}
+                        initial={{opacity: 0}}
+                        animate={{opacity: 1}}
+                    />
                 ) : null }
                 <div className="post__comments-preview" onClick={handleShowCommentSection}>
                     { isCommentShown ? "Close Comments" : "View Comments" }
@@ -227,7 +231,7 @@ const CommentSection = ({ postId }) => {
     if (comments.length === 0) {
         return (
             <h5 style={{color: "#fff"}}>No Comments Yet</h5>
-        )
+        );
     }
 
     return (
@@ -244,7 +248,7 @@ const CommentSection = ({ postId }) => {
                 </AnimatePresence>
             )) }
         </>
-    )
+    );
 }
 
 const AnimatedComment = motion(Comment);
