@@ -1,6 +1,7 @@
 # React Social App
 
 ![React Logo](https://img.icons8.com/color/48/000000/react-native.png)
+![TypeScript Logo](https://img.icons8.com/color/48/000000/typescript.png)
 ![CSS Logo](https://img.icons8.com/color/48/000000/css3.png)
 ![Firebase Logo](https://img.icons8.com/color/48/000000/firebase.png)
 ![MongoDb Logo](https://img.icons8.com/color/48/000000/mongodb.png)
