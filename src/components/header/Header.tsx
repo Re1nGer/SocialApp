@@ -8,6 +8,7 @@ import { ThemeContext } from "../contexts/ThemeContext";
 import { useNavigate } from "react-router-dom";
 import { Icon } from "@iconify/react";
 import ChatDrawer from "../drawer/ChatDrawer";
+import Searchbar from "./Searchbar";
 
 const Header = (): JSX.Element => {
 
@@ -33,6 +34,7 @@ const Header = (): JSX.Element => {
                     <HeaderHamburgerMenu isLightTheme={isLightTheme} />
                     <HeaderLogoIcon onClick={handleIconClick} />
                 </div>
+                <Searchbar />
                 <div className="header__right">
                     { isLoggedIn ? <HeaderProfileMenu imgSrc={''} /> : null }
                     { isLoggedIn ? (

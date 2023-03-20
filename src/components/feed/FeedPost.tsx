@@ -25,9 +25,6 @@ export const FeedPost = ({ title, pub_date, description, image_url, link }: Feed
                 <div className="feed__post-title_container">
                     <div className="feed__post-title_author">
                         { title }
-{/*                         { twitter_account ? (
-                            <a href={link}>{twitter_account}</a>
-                        ) : null } */}
                     </div>
                     <div></div>
                     <div className="feed__post-title_time">

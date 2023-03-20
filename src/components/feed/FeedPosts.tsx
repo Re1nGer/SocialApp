@@ -6,8 +6,6 @@ import { FeedPost, FeedPostPropType } from "./FeedPost";
 
 //const api_key = import.meta.env.VITE_API_KEY;
 
-
-
 export const FeedPosts = (): JSX.Element => {
 
     const lastPost = useRef(null);
@@ -23,9 +21,10 @@ export const FeedPosts = (): JSX.Element => {
     const fetchLatestNews = async () => {
         try {
             setIsLoading(true);
-            const { data } = await axios.get(`https://newsdata.io/api/1/news?apikey=pub_1913720dc694a6785104bd3ff53a6d15db5c7&q=science&page=${nextPageToken}`, { withCredentials: false });
+            //for some weird reason mode property fixes cors issue but it complains in typescript
+            //@ts-ignore
+            const { data } = await axios.get(`https://newsdata.io/api/1/news?apikey=pub_1913720dc694a6785104bd3ff53a6d15db5c7&q=science&page=${nextPageToken}`, { withCredentials: false, mode: 'no-cors' });
             setNews(prev => prev.concat(data.results));
-            //////////////////setPageSize(pageSize + 10);
             setNextPageToken(data.nextPage);
         } catch (error) {
             console.log(error);
@@ -40,7 +39,7 @@ export const FeedPosts = (): JSX.Element => {
 
     return <>
         {news.map(item => (
-            <AnimatePresence>
+            <AnimatePresence key={item.id}>
                 <AnimatedFeedPost initial={{opacity: 0}} animate={{opacity: 1}} key={item.id} {...item} />
             </AnimatePresence>
         ))}

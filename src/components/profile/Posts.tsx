@@ -15,7 +15,7 @@ type PostType = {
 
 const Posts = (): JSX.Element => {
 
-    const [posts, setPosts] = useState<PostType[] | []>([]);
+    const [posts, setPosts] = useState<PostType[]>([]);
     const [isLoading, setIsLoading] = useState(false);
 
     const fetchProfilePosts = async () => {
@@ -55,8 +55,8 @@ const Posts = (): JSX.Element => {
             <div className='posts__wrapper'>
                 { isLoading ? <CircleLoader /> : null }
                 { posts.map(post => (
-                    <AnimatedPostInView>
-                        <Post key={post.id} {...post}  />
+                    <AnimatedPostInView key={post.id}>
+                        <Post {...post}  />
                     </AnimatedPostInView>
                 )) }
             </div>
