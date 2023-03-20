@@ -34,7 +34,9 @@ const Header = (): JSX.Element => {
                     <HeaderHamburgerMenu isLightTheme={isLightTheme} />
                     <HeaderLogoIcon onClick={handleIconClick} />
                 </div>
-                <Searchbar />
+                { isLoggedIn ? (
+                    <Searchbar />
+                ) : null }
                 <div className="header__right">
                     { isLoggedIn ? <HeaderProfileMenu imgSrc={''} /> : null }
                     { isLoggedIn ? (

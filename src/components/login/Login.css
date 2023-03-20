@@ -17,6 +17,9 @@
 
 .login__right {
     flex: .5;
+    background: #ebebeb;
+    margin: 1.1rem 0;
+    z-index: 10;
 }
 
 .login__right_reveal {
@@ -25,7 +28,7 @@
 }
 
 .login__right_reveal-text {
-    color: var(--white);
+    color: var(--black);
     opacity: 0;
 }
 
@@ -37,22 +40,46 @@
 .form__wrapper {
     display: flex;
     height: 100%;
-    width: 100%;
 /*     background: var(--bc-login); */
     flex-direction: column;
     align-items: center;
     justify-content: center;
 }
 
+.form__container {
+    max-width: 500px;
+    padding: 1rem;
+    background: #fff;
+    width: 100%;
+    margin: 0 auto;
+}
+
 .form__title {
     text-align: center;
-    color: var(--white);
+    color: #555;
+    font-size: 30px;
+    text-transform: uppercase;
+    line-height: 1.2;
+    font-weight: 400;
 /*     animation: text-flicker 5s linear infinite; */
     transition: text-shadow .2s linear;
 }
 
 .form__title:hover {
     text-shadow: 5px 2px 2px #794bc4;
+}
+
+.form__email-container, .form__password-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.form__email-label, .form__password-label {
+    text-align: left;
+    text-transform: uppercase;
+    color: #555;
+    line-height: 1.4;
+    font-size: 13px;
 }
 
 .form__error {
@@ -62,13 +89,13 @@
 
 .form__email, .form__password {
     border: none;
-    border-radius: 1rem;
+    border-radius: .2rem;
     padding: 1rem;
     margin: 1rem 0;
-    font-size: 14px;
-    background: #f0f5ff;
+    font-size: 16px;
+    background: #fff;
+    border: 1px solid #e6e6e6;
     transition: all .2s linear;
-    border: 2px solid black;
 }
 
 
@@ -77,18 +104,27 @@
     border-color: #794bc4;
 }
 
+.form__signup-link {
+    color: #555;
+    line-height: 1.4;
+    font-size: 13px;
+    margin: .5rem 0;
+}
+
 .form__btn {
-    background:  #794bc4;
+    background:  #333;
     font-size: 16px;
     font-weight: bold;
-    color: white;
+    color: #fff;
+    line-height: 1.2;
     border: none;
-    border-radius: .7rem;
-    padding: .7rem 1rem;
+    border-radius: 1.5rem;
+    padding: 15px 30px;
     cursor: pointer;
     transition: background .2s linear;
 }
 
 .form__btn:hover {
-    background: #875ad1;
+    background: #fff;
+    color: #333;
 }

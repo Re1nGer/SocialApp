@@ -62,24 +62,38 @@ const LoginForm = (): JSX.Element => {
     return (
         <div className="form__login">
             <form className="form__wrapper" onSubmit={onSubmit}>
-                <h1 className="form__title">Login</h1>
+                <h1 className="form__title">Account Login</h1>
                 { error ? <h4 className='form__title'>Error !!!</h4> : null }
-                <input
-                    className="form__email"
-                    placeholder="email"
-                    onChange={handleEmailChange}
-                />
-                <input
-                    className="form__password"
-                    type={'password'}
-                    placeholder="password"
-                    onChange={handlePasswordChange}
-                />
-                <button className="form__btn" type={'submit'}>Login</button>
-                <div className='form__signup-link'>
-                    Don't have an account yet ? 
-                    <Link to={'/signup'}>Sign Up</Link>
-                </div>
+                <section className='form__container'>
+                    <div className='form__email-container'>
+                        <label
+                            className='form__email-label'
+                            htmlFor='input-email'>Username</label>
+                        <input
+                            id='input-email'
+                            className="form__email"
+                            placeholder="email"
+                            onChange={handleEmailChange}
+                        />
+                    </div>
+                    <div className='form__password-container'>
+                        <label
+                            className='form__password-label'
+                            htmlFor='input-password'>Password</label>
+                        <input
+                            id='input-password'
+                            className="form__password"
+                            type={'password'}
+                            placeholder="password"
+                            onChange={handlePasswordChange}
+                        />
+                    </div>
+                    <div className='form__signup-link'>
+                        Don't have an account yet ? {" "}
+                        <Link to={'/signup'}>Sign Up</Link>
+                    </div>
+                    <button className="form__btn" type={'submit'}>Login</button>
+                </section>
             </form>
         </div>
     );
