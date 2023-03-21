@@ -13,6 +13,11 @@
     object-fit: contain;
     filter: drop-shadow(10px 5px 5px #222222);
     border-radius: 5px;
+    transition: all .3s linear;
+}
+
+.login__left_img--blur {
+    filter: blur(10px)
 }
 
 .login__right {
@@ -72,6 +77,7 @@
 .form__email-container, .form__password-container {
     display: flex;
     flex-direction: column;
+    margin: 1rem;
 }
 
 .form__email-label, .form__password-label {
@@ -83,15 +89,14 @@
 }
 
 .form__error {
-    color: red;
-    font-style: italic;
+    color: rgb(160, 37, 37);
+    font-size: 13px;
 }
 
 .form__email, .form__password {
     border: none;
     border-radius: .2rem;
     padding: 1rem;
-    margin: 1rem 0;
     font-size: 16px;
     background: #fff;
     border: 1px solid #e6e6e6;

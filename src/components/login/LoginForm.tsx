@@ -1,69 +1,27 @@
-import { ChangeEvent, FormEvent, useContext, useState } from 'react';
-import { FormEncType, Link, useNavigate } from 'react-router-dom';
-import { ThemeContext } from '../contexts/ThemeContext';
-import  { AxiosError } from 'axios';
-import { axios as call } from '../../axios';
-import axios from 'axios';
+import { Link } from 'react-router-dom';
 import './animations.css';
 import "./Login.css";
+import { useForm, SubmitHandler } from 'react-hook-form';
 
-const LoginForm = (): JSX.Element => {
+export type LoginFormType = {
+    email: string,
+    password: string
+};
 
-    const navigate = useNavigate();
+const defaultValues: LoginFormType = { email: '', password: '' };
 
-    const { setIsLoggedIn, setAccessToken, } = useContext(ThemeContext);
+type LoginFormPropType = {
+    onSubmit: SubmitHandler<LoginFormType>
+}
 
-    const [email, setEmail] = useState<string>("");
+const LoginForm = ({ onSubmit }: LoginFormPropType): JSX.Element => {
 
-    const [password, setPassword] = useState<string>("");
-
-    const [error, setError] = useState<AxiosError | null>(null);
-
-    const handleEmailChange = (e: ChangeEvent<HTMLInputElement>): void => {
-        setEmail(e.target.value);
-    }
-
-    const handlePasswordChange = (e: ChangeEvent<HTMLInputElement>): void => {
-        setPassword(e.target.value);
-    }
-
-    const signIn = async (): Promise<void> => {
-
-        try {
-
-            const body = { email, password };
-
-            const { data } = await call.post('/api/v1/account/signin', body);
-
-            setAccessToken(data.token);
-
-            call.defaults.headers.common['Authorization'] = `Bearer ${data.token}`;
-
-            setIsLoggedIn(true);
-
-            sessionStorage.setItem('isAuthenticated', 'true');
-
-            navigate('/mypage', { replace: true });
-
-        } catch (error) {
-            if (axios.isAxiosError(error)) {
-                setError(error);
-            }
-            console.log(error);
-            //setError(error);
-        }
-    }
-
-    const onSubmit = async (e: FormEvent) => {
-        e.preventDefault();
-        await signIn();
-    }
+    const { register, formState: { errors }, handleSubmit } = useForm<LoginFormType>({ defaultValues });
 
     return (
         <div className="form__login">
-            <form className="form__wrapper" onSubmit={onSubmit}>
+            <form className="form__wrapper" onSubmit={handleSubmit(onSubmit)}>
                 <h1 className="form__title">Account Login</h1>
-                { error ? <h4 className='form__title'>Error !!!</h4> : null }
                 <section className='form__container'>
                     <div className='form__email-container'>
                         <label
@@ -72,9 +30,12 @@ const LoginForm = (): JSX.Element => {
                         <input
                             id='input-email'
                             className="form__email"
-                            placeholder="email"
-                            onChange={handleEmailChange}
+                            placeholder="Email"
+                            {...register('email', { required: "Email Is Required" })}
                         />
+                        { errors['email'] ? (
+                            <span className='form__error'>{errors['email'].message}</span>
+                        ) : null }
                     </div>
                     <div className='form__password-container'>
                         <label
@@ -84,9 +45,12 @@ const LoginForm = (): JSX.Element => {
                             id='input-password'
                             className="form__password"
                             type={'password'}
-                            placeholder="password"
-                            onChange={handlePasswordChange}
+                            placeholder="Password"
+                            {...register('password', { required: "Password Is Required" })}
                         />
+                        { errors['password'] ? (
+                            <span className='form__error'>{errors['password'].message}</span>
+                        ) : null }
                     </div>
                     <div className='form__signup-link'>
                         Don't have an account yet ? {" "}
