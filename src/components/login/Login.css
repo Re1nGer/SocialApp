@@ -1,19 +1,32 @@
 .login__container {
     display: flex;
+    overflow: hidden;
 }
 
 .login__left {
     flex: .6;
+    width: 100%;
     padding: 1rem 0;
+    object-fit: contain;
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+    position: relative;
+    height: 1600px;
+}
+
+.login__left-img-container {
+    object-fit: contain;
 }
 
 .login__left_img {
-    height: 100%;
+    position: absolute;
     width: 100%;
-    object-fit: contain;
     filter: drop-shadow(10px 5px 5px #222222);
     border-radius: 5px;
-    transition: all .3s linear;
+    display: flex;
+    justify-content: flex-start;
+    height: 1920px;
 }
 
 .login__left_img--blur {
@@ -25,6 +38,7 @@
     background: #ebebeb;
     margin: 1.1rem 0;
     z-index: 10;
+    height: 1600px;
 }
 
 .login__right_reveal {

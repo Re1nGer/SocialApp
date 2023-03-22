@@ -4,10 +4,11 @@ import LoginForm, { LoginFormType } from "./LoginForm";
 import { RevealText } from "./RevealText";
 import { useNavigate } from "react-router-dom";
 import {  SubmitHandler } from "react-hook-form";
-import { useState, useContext } from 'react';
+import { useContext } from 'react';
 import { ThemeContext } from "../contexts/ThemeContext";
 import { axios as call } from "../../axios";
-import { AnimatePresence, motion, useAnimation } from "framer-motion";
+import { useAnimation } from "framer-motion";
+import LoginImage from "./LoginImage";
 
 
 const LoginContainer = (): JSX.Element => {
@@ -48,15 +49,7 @@ const LoginContainer = (): JSX.Element => {
 
     return (
         <div className="login__container">
-            <div className="login__left">
-                <motion.img
-                    className={`login__left_img`}
-                    initial={{filter: 'none'}}
-                    animate={control}
-                    exit={{filter: 'blur(10px)' }}
-                    src={GirlImage} alt='girl'
-                />
-            </div>
+            <LoginImage />
             <div className="login__right">
                 <LoginForm onSubmit={onSubmit} />
                 <RevealText />
