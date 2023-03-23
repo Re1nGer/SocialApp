@@ -95,6 +95,7 @@
 }
 
 .profile-info__image {
+    object-fit: contain;
     width: 224px;
     height: 224px;
 }

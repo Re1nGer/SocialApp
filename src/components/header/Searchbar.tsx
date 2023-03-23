@@ -1,8 +1,6 @@
 import { Icon } from "@iconify/react";
 import "./Searchbar.css";
 import { useState, ChangeEvent, useEffect } from 'react';
-import Test from '../../assets/download.jpg'
-import { motion } from "framer-motion";
 import { axios } from '../../axios';
 import useDebounce from "../../hooks/useDebounce";
 import CircleLoader from "../loader/CircleLoader";
