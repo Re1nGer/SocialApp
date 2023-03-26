@@ -40,7 +40,7 @@ const Feed = (): JSX.Element => {
             form.append('htmlContent', htmlContent);
             console.log(image);
             form.append('image', image);
-            await axios.post("/api/v1/post", form, { headers: {
+            await call.post("/api/v1/post", form, { headers: {
                 "Content-Type": "multipart/form-data",
             } });
             setIsPostFormOpen(false);

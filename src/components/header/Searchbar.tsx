@@ -51,19 +51,21 @@ const Searchbar = (): JSX.Element => {
                     placeholder="type in email"
                     value={inputValue}
                 />
-                <div className="searchbar__results">
                 { isLoading ? (
                     <CircleLoader />
                 ) : null }
-                { users.map(item => (
-                    <div className="searchbar__result" key={item.id}>
-                        <img className="searchbar__result-img" src={item.imgSrc} alt="search" />
-                        <div className="searchbar__result">
-                            { item.username }
+                { users.length > 0 ? (
+                    <div className="searchbar__results">
+                    { users.map(item => (
+                        <div className="searchbar__result" key={item.id}>
+                            <img className="searchbar__result-img" src={item.imgSrc} alt="search" />
+                            <div className="searchbar__result">
+                                { item.username }
+                            </div>
                         </div>
+                    )) }
                     </div>
-                )) }
-                </div>
+                ) : null }
             </div>
         </>
     );
