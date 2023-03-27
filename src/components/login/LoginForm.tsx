@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import './animations.css';
 import "./Login.css";
 import { useForm, SubmitHandler } from 'react-hook-form';
+import { ApiErrorType } from './LoginContainer';
 
 export type LoginFormType = {
     email: string,
@@ -11,10 +12,11 @@ export type LoginFormType = {
 const defaultValues: LoginFormType = { email: '', password: '' };
 
 type LoginFormPropType = {
-    onSubmit: SubmitHandler<LoginFormType>
+    onSubmit: SubmitHandler<LoginFormType>,
+    apiErrors: ApiErrorType
 }
 
-const LoginForm = ({ onSubmit }: LoginFormPropType): JSX.Element => {
+const LoginForm = ({ onSubmit, apiErrors }: LoginFormPropType): JSX.Element => {
 
     const { register, formState: { errors }, handleSubmit } = useForm<LoginFormType>({ defaultValues });
 
@@ -22,6 +24,9 @@ const LoginForm = ({ onSubmit }: LoginFormPropType): JSX.Element => {
         <div className="form__login">
             <form className="form__wrapper" onSubmit={handleSubmit(onSubmit)}>
                 <h1 className="form__title">Account Login</h1>
+                { apiErrors.message ?
+                 <span className='form__error'>{apiErrors.message}</span> : "" }
+                <span></span>
                 <section className='form__container'>
                     <div className='form__email-container'>
                         <label

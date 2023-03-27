@@ -4,21 +4,26 @@ import LoginForm, { LoginFormType } from "./LoginForm";
 import { RevealText } from "./RevealText";
 import { useNavigate } from "react-router-dom";
 import {  SubmitHandler } from "react-hook-form";
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { ThemeContext } from "../contexts/ThemeContext";
 import { axios as call } from "../../axios";
 import { useAnimation } from "framer-motion";
 import LoginImage from "./LoginImage";
 
+export type ApiErrorType = {
+    message: string
+};
+
 
 const LoginContainer = (): JSX.Element => {
-
 
     const navigate = useNavigate();
 
     const { setIsLoggedIn, setAccessToken, } = useContext(ThemeContext);
 
     const control = useAnimation()
+
+    const [apiErrors, setApiErrors] = useState<ApiErrorType>({ message: "" });
 
     const onSubmit: SubmitHandler<LoginFormType>
      = async ({ email, password }, _): Promise<void> => {
@@ -40,8 +45,10 @@ const LoginContainer = (): JSX.Element => {
 
             navigate('/mypage', { replace: true });
 
-        } catch (error) {
+        } catch (error : any) {
             console.log(error);
+
+            setApiErrors(error.response.data.error);
         } finally {
             control.start({ filter: 'none' });
         }
@@ -51,7 +58,7 @@ const LoginContainer = (): JSX.Element => {
         <div className="login__container">
             <LoginImage />
             <div className="login__right">
-                <LoginForm onSubmit={onSubmit} />
+                <LoginForm onSubmit={onSubmit} apiErrors={apiErrors} />
                 <RevealText />
             </div>
         </div>
