@@ -1,14 +1,14 @@
-import "./Footer.css";
-import FooterIcon from "../svg/FooterIcon";
+import './Footer.css'
+import FooterIcon from '../svg/FooterIcon'
 
-const Footer = () => {
-    return (
-        <footer className="footer">
-            <div className="footer__inner">
-                <FooterIcon />
-            </div>
-        </footer>
-     );
+function Footer() {
+  return (
+    <footer className='footer'>
+      <div className='footer__inner'>
+        <FooterIcon />
+      </div>
+    </footer>
+  )
 }
 
-export default Footer;
+export default Footer

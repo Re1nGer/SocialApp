@@ -1,9 +1,7 @@
-import LoginContainer from "../login/LoginContainer";
+import LoginContainer from '../login/LoginContainer'
 
-const LoginPage = () => {
-    return (
-        <LoginContainer />
-     );
+function LoginPage() {
+  return <LoginContainer />
 }
 
-export default LoginPage;
+export default LoginPage

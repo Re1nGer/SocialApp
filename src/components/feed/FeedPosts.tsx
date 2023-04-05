@@ -1,51 +1,59 @@
-import { useEffect, useRef, useState } from "react";
-import { AnimatePresence, motion, useInView } from "framer-motion";
-import { axios } from "../../axios";
-import CircleLoader from "../loader/CircleLoader";
-import { FeedPost, FeedPostPropType } from "./FeedPost";
+import { useEffect, useRef, useState } from 'react'
+import { AnimatePresence, motion, useInView } from 'framer-motion'
+import { axios } from '../../axios'
+import CircleLoader from '../loader/CircleLoader'
+import { FeedPost, FeedPostPropType } from './FeedPost'
 
-//const api_key = import.meta.env.VITE_API_KEY;
+// const api_key = import.meta.env.VITE_API_KEY;
 
-export const FeedPosts = (): JSX.Element => {
+export function FeedPosts(): JSX.Element {
+  const lastPost = useRef(null)
 
-    const lastPost = useRef(null);
+  const [isLoading, setIsLoading] = useState<boolean>(true)
 
-    const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [news, setNews] = useState<FeedPostPropType[]>([])
 
-    const [news, setNews] = useState<FeedPostPropType[]>([]);
+  const [nextPageToken, setNextPageToken] = useState<string>('')
 
-    const [nextPageToken, setNextPageToken] = useState<string>('');
+  const isInView = useInView(lastPost, { amount: 'some' })
 
-    const isInView = useInView(lastPost, { amount: "some" });
+  const fetchLatestNews = async () => {
+    try {
+      setIsLoading(true)
+      // for some weird reason mode property fixes cors issue but it complains in typescript
+      const { data } = await axios.get(
+        `https://newsdata.io/api/1/news?apikey=pub_1913720dc694a6785104bd3ff53a6d15db5c7&q=science&page=${nextPageToken}`,
+        { withCredentials: false },
+      )
+      setNews((prev) => prev.concat(data.results))
+      setNextPageToken(data.nextPage)
+    } catch (error) {
+      console.log(error)
+    } finally {
+      setIsLoading(false)
+    }
+  }
 
-    const fetchLatestNews = async () => {
-        try {
-            setIsLoading(true);
-            //for some weird reason mode property fixes cors issue but it complains in typescript
-            //@ts-ignore
-            const { data } = await axios.get(`https://newsdata.io/api/1/news?apikey=pub_1913720dc694a6785104bd3ff53a6d15db5c7&q=science&page=${nextPageToken}`, { withCredentials: false, mode: 'no-cors' });
-            setNews(prev => prev.concat(data.results));
-            setNextPageToken(data.nextPage);
-        } catch (error) {
-            console.log(error);
-        } finally {
-            setIsLoading(false);
-        }
-    };
+  useEffect(() => {
+    fetchLatestNews()
+  }, [isInView])
 
-    useEffect(() => {
-        fetchLatestNews();
-    }, [isInView]);
+  return (
+    <>
+      {news.map((item) => (
+        <AnimatePresence key={item.id}>
+          <AnimatedFeedPost
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            key={item.id}
+            {...item}
+          />
+        </AnimatePresence>
+      ))}
+      {isLoading ? <CircleLoader /> : null}
+      <div ref={lastPost} />
+    </>
+  )
+}
 
-    return <>
-        {news.map(item => (
-            <AnimatePresence key={item.id}>
-                <AnimatedFeedPost initial={{opacity: 0}} animate={{opacity: 1}} key={item.id} {...item} />
-            </AnimatePresence>
-        ))}
-        {isLoading ? (<CircleLoader />) : null}
-        <div ref={lastPost}></div>
-    </>;
-};
-
-const AnimatedFeedPost = motion(FeedPost);
+const AnimatedFeedPost = motion(FeedPost)

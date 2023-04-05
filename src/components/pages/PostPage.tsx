@@ -1,10 +1,7 @@
-import Post from "../post/Post";
+import Post from '../post/Post'
 
-
-const PostPage = () => {
-    return (
-        <Post />
-     );
+function PostPage() {
+  return <Post />
 }
 
-export default PostPage;
+export default PostPage

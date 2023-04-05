@@ -1,6 +1,6 @@
 import './App.css'
-import { ThemeContextProvider } from './components/contexts/ThemeContext'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import { ThemeContextProvider } from './components/contexts/ThemeContext'
 import Layout from './components/Layout/Layout'
 import ProfilePage from './components/pages/ProfilePage'
 import LoginPage from './components/pages/LoginPage'
@@ -9,27 +9,24 @@ import FeedPage from './components/pages/FeedPage'
 import SignUpPage from './components/pages/SignUp'
 import PrivateRoute from './components/route/PrivateRoute'
 
-const App = () => {
-
+function App() {
   return (
-    <>
-      <ThemeContextProvider>
-        <Router>
-          <Routes>
-            <Route element={<Layout />}>
-              <Route path='/' index element={<LoginPage />} />
-              <Route path='/login' element={<LoginPage />} />
-              <Route path='/signup' element={<SignUpPage />} />
-              <Route element={<PrivateRoute />}>
-                <Route path='/mypage' element={<ProfilePage />}/>
-                <Route path='/post/:id' element={<PostPage />}/>
-                <Route path='/feed' element={<FeedPage />}/>
-              </Route>
+    <ThemeContextProvider>
+      <Router>
+        <Routes>
+          <Route element={<Layout />}>
+            <Route path='/' index element={<LoginPage />} />
+            <Route path='/login' element={<LoginPage />} />
+            <Route path='/signup' element={<SignUpPage />} />
+            <Route element={<PrivateRoute />}>
+              <Route path='/mypage' element={<ProfilePage />} />
+              <Route path='/post/:id' element={<PostPage />} />
+              <Route path='/feed' element={<FeedPage />} />
             </Route>
-          </Routes>
-        </Router>
-      </ThemeContextProvider>
-    </>
+          </Route>
+        </Routes>
+      </Router>
+    </ThemeContextProvider>
   )
 }
 

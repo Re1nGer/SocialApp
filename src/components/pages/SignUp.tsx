@@ -1,7 +1,7 @@
-import SignUpFormContainer from '../login/SignUpFormContainer';
+import SignUpFormContainer from '../login/SignUpFormContainer'
 
-const SignUpPage = () => {
-    return ( <SignUpFormContainer /> );
+function SignUpPage() {
+  return <SignUpFormContainer />
 }
 
-export default SignUpPage;
+export default SignUpPage

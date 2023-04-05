@@ -1,28 +1,30 @@
-import React from 'react';
-import { SubmitHandler, useForm } from 'react-hook-form';
-import "./Comment.css";
+import React, { LegacyRef } from 'react'
+import { SubmitHandler, useForm } from 'react-hook-form'
+import './Comment.css'
 
 export type CommentFormDefaultValuesType = {
-    message: string
+  message: string
 }
 
 export type CommentFormPropType = {
-    onSubmit: SubmitHandler<CommentFormDefaultValuesType>
+  onSubmit: SubmitHandler<CommentFormDefaultValuesType>
 }
 
-type Ref = HTMLFormElement
+type Ref = LegacyRef<HTMLFormElement> | undefined
 
-const CommentForm = React.forwardRef<Ref, CommentFormPropType>(({ onSubmit }, ref) => {
+const CommentForm = ({ onSubmit }: CommentFormPropType, ref: Ref) => {
+  const { handleSubmit, register } = useForm<CommentFormDefaultValuesType>()
 
-    const { handleSubmit, register } = useForm<CommentFormDefaultValuesType>();
+  return (
+    <form className='comment__form' ref={ref} onSubmit={handleSubmit(onSubmit)}>
+      <textarea
+        className='comment__form-input'
+        {...register('message')}
+        placeholder='Type In Comment'
+      />
+      <button type='submit'>Submit</button>
+    </form>
+  )
+}
 
-
-    return (
-        <form className="comment__form" ref={ref} onSubmit={handleSubmit(onSubmit)}>
-            <textarea className="comment__form-input" {...register("message")} placeholder={'Type In Comment'} />
-            <button type='submit'>Submit</button>
-        </form>
-    );
-});
-
-export default CommentForm;
+export default React.forwardRef(CommentForm)

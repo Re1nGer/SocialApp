@@ -1,7 +1,7 @@
-import Feed from "../feed/Feed";
+import Feed from '../feed/Feed'
 
-const FeedPage = () => {
-    return ( <Feed /> );
+function FeedPage() {
+  return <Feed />
 }
 
-export default FeedPage;
+export default FeedPage

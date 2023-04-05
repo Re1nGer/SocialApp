@@ -1,92 +1,92 @@
 .post {
-    max-width: 1150px;
-    width: 100%;
-    margin: 0 auto;
+  max-width: 1150px;
+  width: 100%;
+  margin: 0 auto;
 }
 
 .post__inner {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    height: 100%;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
 }
 
 .post__location {
-    color: var(--white);
-    margin: .5rem 0;
-    display: flex;
-    gap: .5rem;
-    align-items: center;
+  color: var(--white);
+  margin: 0.5rem 0;
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
 }
 
 .post__img-container {
-    height: 50%;
+  height: 50%;
 }
 
 .post__img {
-    height: 100%;
-    width: 100%;
-    object-fit: contain;
+  height: 100%;
+  width: 100%;
+  object-fit: contain;
 }
 
 .post__description {
-    color: var(--white);
-    overflow: hidden;
-    text-overflow: ellipsis;
-/*     white-space: nowrap; */
+  color: var(--white);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  /*     white-space: nowrap; */
 }
 
 .post__info {
-    display: flex;
-    gap: 1rem;
-    margin: 1rem 0;
+  display: flex;
+  gap: 1rem;
+  margin: 1rem 0;
 }
 
 .post__likes {
-    gap: .5rem;
-    display: flex;
-    color: var(--white);
+  gap: 0.5rem;
+  display: flex;
+  color: var(--white);
 }
 
 .post__likes-icon {
-    transition: color .2s linear;
-    cursor: pointer;
+  transition: color 0.2s linear;
+  cursor: pointer;
 }
 
 .post__likes-icon:hover {
-    color: var(--black);
+  color: var(--black);
 }
 
 .post__comments {
-    gap: .5rem;
-    display: flex;
-    color: var(--white);
+  gap: 0.5rem;
+  display: flex;
+  color: var(--white);
 }
 
 .post__share {
-    color: var(--white);
+  color: var(--white);
 }
 
 .post__share-icon {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .post__comments-icon {
-    transition: color .2s linear; 
-    cursor: pointer;
+  transition: color 0.2s linear;
+  cursor: pointer;
 }
 
 .post__comments-icon:hover {
-    color: var(--gray);
+  color: var(--gray);
 }
 
 .post__comments-preview {
-    color: var(--gray);
-    margin: 1rem 0;
-    cursor: pointer;
-    transition: color .2s linear;
+  color: var(--gray);
+  margin: 1rem 0;
+  cursor: pointer;
+  transition: color 0.2s linear;
 }
 
 .post__comments-preview:hover {
-    color: var(--white);
+  color: var(--white);
 }

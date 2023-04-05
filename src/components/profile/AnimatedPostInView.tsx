@@ -1,34 +1,32 @@
-import React, { useRef } from 'react';
-import { motion, useAnimation, useInView } from 'framer-motion';
+import React, { useRef } from 'react'
+import { motion, useAnimation, useInView } from 'framer-motion'
 
-//const AnimatedPost = motion(Post);
+// const AnimatedPost = motion(Post);
 type AnimatedPostInViewPropsType = {
-    children: JSX.Element
+  children: JSX.Element
 }
 
-export const AnimatedPostInView = ({ children }: AnimatedPostInViewPropsType): JSX.Element => {
+export function AnimatedPostInView({ children }: AnimatedPostInViewPropsType): JSX.Element {
+  const ref = useRef(null)
 
-    const ref = useRef(null);
+  const inView = useInView(ref, { once: true })
 
-    const inView = useInView(ref, { once: true });
+  const controls = useAnimation()
 
-    const controls = useAnimation();
+  React.useEffect(() => {
+    if (inView) {
+      controls.start({ opacity: 1, scale: 1 })
+    }
+  }, [inView, controls])
 
-    React.useEffect(() => {
-        if (inView) {
-            controls.start({ opacity: 1, scale: 1 });
-        }
-
-    }, [inView, controls]);
-
-    return (
-        <motion.section
-            ref={ref}
-            initial={{ opacity: 0, scale: 0.5 }}
-            animate={controls}
-            transition={{ duration: 0.5 }}
-        >
-            {children}
-        </motion.section>
-    );
-};
+  return (
+    <motion.section
+      ref={ref}
+      initial={{ opacity: 0, scale: 0.5 }}
+      animate={controls}
+      transition={{ duration: 0.5 }}
+    >
+      {children}
+    </motion.section>
+  )
+}

@@ -1,11 +1,9 @@
-import { Slate, Editable } from "slate-react"
-import { Text } from "slate";
-import { withReact } from "slate-react";
-import { useContext, useState } from "react";
-import { createEditor } from "slate";
+import { Slate, Editable, withReact } from 'slate-react'
+import { Text, createEditor, Transforms, Element, Node } from 'slate'
+
+import { useContext, useState } from 'react'
 import escapeHtml from 'escape-html'
-import { Transforms, Element, Node } from 'slate'
-import { Controller } from "react-hook-form";
+import { Controller } from 'react-hook-form'
 
 const initialValue = [
   {
@@ -14,7 +12,7 @@ const initialValue = [
   },
 ]
 
-const serialize = node => {
+const serialize = (node) => {
   if (Text.isText(node)) {
     let string = escapeHtml(node.text)
     if (node.bold) {
@@ -23,9 +21,9 @@ const serialize = node => {
     return string
   }
 
-  console.log(node);
+  console.log(node)
 
-  const children = node.children.map(n => serialize(n)).join('')
+  const children = node.children.map((n) => serialize(n)).join('')
 
   switch (node.type) {
     case 'quote':
@@ -38,32 +36,3 @@ const serialize = node => {
       return children
   }
 }
-
-
-const RichTextEditor = ({className, control, name}) => {
-
-    const [editor] = useState(() => withReact(createEditor()));
-
-    const [value, setValue] = useState(initialValue);
-
-    //const { handleRichTextChange } = useContext(PostFormContext);
-
-    const handleChange = () => {
-
-    }
-        
-    return (
-          <Controller
-            control={control}
-            name={name}
-            render={({ field: { onChange } }) => (
-        // Add the editable component inside the context.
-            <Slate editor={editor} value={value}>
-                  <Editable className={className} placeholder={"What's on your mind"} />
-            </Slate>
-            )}
-          />
-    );
-}
-
-export default RichTextEditor;

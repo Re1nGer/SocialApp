@@ -1,16 +1,15 @@
-import ProfileImage from "../profile/ProfileImage";
-import ProfileInfo from "../profile/ProfileInfo";
-import Posts from "../profile/Posts";
+import ProfileImage from '../profile/ProfileImage'
+import ProfileInfo from '../profile/ProfileInfo'
+import Posts from '../profile/Posts'
 
-
-const ProfilePage = () => {
-    return (
-        <>
-            <ProfileImage />
-            <ProfileInfo />
-            <Posts />
-        </>
-     );
+function ProfilePage() {
+  return (
+    <>
+      <ProfileImage />
+      <ProfileInfo />
+      <Posts />
+    </>
+  )
 }
 
-export default ProfilePage;
+export default ProfilePage
