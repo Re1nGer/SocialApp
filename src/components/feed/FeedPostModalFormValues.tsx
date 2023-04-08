@@ -46,7 +46,7 @@ export const FeedPostFormModal = (
           <textarea
             className='feed__post-form_input'
             {...register('htmlContent')}
-            placeholder={'What`&apos;s on your mind ?'}
+            placeholder={'What is on your mind ?'}
           />
         </div>
         <label htmlFor='feed__post-image' className='feed__post-image'>
@@ -78,4 +78,4 @@ export const FeedPostFormModal = (
     </>
   )
 }
-export const AnimatedPostForm = motion(FeedPostFormModal)
+export const AnimatedPostForm = motion(React.forwardRef(FeedPostFormModal))

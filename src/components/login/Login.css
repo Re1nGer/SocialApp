@@ -11,8 +11,8 @@
   display: flex;
   justify-content: flex-start;
   flex-direction: column;
+  align-items: center;
   position: relative;
-  height: 1600px;
 }
 
 .login__left-img-container {
