@@ -84,7 +84,7 @@ function ChatDrawerUserCard({ setChatId, id }: ChatDrawerUserCardType) {
       </div>
       <div className='user-card__text-container'>
         <h3 className='user-card__username'>Username</h3>
-        <h5>No messages yet</h5>
+        <h5 className='user-card__message'>No messages yet</h5>
       </div>
     </div>
   )

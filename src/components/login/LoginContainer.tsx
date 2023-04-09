@@ -60,24 +60,32 @@ function LoginContainer(): JSX.Element {
 
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
-      gsap.to(imageRef.current, { rotate: '-15deg', ease: Power3.easeInOut, duration: 1 })
+      gsap.to(imageRef.current, {
+        rotate: '-15deg',
+        ease: Power3.easeInOut,
+        duration: 1,
+        opacity: 1,
+      })
       gsap.to(image1Ref.current, {
         rotate: '5deg',
         ease: Power3.easeInOut,
         y: '300',
         duration: 1,
+        opacity: 1,
       })
       gsap.to(image2Ref.current, {
         rotate: '-15deg',
         ease: Power3.easeInOut,
         y: '600',
         duration: 1,
+        opacity: 1,
       })
       gsap.to(image3Ref.current, {
         rotate: '5deg',
         ease: Power3.easeInOut,
         y: '900',
         duration: 1,
+        opacity: 1,
       })
     })
 
@@ -92,7 +100,7 @@ function LoginContainer(): JSX.Element {
         <Polaroid ref={imageRef} imgSrc={Girl} alt='front' />
         <Polaroid ref={image1Ref} imgSrc={Girl1} alt='some' />
         <Polaroid ref={image2Ref} imgSrc={Girl2} alt='some' />
-        <Polaroid ref={image3Ref} imgSrc={Girl3} alt='some' />
+        <Polaroid ref={image3Ref} imgSrc={Girl3} alt='some' caption='destiny' />
       </div>
       <div className='login__right'>
         <LoginForm onSubmit={onSubmit} apiErrors={apiErrors} />
