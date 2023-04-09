@@ -7,7 +7,11 @@ import LoginForm, { LoginFormType } from './LoginForm'
 import { RevealText } from './RevealText'
 import { ThemeContext } from '../contexts/ThemeContext'
 import { axios as call } from '../../axios'
-import LoginImage from './LoginImage'
+import Polaroid from '../polaroid/Polaroid'
+import Girl from '../../assets/girl1.jpg'
+import Girl1 from '../../assets/girl2.jpg'
+import Girl2 from '../../assets/girl3.jpg'
+import Girl3 from '../../assets/girlFront.jpg'
 
 export type ApiErrorType = {
   message: string
@@ -50,7 +54,12 @@ function LoginContainer(): JSX.Element {
 
   return (
     <div className='login__container'>
-      <LoginImage />
+      <div className='login__left'>
+        <Polaroid imgSrc={Girl} alt='front' rotate='-15deg' />
+        <Polaroid imgSrc={Girl1} alt='some' rotate='5deg' />
+        <Polaroid imgSrc={Girl2} alt='some' rotate='-15deg' />
+        <Polaroid imgSrc={Girl3} alt='some' rotate='5deg' />
+      </div>
       <div className='login__right'>
         <LoginForm onSubmit={onSubmit} apiErrors={apiErrors} />
         <RevealText />

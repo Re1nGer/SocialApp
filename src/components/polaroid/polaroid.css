@@ -1,0 +1,21 @@
+.polaroid__container {
+  position: relative;
+  max-height: 400px;
+  max-width: 300px;
+  height: 100%;
+  width: 100%;
+}
+
+.polaroid {
+  position: absolute;
+  border: 1px solid darkgrey;
+  background-color: white;
+  padding: 15px 15px 60px 15px;
+  /*   box-shadow: 5px 10px 10px darkgrey; */
+}
+
+.polaroid img {
+  height: 100%;
+  width: 100%;
+  object-fit: contain;
+}
