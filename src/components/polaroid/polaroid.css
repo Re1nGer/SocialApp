@@ -1,5 +1,5 @@
 .polaroid__container {
-  position: relative;
+  position: absolute;
   max-height: 400px;
   max-width: 300px;
   height: 100%;
