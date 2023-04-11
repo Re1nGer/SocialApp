@@ -3,13 +3,14 @@ import './Searchbar.css'
 import { useState, ChangeEvent, useEffect } from 'react'
 import { axios } from '../../axios'
 import useDebounce from '../../hooks/useDebounce'
-import CircleLoader from '../loader/CircleLoader'
+import { Link } from 'react-router-dom'
 
 type Users = {
   id: number
   username: string
-  imgSrc: string
+  picture: string
 }
+const toImcSrc = (base64Str: string) => `data:image/jpeg;base64,${base64Str}`
 
 function Searchbar(): JSX.Element {
   const [inputValue, setInputValue] = useState<string>('')
@@ -26,13 +27,13 @@ function Searchbar(): JSX.Element {
 
   const fetchUsers = async (keyword: string): Promise<void> => {
     try {
-      // setIsLoading(true);
-      const { data } = await axios.get<Users[]>(`/api/v1/users/${keyword}`)
+      setIsLoading(true)
+      const { data } = await axios.get<Users[]>(`/api/v1/user/list?q=${keyword}`)
       setUsers(data)
     } catch (error) {
       console.log(error)
     } finally {
-      // setIsLoading(false);
+      setIsLoading(false)
     }
   }
 
@@ -49,14 +50,15 @@ function Searchbar(): JSX.Element {
         placeholder='type in email'
         value={inputValue}
       />
-      {isLoading ? <CircleLoader /> : null}
       {users.length > 0 ? (
         <div className='searchbar__results'>
           {users.map((item) => (
-            <div className='searchbar__result' key={item.id}>
-              <img className='searchbar__result-img' src={item.imgSrc} alt='search' />
-              <div className='searchbar__result'>{item.username}</div>
-            </div>
+            <Link to={'/profile'}>
+              <div className='searchbar__result' key={item.id}>
+                <img className='searchbar__result-img' src={toImcSrc(item.picture)} alt='search' />
+                <div className='searchbar__result'>{item.username}</div>
+              </div>
+            </Link>
           ))}
         </div>
       ) : null}

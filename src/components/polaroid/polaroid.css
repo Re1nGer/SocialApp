@@ -26,7 +26,7 @@
 }
 
 .polaroid img {
-  height: 100%;
-  width: 100%;
-  object-fit: contain;
+  max-height: 400px;
+  max-width: 300px;
+  object-fit: cover;
 }
