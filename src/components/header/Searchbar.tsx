@@ -3,14 +3,13 @@ import './Searchbar.css'
 import { useState, ChangeEvent, useEffect } from 'react'
 import { axios } from '../../axios'
 import useDebounce from '../../hooks/useDebounce'
-import { Link } from 'react-router-dom'
+import { SearchbarResult } from './SearchbarResult'
 
 type Users = {
   id: number
   username: string
   picture: string
 }
-const toImcSrc = (base64Str: string) => `data:image/jpeg;base64,${base64Str}`
 
 function Searchbar(): JSX.Element {
   const [inputValue, setInputValue] = useState<string>('')
@@ -47,18 +46,13 @@ function Searchbar(): JSX.Element {
       <input
         onChange={handleInputChange}
         className='searchbar__input'
-        placeholder='type in email'
+        placeholder='Type in email'
         value={inputValue}
       />
       {users.length > 0 ? (
         <div className='searchbar__results'>
           {users.map((item) => (
-            <Link to={'/profile'}>
-              <div className='searchbar__result' key={item.id}>
-                <img className='searchbar__result-img' src={toImcSrc(item.picture)} alt='search' />
-                <div className='searchbar__result'>{item.username}</div>
-              </div>
-            </Link>
+            <SearchbarResult key={item.id} {...item} />
           ))}
         </div>
       ) : null}
