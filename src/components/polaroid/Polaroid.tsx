@@ -1,19 +1,23 @@
+import { LegacyRef, forwardRef } from 'react'
 import './polaroid.css'
 
 type PolaroidPropType = {
   imgSrc: string
   alt: string
-  rotate?: string
+  caption?: string
 }
 
-const Polaroid = ({ imgSrc, alt, rotate }: PolaroidPropType) => {
+type Ref = LegacyRef<HTMLDivElement>
+
+const Polaroid = ({ imgSrc, alt, caption }: PolaroidPropType, ref: Ref) => {
   return (
-    <div className='polaroid__container'>
-      <div className='polaroid' style={{ rotate: rotate }}>
+    <div className='polaroid__container' ref={ref}>
+      <div className='polaroid'>
         <img src={imgSrc} alt={alt} loading='lazy' />
+        <div className='polaroid__caption'>{caption}</div>
       </div>
     </div>
   )
 }
 
-export default Polaroid
+export default forwardRef(Polaroid)

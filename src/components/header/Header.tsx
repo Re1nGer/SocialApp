@@ -33,9 +33,7 @@ function Header(): JSX.Element {
           <HeaderHamburgerMenu isLightTheme={isLightTheme} />
           <HeaderLogoIcon onClick={handleIconClick} />
         </div>
-        {/*                 { isLoggedIn ? (
-                    <Searchbar />
-                ) : null } */}
+        {isLoggedIn ? <Searchbar /> : null}
         <div className='header__right'>
           {isLoggedIn ? <HeaderProfileMenu imgSrc='' /> : null}
           {isLoggedIn ? (
