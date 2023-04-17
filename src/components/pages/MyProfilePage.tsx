@@ -2,7 +2,7 @@ import ProfileImage from '../profile/ProfileImage'
 import Posts from '../profile/Posts'
 import MyProfilePageContainer from '../profile/MyProfileContainer'
 
-function ProfilePage() {
+function MyProfilePage() {
   return (
     <>
       <ProfileImage />
@@ -12,4 +12,4 @@ function ProfilePage() {
   )
 }
 
-export default ProfilePage
+export default MyProfilePage

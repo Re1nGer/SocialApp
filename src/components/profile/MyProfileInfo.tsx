@@ -18,7 +18,7 @@ type ProfileInfoPropType = {
   isProfileModalOpen: boolean
 }
 
-function ProfileInfo({
+function MyProfileInfo({
   updateProfileInfo,
   updateProfileImage,
   handleProfileImageUpload,
@@ -105,4 +105,4 @@ function ProfileInfo({
   )
 }
 
-export default ProfileInfo
+export default MyProfileInfo

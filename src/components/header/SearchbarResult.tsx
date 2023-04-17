@@ -4,15 +4,21 @@ import { toImgSrc } from '../../utils/toImgSrc'
 const defaultUserImg =
   'https://thumbs.dreamstime.com/b/default-avatar-profile-icon-vector-social-media-user-image-182145777.jpg'
 
-export type SearchbarResultType = {
+type SearchbarResultType = {
   id: number
   username: string
   picture: string
+  handleResultClick: () => void
 }
 
-export const SearchbarResult = ({ id, username, picture }: SearchbarResultType): JSX.Element => {
+export const SearchbarResult = ({
+  id,
+  username,
+  picture,
+  handleResultClick,
+}: SearchbarResultType): JSX.Element => {
   return (
-    <Link to={'/profile'}>
+    <Link to={`/user/${id}`} onClick={handleResultClick}>
       <div className='searchbar__result' key={id}>
         <img
           className='searchbar__result-img'

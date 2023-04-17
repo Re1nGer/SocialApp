@@ -1,12 +1,10 @@
 import { useEffect, useState } from 'react'
 import { Icon } from '@iconify/react'
 import './Profile.scss'
-import Post from './PostCard'
 import { axios } from '../../axios'
-import { AnimatedPostInView } from './AnimatedPostInView'
 import CircleLoader from '../loader/CircleLoader'
-
-type PostType = {
+import { ProfilePosts } from './ProfilePosts'
+export interface IPostType {
   id: number
   imgSrc: string
   likeCount: number
@@ -14,13 +12,13 @@ type PostType = {
 }
 
 function Posts(): JSX.Element {
-  const [posts, setPosts] = useState<PostType[]>([])
+  const [posts, setPosts] = useState<IPostType[]>([])
   const [isLoading, setIsLoading] = useState(false)
 
   const fetchProfilePosts = async () => {
     try {
       setIsLoading(true)
-      const { data } = await axios.get<PostType[]>('/api/v1/post/list')
+      const { data } = await axios.get<IPostType[]>('/api/v1/post/list')
       setPosts(data)
     } catch (error) {
       console.log(error)
@@ -50,17 +48,38 @@ function Posts(): JSX.Element {
           Saved
         </div>
       </div>
+      {/*       extract into component */}
       <div className='posts__wrapper'>
-        {isLoading ? <CircleLoader /> : null}
-        {posts.map((post) => (
-          <AnimatedPostInView key={post.id}>
-            <Post {...post} />
-          </AnimatedPostInView>
-        ))}
+        {isLoading ? <CircleLoader /> : <ProfilePosts posts={posts} />}
       </div>
       {posts.length > 10 ? <div className='posts__load-more'>Load More</div> : null}
     </div>
   )
+}
+
+const ProfilePostsContainer = (): JSX.Element => {
+  const [posts, setPosts] = useState<IPostType[]>([])
+  const [isLoading, setIsLoading] = useState<boolean>(false)
+
+  const fetchProfilePosts = async () => {
+    try {
+      setIsLoading(true)
+      const { data } = await axios.get<IPostType[]>('/api/v1/post/list')
+      setPosts(data)
+    } catch (error) {
+      console.log(error)
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
+  useEffect(() => {
+    fetchProfilePosts()
+  }, [])
+
+  if (isLoading) return <CircleLoader />
+
+  return <ProfilePosts posts={posts} />
 }
 
 export default Posts

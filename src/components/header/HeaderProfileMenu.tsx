@@ -40,7 +40,7 @@ export function HeaderProfileMenu({ imgSrc }: HeaderProfileMenuType): JSX.Elemen
     axios.defaults.headers.common.Authorization = ''
     sessionStorage.clear()
     setIsLoggedIn(false)
-    navigate('/')
+    navigate('/', { replace: false })
   }
 
   return (
@@ -49,7 +49,7 @@ export function HeaderProfileMenu({ imgSrc }: HeaderProfileMenuType): JSX.Elemen
       <div className='profile_menu__container'>
         <div className='profile_menu' onClick={handleDropdownMenuOpen}>
           <div className='profile_menu__picture_container'>
-            <img className='profile_menu__picture' src={ProfileImage} alt='profile' />
+            <img className='profile_menu__picture' src={imgSrc} alt='profile' />
           </div>
         </div>
         <div className={`profile_menu__dropdown ${open ? 'profile_menu__dropdown--open' : ''}`}>

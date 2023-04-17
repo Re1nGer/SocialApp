@@ -5,7 +5,7 @@ import { axios } from '../../axios'
 import useDebounce from '../../hooks/useDebounce'
 import { SearchbarResult } from './SearchbarResult'
 
-type Users = {
+interface IUser {
   id: number
   username: string
   picture: string
@@ -16,9 +16,11 @@ function Searchbar(): JSX.Element {
 
   const [isLoading, setIsLoading] = useState<boolean>(false)
 
+  const [isResultOpen, setIsResultOpen] = useState<boolean>(false)
+
   const debouncedValue = useDebounce<string>(inputValue, 500)
 
-  const [users, setUsers] = useState<Users[]>([])
+  const [users, setUsers] = useState<IUser[]>([])
 
   const handleInputChange = async (event: ChangeEvent<HTMLInputElement>) => {
     setInputValue(event.target.value)
@@ -27,13 +29,17 @@ function Searchbar(): JSX.Element {
   const fetchUsers = async (keyword: string): Promise<void> => {
     try {
       setIsLoading(true)
-      const { data } = await axios.get<Users[]>(`/api/v1/user/list?q=${keyword}`)
+      const { data } = await axios.get<IUser[]>(`/api/v1/user/list?q=${keyword}`)
       setUsers(data)
     } catch (error) {
       console.log(error)
     } finally {
       setIsLoading(false)
     }
+  }
+
+  const handleResultClick = () => {
+    setIsResultOpen(false)
   }
 
   useEffect(() => {
@@ -52,7 +58,7 @@ function Searchbar(): JSX.Element {
       {users.length > 0 ? (
         <div className='searchbar__results'>
           {users.map((item) => (
-            <SearchbarResult key={item.id} {...item} />
+            <SearchbarResult key={item.id} {...item} handleResultClick={handleResultClick} />
           ))}
         </div>
       ) : null}
