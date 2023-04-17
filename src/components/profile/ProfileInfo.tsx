@@ -1,4 +1,4 @@
-import './Profile.css'
+import './Profile.scss'
 import { Icon } from '@iconify/react'
 import { ChangeEvent, useState, useEffect } from 'react'
 import { axios } from '../../axios'

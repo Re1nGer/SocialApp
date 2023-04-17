@@ -1,4 +1,4 @@
-import './Profile.css'
+import './Profile.scss'
 import ProfileHeaderImage from '../../assets/profileHeaderImage.jpg'
 
 function ProfileImage(): JSX.Element {

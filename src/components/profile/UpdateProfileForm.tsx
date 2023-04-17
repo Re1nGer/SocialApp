@@ -1,5 +1,5 @@
 import { SubmitHandler, useForm } from 'react-hook-form'
-import './Profile.css'
+import './Profile.scss'
 
 export type ProfileFormType = {
   username: string

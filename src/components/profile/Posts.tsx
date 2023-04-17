@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Icon } from '@iconify/react'
-import './Profile.css'
+import './Profile.scss'
 import Post from './PostCard'
 import { axios } from '../../axios'
 import { AnimatedPostInView } from './AnimatedPostInView'
