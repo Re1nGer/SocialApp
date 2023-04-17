@@ -1,76 +1,35 @@
 import './Profile.scss'
 import { Icon } from '@iconify/react'
-import { ChangeEvent, useState, useEffect } from 'react'
-import { axios } from '../../axios'
 import CircleLoader from '../loader/CircleLoader'
 import UpdateProfileForm from './UpdateProfileForm'
+import { IProfileInfo } from './MyProfileContainer'
+import { ChangeEvent } from 'react'
 
-interface IProfileInfo {
-  username: string
-  userImageSrc: string | undefined
-  lowResUserImageSrc: string
+type ProfileInfoPropType = {
+  updateProfileInfo: () => void
+  updateProfileImage: () => void
+  handleProfileImageUpload: (event: ChangeEvent<HTMLInputElement>) => void
+  handleProfileModal: () => void
+  handleCancelUpload: () => void
+  profileInfo: IProfileInfo | null
+  profileImageSrc: string | null
+  profileImage: Blob | null
+  isLoading: boolean
+  isProfileModalOpen: boolean
 }
 
-function ProfileInfo() {
-  const [profileInfo, setProfileInfo] = useState<IProfileInfo | null>(null)
-
-  const [profileImageSrc, setProfileImageSrc] = useState<string | null>(null)
-
-  const [profileImage, setProfileImage] = useState<Blob | null>(null)
-
-  const [isLoading, setIsLoading] = useState<boolean>(false)
-
-  const [isProfileModalOpen, setIsProfileModalOpen] = useState<boolean>(false)
-
-  const handleProfileModal = (): void => {
-    setIsProfileModalOpen((prevstate) => !prevstate)
-  }
-
-  const handleProfileImageUpload = (event: ChangeEvent<HTMLInputElement>) => {
-    if (!event.target.files) return
-    setProfileImageSrc(URL.createObjectURL(event.target.files[0]))
-    setProfileImage(event.target.files[0])
-  }
-
-  const handleCancelUpload = () => {
-    setProfileImage(null)
-    setProfileImageSrc('')
-  }
-
-  const updateProfileImage = async () => {
-    try {
-      const formData = new FormData()
-      formData.append('image', profileImage!)
-      await axios.put('/api/v1/user/image', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      })
-      setProfileImage(null)
-      fetchUserData()
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
-  const fetchUserData = async () => {
-    try {
-      setIsLoading(true)
-      const { data } = await axios.get('/api/v1/user')
-      setProfileInfo(data)
-    } catch (error) {
-      console.log(error)
-    } finally {
-      setIsLoading(false)
-    }
-  }
-
-  const updateProfileInfo = async () => {}
-
-  useEffect(() => {
-    fetchUserData()
-  }, [])
-
+function ProfileInfo({
+  updateProfileInfo,
+  updateProfileImage,
+  handleProfileImageUpload,
+  handleProfileModal,
+  handleCancelUpload,
+  profileInfo,
+  profileImageSrc,
+  profileImage,
+  isLoading,
+  isProfileModalOpen,
+}: ProfileInfoPropType) {
   return (
     <>
       {isProfileModalOpen ? <UpdateProfileForm onSubmit={updateProfileInfo} /> : null}
@@ -101,16 +60,18 @@ function ProfileInfo() {
                   </div>
                 ) : (
                   <>
-                    <input
-                      style={{ display: 'none' }}
-                      aria-labelledby='file-id'
-                      id='file'
-                      accept='image/*'
-                      type='file'
-                      onChange={handleProfileImageUpload}
-                    />
                     <label htmlFor='postfile' id='postfilelabel'>
-                      <span className='profile-info__file-input_btn'>Upload from computer</span>
+                      <button className='profile-info__file-input_btn'>
+                        <input
+                          style={{ display: 'none' }}
+                          aria-labelledby='file-id'
+                          id='file'
+                          accept='image/*'
+                          type='file'
+                          onChange={handleProfileImageUpload}
+                        />
+                        Upload from computer
+                      </button>
                     </label>
                   </>
                 )}

@@ -1,7 +1,7 @@
 import './Profile.scss'
 import ProfileHeaderImage from '../../assets/profileHeaderImage.jpg'
 
-function ProfileImage(): JSX.Element {
+export function ProfileImage(): JSX.Element {
   return (
     <div className='profile-image__wrapper'>
       <div className='profile-image__clear'>
