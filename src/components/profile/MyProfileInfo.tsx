@@ -4,6 +4,7 @@ import CircleLoader from '../loader/CircleLoader'
 import UpdateProfileForm from './UpdateProfileForm'
 import { IProfileInfo } from './MyProfileContainer'
 import { ChangeEvent } from 'react'
+import { AnimatePresence, motion } from 'framer-motion'
 
 type ProfileInfoPropType = {
   updateProfileInfo: () => void
@@ -40,11 +41,16 @@ function MyProfileInfo({
               {isLoading ? (
                 <CircleLoader />
               ) : (
-                <img
-                  className='profile-info__image'
-                  src={profileImageSrc || profileInfo?.userImageSrc}
-                  alt='profile'
-                />
+                <AnimatePresence>
+                  <motion.img
+                    transition={{ ease: 'easeOut', duration: 0.2 }}
+                    initial={{ scale: 0.5 }}
+                    animate={{ scale: 1 }}
+                    className='profile-info__image'
+                    src={profileImageSrc || profileInfo?.userImageSrc}
+                    alt='profile'
+                  />
+                </AnimatePresence>
               )}
 
               <label
