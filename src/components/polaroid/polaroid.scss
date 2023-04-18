@@ -1,0 +1,42 @@
+.polaroid {
+  position: absolute;
+  border: 1px solid darkgrey;
+  background-color: white;
+  padding: 15px 15px 60px 15px;
+
+  &__container {
+    position: absolute;
+    max-height: 400px;
+    max-width: 300px;
+    height: 100%;
+    width: 100%;
+    opacity: 0;
+
+    @media screen and (max-width: 800px) {
+      max-height: 250px;
+      max-width: 175px;
+    }
+  }
+
+  &__caption  {
+    position: relative;
+    color: var(--black);
+    bottom: -1rem;
+    font-style: italic;
+    text-align: center;
+    text-transform: capitalize;
+    font-size: 1.2rem;
+  }
+
+  img {
+    max-height: 400px;
+    max-width: 300px;
+    object-fit: cover;
+
+    @media screen and (max-width: 800px) {
+      max-height: 250px;
+      max-width: 175px;
+    }
+  }
+
+}

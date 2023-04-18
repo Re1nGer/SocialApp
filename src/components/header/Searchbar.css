@@ -2,6 +2,7 @@
   position: relative;
   min-width: 500px;
   border-radius: 5px;
+  display: none;
 }
 
 .searchbar__input {
@@ -57,6 +58,12 @@
 
 .searchbar__input:focus {
   border: 1px solid #6c757d;
+}
+
+@media screen and (min-width: 600px) {
+  .searchbar {
+    display: block;
+  }
 }
 
 @keyframes minExpand {

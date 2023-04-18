@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { AnimatePresence, motion, useInView } from 'framer-motion'
-import { axios } from '../../axios'
+import axios from 'axios'
 import CircleLoader from '../loader/CircleLoader'
 import { FeedPost, FeedPostPropType } from './FeedPost'
 

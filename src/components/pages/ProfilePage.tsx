@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom'
 import { AnimatedPostInView } from '../profile/AnimatedPostInView'
 import Post from '../profile/PostCard'
 import { axios as call } from '../../axios'
+import ProfileImage from '../profile/ProfileImage'
 
 interface IPostType {
   id: number
@@ -12,6 +13,9 @@ interface IPostType {
   likeCount: number
   commentCount: number
 }
+
+const defaultUserImg: string =
+  'https://thumbs.dreamstime.com/b/blank-black-white-image-placeholder-icon-design-178700126.jpg'
 
 function ProfilePage(): JSX.Element {
   const [isLoading, setIsLoading] = useState<boolean>(false)
@@ -53,6 +57,7 @@ function ProfilePage(): JSX.Element {
 
   return (
     <>
+      <ProfileImage />
       <div className='profile-info__container'>
         <div className='profile-info__inner'>
           <div className='profile-info_user-container'>
@@ -62,7 +67,7 @@ function ProfilePage(): JSX.Element {
               ) : (
                 <img
                   className='profile-info__image'
-                  src={profileInfo?.userImageSrc}
+                  src={profileInfo?.userImageSrc || defaultUserImg}
                   alt='profile'
                 />
               )}
@@ -85,6 +90,7 @@ function ProfilePage(): JSX.Element {
       </div>
       <div className='posts__wrapper'>
         {isLoading ? <CircleLoader /> : null}
+        {posts.length === 0 ? <h1 style={{ color: '#fff' }}>No Posts</h1> : null}
         {posts.map((post) => (
           <AnimatedPostInView key={post.id}>
             <Post {...post} />

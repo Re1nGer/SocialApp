@@ -44,6 +44,7 @@ function Searchbar(): JSX.Element {
 
   useEffect(() => {
     fetchUsers(debouncedValue)
+    if (users.length > 0) setIsResultOpen(true)
   }, [debouncedValue])
 
   return (
@@ -55,7 +56,7 @@ function Searchbar(): JSX.Element {
         placeholder='Type in email'
         value={inputValue}
       />
-      {users.length > 0 ? (
+      {users.length > 0 && isResultOpen ? (
         <div className='searchbar__results'>
           {users.map((item) => (
             <SearchbarResult key={item.id} {...item} handleResultClick={handleResultClick} />

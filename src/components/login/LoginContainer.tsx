@@ -1,7 +1,7 @@
 import './Login.css'
 import { useNavigate } from 'react-router-dom'
 import { SubmitHandler } from 'react-hook-form'
-import { useContext, useLayoutEffect, useState, useRef } from 'react'
+import { useContext, useLayoutEffect, useState, useRef, useEffect } from 'react'
 import { useAnimation } from 'framer-motion'
 import LoginForm, { LoginFormType } from './LoginForm'
 import { RevealText } from './RevealText'
@@ -26,6 +26,8 @@ function LoginContainer(): JSX.Element {
   const control = useAnimation()
 
   const [apiErrors, setApiErrors] = useState<ApiErrorType>({ message: '' })
+
+  const [anchor, setAnchor] = useState<number>(300)
 
   const imageRef = useRef(null)
   const image1Ref = useRef(null)
@@ -58,6 +60,10 @@ function LoginContainer(): JSX.Element {
     }
   }
 
+  useEffect(() => {
+    if (window.innerWidth < 600) setAnchor(175)
+  }, [])
+
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
       gsap.to(imageRef.current, {
@@ -69,21 +75,21 @@ function LoginContainer(): JSX.Element {
       gsap.to(image1Ref.current, {
         rotate: '5deg',
         ease: Power3.easeInOut,
-        y: '300',
+        y: anchor,
         duration: 1,
         opacity: 1,
       })
       gsap.to(image2Ref.current, {
         rotate: '-15deg',
         ease: Power3.easeInOut,
-        y: '600',
+        y: 2 * anchor,
         duration: 1,
         opacity: 1,
       })
       gsap.to(image3Ref.current, {
         rotate: '5deg',
         ease: Power3.easeInOut,
-        y: '900',
+        y: 3 * anchor,
         duration: 1,
         opacity: 1,
       })

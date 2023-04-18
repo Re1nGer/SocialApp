@@ -42,7 +42,7 @@ function Header(): JSX.Element {
   }
 
   useEffect(() => {
-    fetchProfileImage()
+    if (isLoggedIn) fetchProfileImage()
   }, [isLoggedIn])
 
   return (

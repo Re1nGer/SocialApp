@@ -27,10 +27,10 @@ export function ThemeContextProvider({ children }: ThemeContextProviderType): JS
     isLightTheme,
     isLoggedIn,
     isChatDrawerOpen,
+    accessToken,
     setIsLightTheme,
     setIsLoggedIn,
     setIsChatDrawerOpen,
-    accessToken,
     setAccessToken,
   }
 
