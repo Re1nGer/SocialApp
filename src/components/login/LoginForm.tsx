@@ -61,9 +61,11 @@ function LoginForm({ onSubmit, apiErrors }: LoginFormPropType): JSX.Element {
           <div className='form-login__signup-link'>
             Don`&apos;t have an account yet ? <Link to='/signup'>Sign Up</Link>
           </div>
-          <button className='form-login__submit' type='submit'>
-            Login
-          </button>
+          <div className='form-login__btn-container'>
+            <button className='form-login__submit' type='submit'>
+              Login
+            </button>
+          </div>
         </section>
       </form>
     </div>

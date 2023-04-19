@@ -23,6 +23,9 @@
 
 .drawer--open {
   width: 350px;
+  @media screen and (max-width: 600px) {
+    width: 100%;
+  }
 }
 
 .drawer__close {
@@ -41,20 +44,6 @@
   margin: 1rem;
   cursor: pointer;
 }
-
-/* .drawer__input-container {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    margin: .5rem 0;
-}
-
-.drawer__input {
-    padding: .5rem;
-    outline: 0;
-    border-radius: .5rem;
-    border: 1px solid var(--bc-login-btn)
-} */
 
 .drawer__results-container {
   display: flex;

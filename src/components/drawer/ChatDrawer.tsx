@@ -1,10 +1,10 @@
-import React, { SyntheticEvent, useContext, useEffect, useState } from 'react'
+import { SyntheticEvent, useContext, useEffect, useState } from 'react'
 
 import { Icon } from '@iconify/react'
 import { ThemeContext } from '../contexts/ThemeContext'
-import TestImage from '../../assets/loveSand.jpg'
+import TestImage from '../../assets/profileHeaderImage.jpg'
 import './animations.css'
-import './Drawer.css'
+import './Drawer.scss'
 
 function ChatDrawer() {
   // const [isDrawerOpen, setIsDrawerOpen] = useState(false);

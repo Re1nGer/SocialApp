@@ -2,12 +2,12 @@ import './Login.css'
 import { useNavigate } from 'react-router-dom'
 import { SubmitHandler } from 'react-hook-form'
 import { useContext, useLayoutEffect, useState, useRef, useEffect } from 'react'
-import { useAnimation } from 'framer-motion'
 import LoginForm, { LoginFormType } from './LoginForm'
 import { RevealText } from './RevealText'
 import { ThemeContext } from '../contexts/ThemeContext'
 import { axios as call } from '../../axios'
 import { gsap, Power3 } from 'gsap'
+import WarframeLoader from '../loader/WarframeLoader'
 import Polaroid from '../polaroid/Polaroid'
 import Girl from '../../assets/girl1.jpg'
 import Girl1 from '../../assets/girl2.jpg'
@@ -23,9 +23,9 @@ function LoginContainer(): JSX.Element {
 
   const { setIsLoggedIn, setAccessToken } = useContext(ThemeContext)
 
-  const control = useAnimation()
-
   const [apiErrors, setApiErrors] = useState<ApiErrorType>({ message: '' })
+
+  const [isLoading, setIsLoading] = useState<boolean>(false)
 
   const [anchor, setAnchor] = useState<number>(300)
 
@@ -36,7 +36,7 @@ function LoginContainer(): JSX.Element {
 
   const onSubmit: SubmitHandler<LoginFormType> = async ({ email, password }, _): Promise<void> => {
     try {
-      control.start({ filter: 'blur(10px)' })
+      setIsLoading(true)
 
       const body = { email, password }
 
@@ -56,7 +56,7 @@ function LoginContainer(): JSX.Element {
 
       setApiErrors(error.response.data.error)
     } finally {
-      control.start({ filter: 'none' })
+      setIsLoading(false)
     }
   }
 
@@ -110,6 +110,7 @@ function LoginContainer(): JSX.Element {
       </div>
       <div className='login__right'>
         <LoginForm onSubmit={onSubmit} apiErrors={apiErrors} />
+        {isLoading ? <WarframeLoader /> : null}
         <RevealText />
       </div>
     </div>
