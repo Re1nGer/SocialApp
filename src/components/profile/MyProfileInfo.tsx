@@ -12,6 +12,7 @@ type ProfileInfoPropType = {
   handleProfileImageUpload: (event: ChangeEvent<HTMLInputElement>) => void
   handleProfileModal: () => void
   handleCancelUpload: () => void
+  setIsProfileModalOpen: (isModalOpen: boolean) => void
   profileInfo: IProfileInfo | null
   profileImageSrc: string | null
   profileImage: Blob | null
@@ -25,6 +26,7 @@ function MyProfileInfo({
   handleProfileImageUpload,
   handleProfileModal,
   handleCancelUpload,
+  setIsProfileModalOpen,
   profileInfo,
   profileImageSrc,
   profileImage,
@@ -33,7 +35,9 @@ function MyProfileInfo({
 }: ProfileInfoPropType) {
   return (
     <>
-      {isProfileModalOpen ? <UpdateProfileForm onSubmit={updateProfileInfo} /> : null}
+      {isProfileModalOpen ? (
+        <UpdateProfileForm onSubmit={updateProfileInfo} setIsModalOpen={setIsProfileModalOpen} />
+      ) : null}
       <div className='profile-info__container'>
         <div className='profile-info__inner'>
           <div className='profile-info_user-container'>

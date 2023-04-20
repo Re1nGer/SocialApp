@@ -324,11 +324,13 @@
   margin: 1rem 0;
 }
 
+//profile form
 .profile__form-overlay {
   max-height: 1920px;
   position: absolute;
   max-width: 2000px;
-  height: 100vh;
+  height: 100%;
+  filter: blur(5px);
   width: 100%;
   background: rgba(0, 0, 0, 0.4);
   z-index: 10;
@@ -344,8 +346,9 @@
   left: 0;
   right: 0;
   border-radius: 10px;
-  background: var(--gray-extra-dark);
+  background: transparent;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  border: 1px solid #fff;
   padding: 20px;
   max-width: 500px;
   margin: 0 auto;

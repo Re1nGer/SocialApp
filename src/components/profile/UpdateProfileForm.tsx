@@ -10,13 +10,18 @@ const defaultValues: ProfileFormType = { username: '', bio: '' }
 
 type LoginFormPropType = {
   onSubmit: SubmitHandler<ProfileFormType>
+  setIsModalOpen: (isModalOpen: boolean) => void
 }
-const UpdateProfileForm = ({ onSubmit }: LoginFormPropType) => {
+const UpdateProfileForm = ({ onSubmit, setIsModalOpen }: LoginFormPropType) => {
   const { register, handleSubmit } = useForm<ProfileFormType>({ defaultValues })
+
+  const handleModal = (): void => {
+    setIsModalOpen(false)
+  }
 
   return (
     <>
-      <div className='profile__form-overlay'></div>
+      <div className='profile__form-overlay' onClick={handleModal}></div>
       <form className='profile__form' onSubmit={handleSubmit(onSubmit)}>
         <h4 className='profile__form-title'>Update Profile</h4>
         <div className='profile__form-username_wrapper'>

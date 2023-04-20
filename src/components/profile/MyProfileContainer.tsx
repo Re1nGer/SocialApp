@@ -75,6 +75,7 @@ function MyProfilePageContainer() {
       profileImage={profileImage}
       isLoading={isLoading}
       isProfileModalOpen={isProfileModalOpen}
+      setIsProfileModalOpen={setIsProfileModalOpen}
       updateProfileImage={updateProfileImage}
       handleCancelUpload={handleCancelUpload}
       handleProfileModal={handleProfileModal}
