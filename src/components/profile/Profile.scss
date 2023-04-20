@@ -91,6 +91,15 @@
     display: flex;
   }
 
+  &__follow-btn {
+    padding: 0.5rem;
+    border: 1px solid #fff;
+    background: transparent;
+    color: #fff;
+    cursor: pointer;
+    transition: all 0.2s linear;
+  }
+
 }
 
 /* profile info */

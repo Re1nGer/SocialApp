@@ -84,18 +84,21 @@ function ProfilePage(): JSX.Element {
                   @Otheruser
                 </a>
               </p>
+              <button className='profile-info__follow-btn'>Follow</button>
             </div>
           </div>
         </div>
       </div>
-      <div className='posts__wrapper'>
-        {isLoading ? <CircleLoader /> : null}
-        {posts.length === 0 ? <h1 style={{ color: '#fff' }}>No Posts</h1> : null}
-        {posts.map((post) => (
-          <AnimatedPostInView key={post.id}>
-            <Post {...post} />
-          </AnimatedPostInView>
-        ))}
+      <div className='posts__container'>
+        <div className='posts__wrapper'>
+          {isLoading ? <CircleLoader /> : null}
+          {posts.length === 0 ? <h1 style={{ color: '#fff' }}>No Posts</h1> : null}
+          {posts.map((post) => (
+            <AnimatedPostInView key={post.id}>
+              <Post {...post} />
+            </AnimatedPostInView>
+          ))}
+        </div>
       </div>
     </>
   )
