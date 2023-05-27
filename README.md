@@ -65,6 +65,13 @@ The app should now be running on [http://127.0.0.1:5173/](http://127.0.0.1:5173)
 - DM chat
 - Real-time news updates from ChatterAPI
 
+## Images
+
+![image](https://github.com/Re1nGer/SocialApp/assets/63101847/546b5a4b-5e39-4989-99a2-e45f55cb8d4f)
+
+
+
+
 ## Contributing
 
 If you are interested in contributing to this project, please fork the repository and submit a pull request. We welcome contributions of all types, including bug fixes, feature requests, and documentation improvements.
