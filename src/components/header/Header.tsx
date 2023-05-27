@@ -1,4 +1,4 @@
-import './Header.css'
+import './Header.scss'
 import './ProfileMenu.css'
 import { useContext, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
@@ -19,6 +19,8 @@ function Header(): JSX.Element {
   const { isLightTheme, isLoggedIn, setIsChatDrawerOpen } = useContext(ThemeContext)
 
   const [imageSrc, setImageSrc] = useState<string>('')
+
+  const [followRequestsCount, setFollowRequestsCount] = useState<number>(0);
 
   const navigate = useNavigate()
 
@@ -41,8 +43,20 @@ function Header(): JSX.Element {
     }
   }
 
+  const fetchNotifications = async (): Promise<void> => {
+    try {
+      const { data } = await call.get<any[]>("/api/v1/follow/requests");
+      setFollowRequestsCount(data.length);
+    } catch(error) {
+      console.log(error);
+    }
+  }
+
   useEffect(() => {
-    if (isLoggedIn) fetchProfileImage()
+    if (isLoggedIn) {
+      fetchProfileImage()
+      fetchNotifications()
+    } 
   }, [isLoggedIn])
 
   return (
@@ -55,7 +69,15 @@ function Header(): JSX.Element {
         </div>
         {isLoggedIn ? <Searchbar /> : null}
         <div className='header__right'>
-          {isLoggedIn ? <HeaderProfileMenu imgSrc={imageSrc} /> : null}
+          {isLoggedIn ? (
+            <>
+              <div className='notification__wrapper'>
+                <Icon icon="ph:bell-bold" fontSize='25px' />
+                <button className='notification__badge'>{followRequestsCount}</button>
+              </div>
+              <HeaderProfileMenu imgSrc={imageSrc} />
+            </>
+          ) : null}
           {isLoggedIn ? (
             <div className='header__right-chat_icon'>
               <Icon icon='ph:paper-plane-tilt-bold' fontSize='25px' onClick={handleDrawerOpen} />

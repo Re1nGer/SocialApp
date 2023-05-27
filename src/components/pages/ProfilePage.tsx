@@ -4,7 +4,7 @@ import { IProfileInfo } from '../profile/MyProfileContainer'
 import { useParams } from 'react-router-dom'
 import { AnimatedPostInView } from '../profile/AnimatedPostInView'
 import Post from '../profile/PostCard'
-import { axios as call } from '../../axios'
+import { axios, axios as call } from '../../axios'
 import ProfileImage from '../profile/ProfileImage'
 
 interface IPostType {
@@ -18,7 +18,12 @@ const defaultUserImg: string =
   'https://thumbs.dreamstime.com/b/blank-black-white-image-placeholder-icon-design-178700126.jpg'
 
 function ProfilePage(): JSX.Element {
+
   const [isLoading, setIsLoading] = useState<boolean>(false)
+
+  const [isFollowing, setIsFollowing] = useState<boolean>(false)
+
+  const [isFollowRequestSent, setIsFollowRequestSent] = useState<boolean>(false)
 
   const [profileInfo, setProfileInfo] = useState<IProfileInfo>()
 
@@ -50,8 +55,30 @@ function ProfilePage(): JSX.Element {
     }
   }
 
+  const handleFollow = async () => {
+    try {
+      const body = { targetUserId: userId };
+      await axios.post("/api/v1/follow", body);
+      setIsFollowRequestSent(true)
+
+    } catch (error) {
+      console.log(error);
+      setIsFollowRequestSent(false)
+    }
+  }
+
+  const fetchStatusFollowing = async () => {
+    try {
+      const { data } = await call.get<string>(`/api/v1/follow/isfollowing/${userId}`)
+      setIsFollowing(data === "true" ? true : false)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   useEffect(() => {
     fetchUserInfo()
+    fetchStatusFollowing()
     fetchUserPosts()
   }, [])
 
@@ -84,7 +111,13 @@ function ProfilePage(): JSX.Element {
                   @Otheruser
                 </a>
               </p>
-              <button className='profile-info__follow-btn'>Follow</button>
+              { isFollowing ? (
+                <p>You follow this user</p>
+              ) : (
+                <button className='profile-info__follow-btn' onClick={handleFollow}>
+                  { isFollowRequestSent ? "Request has been sent" : "Follow" }
+                </button>
+              ) }
             </div>
           </div>
         </div>

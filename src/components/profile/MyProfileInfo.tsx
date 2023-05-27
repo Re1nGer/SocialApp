@@ -20,6 +20,9 @@ type ProfileInfoPropType = {
   isProfileModalOpen: boolean
 }
 
+const defaultUserImg: string =
+  'https://thumbs.dreamstime.com/b/blank-black-white-image-placeholder-icon-design-178700126.jpg'
+
 function MyProfileInfo({
   updateProfileInfo,
   updateProfileImage,
@@ -28,7 +31,6 @@ function MyProfileInfo({
   handleCancelUpload,
   setIsProfileModalOpen,
   profileInfo,
-  profileImageSrc,
   profileImage,
   isLoading,
   isProfileModalOpen,
@@ -51,7 +53,7 @@ function MyProfileInfo({
                     initial={{ scale: 0.5 }}
                     animate={{ scale: 1 }}
                     className='profile-info__image'
-                    src={profileImageSrc || profileInfo?.userImageSrc}
+                    src={profileInfo!.lowResUserImageSrc || defaultUserImg}
                     alt='profile'
                   />
                 </AnimatePresence>
