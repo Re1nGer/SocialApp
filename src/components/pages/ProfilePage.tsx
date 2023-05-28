@@ -23,6 +23,8 @@ function ProfilePage(): JSX.Element {
 
   const [isFollowing, setIsFollowing] = useState<boolean>(false)
 
+  const [isBlocked, setIsBlocked] = useState<boolean>(false)
+
   const [isFollowRequestSent, setIsFollowRequestSent] = useState<boolean>(false)
 
   const [profileInfo, setProfileInfo] = useState<IProfileInfo>()
@@ -76,10 +78,20 @@ function ProfilePage(): JSX.Element {
     }
   }
 
+  const fetchIsBlocked = async () => {
+    try {
+      const { data } = await call.get(`/api/v1/user/isblocked/${userId}`);
+      setIsBlocked(data)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   useEffect(() => {
     fetchUserInfo()
     fetchStatusFollowing()
     fetchUserPosts()
+    fetchIsBlocked()
   }, [])
 
   return (
@@ -118,6 +130,10 @@ function ProfilePage(): JSX.Element {
                   { isFollowRequestSent ? "Request has been sent" : "Follow" }
                 </button>
               ) }
+              <br />
+              { isBlocked ? (
+                <p>You blocked this user</p>
+              ) : <button className='profile-info__follow-btn'>Block this user</button> }
             </div>
           </div>
         </div>
