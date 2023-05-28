@@ -1,7 +1,6 @@
 import { useContext, useState } from 'react'
 import { Icon } from '@iconify/react'
 import { useNavigate } from 'react-router-dom'
-import ProfileImage from '../../assets/profileImage.jpg'
 import { ThemeContext } from '../contexts/ThemeContext'
 import { axios } from '../../axios'
 
@@ -14,7 +13,7 @@ export function HeaderProfileMenu({ imgSrc }: HeaderProfileMenuType): JSX.Elemen
 
   const navigate = useNavigate()
 
-  const [open, setOpen] = useState(false)
+  const [open, setOpen] = useState<boolean>(false)
 
   const handleDropdownOverlayClose = () => {
     setOpen(false)
@@ -59,7 +58,7 @@ export function HeaderProfileMenu({ imgSrc }: HeaderProfileMenuType): JSX.Elemen
           </div>
           <div
             className='profile_menu__dropdown-item'
-            onClick={() => setIsLightTheme((prevState: boolean) => !prevState)}
+            onClick={() => setIsLightTheme((prevState) => !prevState)}
           >
             <Icon fontSize={16} icon='mdi:weather-sunset-down' />
             Light Mode

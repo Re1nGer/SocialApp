@@ -4,12 +4,8 @@ import { useState, ChangeEvent, useEffect } from 'react'
 import { axios } from '../../axios'
 import useDebounce from '../../hooks/useDebounce'
 import { SearchbarResult } from './SearchbarResult'
+import IUser from '../../types/IUser'
 
-interface IUser {
-  id: number
-  username: string
-  picture: string
-}
 
 function Searchbar(): JSX.Element {
   const [inputValue, setInputValue] = useState<string>('')
@@ -26,6 +22,7 @@ function Searchbar(): JSX.Element {
     setInputValue(event.target.value)
   }
 
+  //TODO: add pagination
   const fetchUsers = async (keyword: string): Promise<void> => {
     try {
       setIsLoading(true)
@@ -56,13 +53,13 @@ function Searchbar(): JSX.Element {
         placeholder='Type in email'
         value={inputValue}
       />
-      {users.length > 0 && isResultOpen ? (
+      { users.length > 0 && isResultOpen ? (
         <div className='searchbar__results'>
           {users.map((item) => (
             <SearchbarResult key={item.id} {...item} handleResultClick={handleResultClick} />
           ))}
         </div>
-      ) : null}
+      ) : null }
     </div>
   )
 }

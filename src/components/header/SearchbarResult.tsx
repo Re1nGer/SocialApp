@@ -7,14 +7,14 @@ const defaultUserImg =
 type SearchbarResultType = {
   id: number
   username: string
-  picture: string
+  lowResUserImageSrc: string
   handleResultClick: () => void
 }
 
 export const SearchbarResult = ({
   id,
   username,
-  picture,
+  lowResUserImageSrc,
   handleResultClick,
 }: SearchbarResultType): JSX.Element => {
   return (
@@ -22,7 +22,7 @@ export const SearchbarResult = ({
       <div className='searchbar__result' key={id}>
         <img
           className='searchbar__result-img'
-          src={picture ? toImgSrc(picture) : defaultUserImg}
+          src={lowResUserImageSrc ? toImgSrc(lowResUserImageSrc) : defaultUserImg}
           alt='search'
         />
         <div className='searchbar__result'>{username}</div>

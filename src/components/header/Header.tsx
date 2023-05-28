@@ -1,5 +1,5 @@
 import './Header.scss'
-import './ProfileMenu.css'
+import './ProfileMenu.scss'
 import { useContext, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Icon } from '@iconify/react'
@@ -10,6 +10,7 @@ import { ThemeContext } from '../contexts/ThemeContext'
 import ChatDrawer from '../drawer/ChatDrawer'
 import Searchbar from './Searchbar'
 import { axios as call } from '../../axios'
+import HeaderNotificationMenu from './HeaderNotificationMenu'
 
 interface IUserImage {
   lowResUserImageSrc: string
@@ -19,8 +20,6 @@ function Header(): JSX.Element {
   const { isLightTheme, isLoggedIn, setIsChatDrawerOpen } = useContext(ThemeContext)
 
   const [imageSrc, setImageSrc] = useState<string>('')
-
-  const [followRequestsCount, setFollowRequestsCount] = useState<number>(0);
 
   const navigate = useNavigate()
 
@@ -43,19 +42,10 @@ function Header(): JSX.Element {
     }
   }
 
-  const fetchNotifications = async (): Promise<void> => {
-    try {
-      const { data } = await call.get<any[]>("/api/v1/follow/requests");
-      setFollowRequestsCount(data.length);
-    } catch(error) {
-      console.log(error);
-    }
-  }
 
   useEffect(() => {
     if (isLoggedIn) {
       fetchProfileImage()
-      fetchNotifications()
     } 
   }, [isLoggedIn])
 
@@ -71,10 +61,7 @@ function Header(): JSX.Element {
         <div className='header__right'>
           {isLoggedIn ? (
             <>
-              <div className='notification__wrapper'>
-                <Icon icon="ph:bell-bold" fontSize='25px' />
-                <button className='notification__badge'>{followRequestsCount}</button>
-              </div>
+              <HeaderNotificationMenu />
               <HeaderProfileMenu imgSrc={imageSrc} />
             </>
           ) : null}

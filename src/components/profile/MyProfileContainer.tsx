@@ -9,6 +9,7 @@ export interface IProfileInfo {
 }
 
 function MyProfilePageContainer() {
+
   const [profileInfo, setProfileInfo] = useState<IProfileInfo | null>(null)
 
   const [profileImageSrc, setProfileImageSrc] = useState<string | null>(null)

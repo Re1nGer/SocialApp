@@ -8,8 +8,9 @@ export function HeaderHamburgerMenu({ isLightTheme }: HeaderHamburgerMenuPropTyp
   const [open, setOpen] = useState<boolean>(false)
 
   return (
-    <div className='ham_menu' onClick={() => setOpen((prevState) => !prevState)}>
+    <nav className='ham_menu' onClick={() => setOpen((prevState) => !prevState)}>
       <span
+        role='button'
         className={`ham_menu__bar ham_menu__bar_first
                     ${open ? 'ham_menu__bar_first--open' : null}
                     ${isLightTheme ? 'ham_menu__bar--light' : null}`}
@@ -17,17 +18,20 @@ export function HeaderHamburgerMenu({ isLightTheme }: HeaderHamburgerMenuPropTyp
         {' '}
       </span>
       <span
+        role='button'
         className={`ham_menu__bar ham_menu__bar_second ${open ? 'ham_menu__bar_second--open' : null}
                     ${isLightTheme ? 'ham_menu__bar--light' : null}`}
       />
       <span
+        role='button'
         className={`ham_menu__bar ham_menu__bar_third ${open ? 'ham_menu__bar_third--open' : null}
                     ${isLightTheme ? 'ham_menu__bar--light' : null}`}
       />
       <span
+        role='button'
         className={`ham_menu__bar ham_menu__bar_fourth ${open ? 'ham_menu__bar_fourth--open' : null}
                     ${isLightTheme ? 'ham_menu__bar--light' : null}`}
       />
-    </div>
+    </nav>
   )
 }

@@ -31,6 +31,7 @@ function MyProfileInfo({
   handleCancelUpload,
   setIsProfileModalOpen,
   profileInfo,
+  profileImageSrc,
   profileImage,
   isLoading,
   isProfileModalOpen,
@@ -53,7 +54,7 @@ function MyProfileInfo({
                     initial={{ scale: 0.5 }}
                     animate={{ scale: 1 }}
                     className='profile-info__image'
-                    src={profileInfo!.lowResUserImageSrc || defaultUserImg}
+                    src={profileImageSrc || profileInfo?.lowResUserImageSrc || defaultUserImg}
                     alt='profile'
                   />
                 </AnimatePresence>
