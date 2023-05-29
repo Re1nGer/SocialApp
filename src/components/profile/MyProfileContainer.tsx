@@ -1,12 +1,8 @@
 import { ChangeEvent, useEffect, useState } from 'react'
 import { axios } from '../../axios'
 import MyProfileInfo from './MyProfileInfo'
+import IProfileInfo from '../../types/IProfileInfo'
 
-export interface IProfileInfo {
-  username: string
-  userImageSrc: string | undefined
-  lowResUserImageSrc: string
-}
 
 function MyProfilePageContainer() {
 

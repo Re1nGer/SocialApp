@@ -7,10 +7,12 @@ export type ThemeContextType = {
   isLoggedIn: boolean
   isChatDrawerOpen: boolean
   accessToken: string | null
+  chatId: string | null,
   setIsLightTheme: (state: boolean) => void
   setIsLoggedIn: (state: boolean) => void
   setIsChatDrawerOpen: (state: boolean) => void
   setAccessToken: (state: string) => void
+  setChatId: (state: string | null) => void
 }
 
 type ThemeContextProviderType = {
@@ -22,16 +24,19 @@ export function ThemeContextProvider({ children }: ThemeContextProviderType): JS
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false)
   const [isChatDrawerOpen, setIsChatDrawerOpen] = useState<boolean>(false)
   const [accessToken, setAccessToken] = useState<string | null>(null)
+  const [chatId, setChatId] = useState<string | null>(null)
 
   const value: ThemeContextType = {
     isLightTheme,
     isLoggedIn,
     isChatDrawerOpen,
     accessToken,
+    chatId,
     setIsLightTheme,
     setIsLoggedIn,
     setIsChatDrawerOpen,
     setAccessToken,
+    setChatId
   }
 
   return <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>

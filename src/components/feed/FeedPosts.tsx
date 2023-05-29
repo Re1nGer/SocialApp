@@ -1,12 +1,13 @@
 import { useEffect, useRef, useState } from 'react'
 import { AnimatePresence, motion, useInView } from 'framer-motion'
-import axios from 'axios'
+import { axios as call } from '../../axios'
 import CircleLoader from '../loader/CircleLoader'
 import { FeedPost, FeedPostPropType } from './FeedPost'
 
 // const api_key = import.meta.env.VITE_API_KEY;
 
 export function FeedPosts(): JSX.Element {
+
   const lastPost = useRef(null)
 
   const [isLoading, setIsLoading] = useState<boolean>(true)
@@ -21,12 +22,8 @@ export function FeedPosts(): JSX.Element {
     try {
       setIsLoading(true)
       // for some weird reason mode property fixes cors issue but it complains in typescript
-      const { data } = await axios.get(
-        `https://newsdata.io/api/1/news?apikey=pub_1913720dc694a6785104bd3ff53a6d15db5c7&q=science&page=${nextPageToken}`,
-        { withCredentials: false },
-      )
-      setNews((prev) => prev.concat(data.results))
-      setNextPageToken(data.nextPage)
+      const { data } = await call.get("/api/v1/feed")
+      setNews(data)
     } catch (error) {
       console.log(error)
     } finally {

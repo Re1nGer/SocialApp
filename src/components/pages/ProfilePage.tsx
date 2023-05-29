@@ -1,11 +1,13 @@
 import CircleLoader from '../loader/CircleLoader'
-import { useEffect, useState } from 'react'
-import { IProfileInfo } from '../profile/MyProfileContainer'
+import { useContext, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { AnimatedPostInView } from '../profile/AnimatedPostInView'
 import Post from '../profile/PostCard'
 import { axios, axios as call } from '../../axios'
 import ProfileImage from '../profile/ProfileImage'
+import { ProfileInfo } from './ProfileInfo'
+import IProfileInfo from '../../types/IProfileInfo'
+import { ThemeContext } from '../contexts/ThemeContext'
 
 interface IPostType {
   id: number
@@ -14,7 +16,7 @@ interface IPostType {
   commentCount: number
 }
 
-const defaultUserImg: string =
+export const defaultUserImg: string =
   'https://thumbs.dreamstime.com/b/blank-black-white-image-placeholder-icon-design-178700126.jpg'
 
 function ProfilePage(): JSX.Element {
@@ -28,6 +30,8 @@ function ProfilePage(): JSX.Element {
   const [isFollowRequestSent, setIsFollowRequestSent] = useState<boolean>(false)
 
   const [profileInfo, setProfileInfo] = useState<IProfileInfo>()
+
+  const { setIsChatDrawerOpen, setChatId } = useContext(ThemeContext)
 
   const [posts, setPosts] = useState<IPostType[]>([])
 
@@ -62,7 +66,6 @@ function ProfilePage(): JSX.Element {
       const body = { targetUserId: userId };
       await axios.post("/api/v1/follow", body);
       setIsFollowRequestSent(true)
-
     } catch (error) {
       console.log(error);
       setIsFollowRequestSent(false)
@@ -87,6 +90,15 @@ function ProfilePage(): JSX.Element {
     }
   }
 
+  const handleStartConversation = async () => {
+    setIsChatDrawerOpen(true)
+    try { 
+      
+     } catch (error) {
+      console.log(error)
+     }
+  }
+
   useEffect(() => {
     fetchUserInfo()
     fetchStatusFollowing()
@@ -97,47 +109,15 @@ function ProfilePage(): JSX.Element {
   return (
     <>
       <ProfileImage />
-      <div className='profile-info__container'>
-        <div className='profile-info__inner'>
-          <div className='profile-info_user-container'>
-            <div className='profile-info__image-container'>
-              {isLoading ? (
-                <CircleLoader />
-              ) : (
-                <img
-                  className='profile-info__image'
-                  src={profileInfo?.userImageSrc || defaultUserImg}
-                  alt='profile'
-                />
-              )}
-            </div>
-
-            <div className='profile-info__details'>
-              <h1 className='profile-info__username'>{profileInfo?.username}</h1>
-              <p className='profile-info__bio'>
-                Welcome to my profile ♡
-                <br />
-                Follow me plz
-                <br />
-                <a className='profile-info__link' href='#'>
-                  @Otheruser
-                </a>
-              </p>
-              { isFollowing ? (
-                <p>You follow this user</p>
-              ) : (
-                <button className='profile-info__follow-btn' onClick={handleFollow}>
-                  { isFollowRequestSent ? "Request has been sent" : "Follow" }
-                </button>
-              ) }
-              <br />
-              { isBlocked ? (
-                <p>You blocked this user</p>
-              ) : <button className='profile-info__follow-btn'>Block this user</button> }
-            </div>
-          </div>
-        </div>
-      </div>
+      <ProfileInfo
+        isLoading={isLoading}
+        profileInfo={profileInfo}
+        isFollowing={isFollowing}
+        handleFollow={handleFollow}
+        handleStartConversation={handleStartConversation}
+        isFollowRequestSent={isFollowRequestSent}
+        isBlocked={isBlocked}
+      />
       <div className='posts__container'>
         <div className='posts__wrapper'>
           {isLoading ? <CircleLoader /> : null}
@@ -154,3 +134,6 @@ function ProfilePage(): JSX.Element {
 }
 
 export default ProfilePage
+
+
+

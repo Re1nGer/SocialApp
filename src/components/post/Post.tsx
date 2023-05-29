@@ -144,53 +144,11 @@ function Post() {
     return <CircleLoader />
   }
 
+  //Extract out into separate component 
   return (
     <div className='post'>
       <div className='post__inner'>
-        <div className='post__location'>
-          <Icon fontSize={20} icon='material-symbols:location-on' />
-          San Francisko
-        </div>
-        <div className='post__img-container'>
-          {isHighQualityImageLoading ? (
-            <BlurredImage src={lowResImage} alt='blurred' />
-          ) : (
-            <img className='post__img' src={highResImage} alt='post' loading='lazy' />
-          )}
-        </div>
-        <div className='post__info'>
-          <div className='post__likes'>
-            {like ? (
-              <Icon
-                icon='mdi:cards-heart'
-                className='post__likes-icon'
-                fontSize={20}
-                onClick={deleteLike}
-              />
-            ) : (
-              <Icon
-                className='post__likes-icon'
-                fontSize={20}
-                icon='mdi:cards-heart-outline'
-                onClick={putLikeToPost}
-              />
-            )}
-            {likeCount}
-          </div>
-          <div className='post__comments'>
-            <Icon
-              className='post__comments-icon'
-              fontSize={20}
-              icon='uil:comment'
-              onClick={handleShowCommentForm}
-            />
-            {post?.commentCount}
-          </div>
-          <div className='post__share'>
-            <Icon className='post__share-icon' icon='ph:share-fat-thin' fontSize={20} />
-          </div>
-        </div>
-        <div className='post__description'>{post?.htmlContent}</div>
+{/*         <PostComponent /> */}
         {isCommentFormShown ? (
           <AnimatedCommentForm
             onSubmit={handleCommentFormSubmit}
@@ -221,6 +179,7 @@ type CommentType = {
   postId: number
   userId: number
 }
+
 
 function CommentSection({ postId }: CommentSectionPropType): JSX.Element {
   const [isLoading, setIsLoading] = useState<boolean>(false)
@@ -275,5 +234,80 @@ function CommentSection({ postId }: CommentSectionPropType): JSX.Element {
 }
 
 const AnimatedComment = motion(Comment)
+
+type PostComponentPropType = {
+  lowResImage: string,
+  highResImage: string,
+  likeCount: number,
+  like: boolean,
+  commentCount:number,
+  postContent:string,
+  isHighQualityImageLoading:boolean,
+  deleteLike: () => Promise<void>
+  putLikeToPost: () => Promise<void>
+  handleShowCommentForm: () => Promise<void>
+}
+
+const PostComponent = ({
+    lowResImage,
+    highResImage,
+    postContent,
+    commentCount,
+    like,
+    likeCount,
+    isHighQualityImageLoading,
+    deleteLike,
+    putLikeToPost,
+    handleShowCommentForm
+  } : PostComponentPropType):JSX.Element => {
+
+  return <>
+        <div className='post__location'>
+          <Icon fontSize={20} icon='material-symbols:location-on' />
+          San Francisko
+        </div>
+        <div className='post__img-container'>
+          {isHighQualityImageLoading ? (
+            <BlurredImage src={lowResImage} alt='blurred' />
+          ) : (
+            <img className='post__img' src={highResImage} alt='post' loading='lazy' />
+          )}
+        </div>
+        <div className='post__info'>
+          <div className='post__likes'>
+            {like ? (
+              <Icon
+                icon='mdi:cards-heart'
+                className='post__likes-icon'
+                fontSize={20}
+                onClick={deleteLike}
+              />
+            ) : (
+              <Icon
+                className='post__likes-icon'
+                fontSize={20}
+                icon='mdi:cards-heart-outline'
+                onClick={putLikeToPost}
+              />
+            )}
+            {likeCount}
+          </div>
+          <div className='post__comments'>
+            <Icon
+              className='post__comments-icon'
+              fontSize={20}
+              icon='uil:comment'
+              onClick={handleShowCommentForm}
+            />
+            {commentCount}
+          </div>
+          <div className='post__share'>
+            <Icon className='post__share-icon' icon='ph:share-fat-thin' fontSize={20} />
+          </div>
+        </div>
+        <div className='post__description'>{postContent}</div>
+
+  </>
+}
 
 export default Post
