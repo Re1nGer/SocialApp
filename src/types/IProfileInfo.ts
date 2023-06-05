@@ -1,7 +1,9 @@
 interface IProfileInfo {
   username: string
   userImageSrc: string | undefined
-  lowResUserImageSrc: string
+  lowResImageLink: string
+  highResImageLink: string
+  profileBackgroundImageLink: string
 }
 
 export default IProfileInfo

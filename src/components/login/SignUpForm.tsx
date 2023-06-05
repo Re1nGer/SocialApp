@@ -1,6 +1,5 @@
 import { useNavigate, Link } from 'react-router-dom'
 import { ChangeEvent, FormEvent, useContext, useState } from 'react'
-
 import axios, { AxiosError } from 'axios'
 import { ThemeContext } from '../contexts/ThemeContext'
 import { axios as call } from '../../axios'
@@ -53,24 +52,24 @@ function SignUpForm(): JSX.Element {
   }
 
   return (
-    <div className='form__login'>
-      <form className='form__wrapper' onSubmit={onSubmit}>
-        <h1 className='form__title'>Sign Up</h1>
-        {error ? <h1 className='form__title'>Error !!!</h1> : null}
+    <div className='flex justify-center h-[50%]'>
+      <form className='flex flex-col gap-3' onSubmit={onSubmit}>
+        <h1 className='text-lg text-center'>Sign Up</h1>
+        {error ? <h1 className='text-red-500'>Error !!!</h1> : null}
         <input
-          className='form__email'
+          className='p-3 rounded-lg'
           name='email'
           placeholder='email'
           onChange={handleEmailChange}
         />
         <input
-          className='form__password'
+          className='p-3 rounded-lg'
           name='password'
           type='password'
           onChange={handlePasswordChange}
           placeholder='password'
         />
-        <button className='form__btn' type='submit'>
+        <button className='bg-black text-white p-3 rounded-lg' type='submit'>
           Sign Up
         </button>
         <div className='form__signup-link'>

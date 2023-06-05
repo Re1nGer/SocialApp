@@ -4,15 +4,15 @@ import MyProfileInfo from './MyProfileInfo'
 import IProfileInfo from '../../types/IProfileInfo'
 
 
-function MyProfilePageContainer() {
+type MyProfilePageContainerPropsType = {
+  profileInfo: IProfileInfo | null
+}
 
-  const [profileInfo, setProfileInfo] = useState<IProfileInfo | null>(null)
+function MyProfilePageContainer({ profileInfo }: MyProfilePageContainerPropsType) {
 
   const [profileImageSrc, setProfileImageSrc] = useState<string | null>(null)
 
   const [profileImage, setProfileImage] = useState<Blob | null>(null)
-
-  const [isLoading, setIsLoading] = useState<boolean>(false)
 
   const [isProfileModalOpen, setIsProfileModalOpen] = useState<boolean>(false)
 
@@ -28,7 +28,7 @@ function MyProfilePageContainer() {
 
   const handleCancelUpload = () => {
     setProfileImage(null)
-    setProfileImageSrc('')
+    setProfileImageSrc(profileInfo?.lowResImageLink ?? "")
   }
 
   const updateProfileImage = async () => {
@@ -41,36 +41,20 @@ function MyProfilePageContainer() {
         },
       })
       setProfileImage(null)
-      fetchUserData()
     } catch (error) {
       console.log(error)
     }
   }
 
-  const fetchUserData = async () => {
-    try {
-      setIsLoading(true)
-      const { data } = await axios.get('/api/v1/user')
-      setProfileInfo(data)
-    } catch (error) {
-      console.log(error)
-    } finally {
-      setIsLoading(false)
-    }
-  }
 
   const updateProfileInfo = async () => {}
 
-  useEffect(() => {
-    fetchUserData()
-  }, [])
-
   return (
     <MyProfileInfo
+      isLoading={false}
       profileInfo={profileInfo}
       profileImageSrc={profileImageSrc}
       profileImage={profileImage}
-      isLoading={isLoading}
       isProfileModalOpen={isProfileModalOpen}
       setIsProfileModalOpen={setIsProfileModalOpen}
       updateProfileImage={updateProfileImage}

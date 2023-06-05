@@ -108,7 +108,7 @@ function ProfilePage(): JSX.Element {
 
   return (
     <>
-      <ProfileImage />
+      <ProfileImage link={profileInfo?.profileBackgroundImageLink ?? ""} />
       <ProfileInfo
         isLoading={isLoading}
         profileInfo={profileInfo}
@@ -121,7 +121,7 @@ function ProfilePage(): JSX.Element {
       <div className='posts__container'>
         <div className='posts__wrapper'>
           {isLoading ? <CircleLoader /> : null}
-          {posts.length === 0 ? <h1 style={{ color: '#fff' }}>No Posts</h1> : null}
+          {posts.length === 0 ? <h1 className='text-white'>No Posts</h1> : null}
           {posts.map((post) => (
             <AnimatedPostInView key={post.id}>
               <Post {...post} />

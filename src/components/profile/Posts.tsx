@@ -4,21 +4,16 @@ import './Profile.scss'
 import { axios } from '../../axios'
 import CircleLoader from '../loader/CircleLoader'
 import { ProfilePosts } from './ProfilePosts'
-export interface IPostType {
-  id: number
-  imgSrc: string
-  likeCount: number
-  commentCount: number
-}
+import IPost from '../../types/IPost'
 
 function Posts(): JSX.Element {
-  const [posts, setPosts] = useState<IPostType[]>([])
+  const [posts, setPosts] = useState<IPost[]>([])
   const [isLoading, setIsLoading] = useState(false)
 
   const fetchProfilePosts = async () => {
     try {
       setIsLoading(true)
-      const { data } = await axios.get<IPostType[]>('/api/v1/post/list')
+      const { data } = await axios.get<IPost[]>('/api/v1/post/list')
       setPosts(data)
     } catch (error) {
       console.log(error)
@@ -58,13 +53,13 @@ function Posts(): JSX.Element {
 }
 
 const ProfilePostsContainer = (): JSX.Element => {
-  const [posts, setPosts] = useState<IPostType[]>([])
+  const [posts, setPosts] = useState<IPost[]>([])
   const [isLoading, setIsLoading] = useState<boolean>(false)
 
   const fetchProfilePosts = async () => {
     try {
       setIsLoading(true)
-      const { data } = await axios.get<IPostType[]>('/api/v1/post/list')
+      const { data } = await axios.get<IPost[]>('/api/v1/post/list')
       setPosts(data)
     } catch (error) {
       console.log(error)

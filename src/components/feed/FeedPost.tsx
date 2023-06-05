@@ -1,5 +1,5 @@
 // ZePi1vVYVEyv0OkkGQB6YLIQBcgIEU2Bwis3StFidWk
-import './Feed.css'
+import './Feed.scss'
 import { Icon } from '@iconify/react'
 
 export type FeedPostPropType = {

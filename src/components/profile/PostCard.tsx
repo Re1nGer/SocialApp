@@ -2,18 +2,17 @@ import React, { LegacyRef } from 'react'
 import { Icon } from '@iconify/react'
 import { useNavigate } from 'react-router-dom'
 
-const toImcSrc = (base64Str: string) => `data:image/jpeg;base64,${base64Str}`
-
 export type Ref = LegacyRef<HTMLDivElement> | undefined
 
 type PostType = {
   id: number
-  imgSrc: string
+  lowResMediaUrl: string
+  mediaUrl: string
   likeCount: number
   commentCount: number
 }
 
-const Post = ({ id, imgSrc, likeCount, commentCount }: PostType, ref: Ref) => {
+const Post = ({ id, lowResMediaUrl, likeCount, commentCount }: PostType, ref: Ref) => {
   const navigate = useNavigate()
 
   // for now imgSrc can be transferred from state prop
@@ -23,7 +22,7 @@ const Post = ({ id, imgSrc, likeCount, commentCount }: PostType, ref: Ref) => {
 
   return (
     <div className='post__card' onClick={handleNavigateClick} ref={ref}>
-      <img className='post__card-image' src={toImcSrc(imgSrc)} alt='post' loading='lazy' />
+      <img className='post__card-image' src={lowResMediaUrl} alt='post' loading='lazy' />
       <div className='post__card-overlay'>
         <div className='post__card-likes'>
           <div className='post__card-like'>

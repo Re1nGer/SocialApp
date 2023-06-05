@@ -1,15 +1,14 @@
-import './Login.css'
-
+import PolaroidMenu from './PolaroidMenu'
 import { RevealText } from './RevealText'
 import SignUpForm from './SignUpForm'
 
 function SignUpFormContainer(): JSX.Element {
   return (
-    <div className='login__container'>
-      <div className='login__left'>
-        {/*         <img className='login__left_img' src={GirlImage} alt='girl' /> */}
+    <div className='flex'>
+      <div className='grow-[.5] bg-black min-h-[2000px] flex justify-center'>
+        <PolaroidMenu />
       </div>
-      <div className='login__right'>
+      <div className='flex justify-center bg-white grow-[.5] flex-col items-center'>
         <SignUpForm />
         <RevealText />
       </div>

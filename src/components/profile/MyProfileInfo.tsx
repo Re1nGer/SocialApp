@@ -1,9 +1,8 @@
-import './Profile.scss'
 import { Icon } from '@iconify/react'
 import CircleLoader from '../loader/CircleLoader'
 import UpdateProfileForm from './UpdateProfileForm'
 import { IProfileInfo } from './MyProfileContainer'
-import { ChangeEvent } from 'react'
+import { ChangeEvent, useRef } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 
 type ProfileInfoPropType = {
@@ -23,7 +22,7 @@ type ProfileInfoPropType = {
 const defaultUserImg: string =
   'https://thumbs.dreamstime.com/b/blank-black-white-image-placeholder-icon-design-178700126.jpg'
 
-function MyProfileInfo({
+const MyProfileInfo = ({
   updateProfileInfo,
   updateProfileImage,
   handleProfileImageUpload,
@@ -35,64 +34,61 @@ function MyProfileInfo({
   profileImage,
   isLoading,
   isProfileModalOpen,
-}: ProfileInfoPropType) {
+}: ProfileInfoPropType) => {
+
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
   return (
     <>
       {isProfileModalOpen ? (
         <UpdateProfileForm onSubmit={updateProfileInfo} setIsModalOpen={setIsProfileModalOpen} />
       ) : null}
-      <div className='profile-info__container'>
-        <div className='profile-info__inner'>
-          <div className='profile-info_user-container'>
-            <div className='profile-info__image-container'>
+      <div className='max-w-[1150px] w-full mx-auto'>
+        <div className='flex justify-start my-2'>
+          <div className='flex gap-3 grow-[.5]'>
+            <div className='flex flex-col'>
               {isLoading ? (
                 <CircleLoader />
               ) : (
                 <AnimatePresence>
                   <motion.img
                     transition={{ ease: 'easeOut', duration: 0.2 }}
+                    height={'300px'}
+                    width={'300px'}
                     initial={{ scale: 0.5 }}
                     animate={{ scale: 1 }}
-                    className='profile-info__image'
-                    src={profileImageSrc || profileInfo?.lowResUserImageSrc || defaultUserImg}
+                    className='object-contain'
+                    src={profileImageSrc || profileInfo?.lowResImageLink || defaultUserImg}
                     alt='profile'
                   />
                 </AnimatePresence>
               )}
 
-              <label
-                className='profile-info__file-input_label'
-                aria-label='file'
-                htmlFor='file'
-                id='file-id'
-              >
-                {profileImage ? (
-                  <div>
-                    <button onClick={updateProfileImage}>Upload</button>
-                    <button onClick={handleCancelUpload}>Cancel</button>
-                  </div>
-                ) : (
-                  <>
-                    <label htmlFor='postfile' id='postfilelabel'>
-                      <button className='profile-info__file-input_btn'>
-                        <input
-                          style={{ display: 'none' }}
-                          aria-labelledby='file-id'
-                          id='file'
-                          accept='image/*'
-                          type='file'
-                          onChange={handleProfileImageUpload}
-                        />
-                        Upload from computer
-                      </button>
-                    </label>
-                  </>
-                )}
-              </label>
+              {profileImage ? (
+                <div className='flex g-2'>
+                  <button onClick={updateProfileImage} className='bg-white'>Upload</button>
+                  <button onClick={handleCancelUpload} className='bg-white'>Cancel</button>
+                </div>
+              ) : (
+                <>
+                  <input
+                    ref={fileInputRef}
+                    style={{ display: 'none' }}
+                    aria-labelledby='file-id'
+                    id='file'
+                    accept='image/*'
+                    type='file'
+                    onChange={handleProfileImageUpload}
+                  />
+                  <button className='border border-white bg-black text-white p-2 my-2' onClick={() => fileInputRef.current!.click()}>
+                    Upload from computer
+                  </button>
+                </>
+              )}
             </div>
 
-            <div className='profile-info__details'>
-              <h1 className='profile-info__username'>{profileInfo?.username}</h1>
+            <div className='flex flex-col'>
+              <h1 className='text-white text-3xl'>{profileInfo?.username}</h1>
               <p className='profile-info__bio'>
                 Welcome to my profile ♡
                 <br />
@@ -104,7 +100,7 @@ function MyProfileInfo({
               </p>
             </div>
           </div>
-          <div className='profile-info_user-edit'>
+          <div className='cursor-pointer'>
             <Icon
               icon='material-symbols:edit'
               fontSize='25px'

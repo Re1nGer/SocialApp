@@ -1,9 +1,9 @@
 import Post from './PostCard'
 import { AnimatedPostInView } from './AnimatedPostInView'
-import { IPostType } from './Posts'
+import { IPost } from './Posts'
 
 type ProfilePostsPropType = {
-  posts: IPostType[]
+  posts: IPost[]
 }
 export const ProfilePosts = ({ posts }: ProfilePostsPropType): JSX.Element => {
   if (posts.length === 0) return <h2>No Posts</h2>

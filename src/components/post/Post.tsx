@@ -9,21 +9,15 @@ import CircleLoader from '../loader/CircleLoader'
 import { AnimatePresence, motion } from 'framer-motion'
 import CommentForm, { CommentFormDefaultValuesType } from '../comment/CommentForm'
 import { BlurredImage } from './BlurredImage'
-
-type FeedType = {
-  id: number
-  imgSrc: string
-  likeCount: number
-  commentCount: number
-  htmlContent: string
-}
+import IPost from '../../types/IPost'
 
 function Post() {
+  
   const { id } = useParams()
 
   const [like, setLike] = useState<boolean>(false)
 
-  const [post, setPost] = useState<FeedType | null>(null)
+  const [post, setPost] = useState<IPost>()
 
   const [isError, setIsError] = useState<boolean>(false)
 
@@ -31,15 +25,9 @@ function Post() {
 
   const [isLoading, setIsLoading] = useState<boolean>(false)
 
-  const [lowResImage, setLowResImage] = useState<string | undefined>('')
-
-  const [highResImage, setHighResImage] = useState<string | undefined>('')
-
   const [isCommentShown, setIsCommentShown] = useState<boolean>(false)
 
   const [isCommentFormShown, setIsCommentFormShown] = useState<boolean>(false)
-
-  const [isHighQualityImageLoading, setIsHighQualityImageLoading] = useState<boolean>(false)
 
   const handleShowCommentForm = () => {
     setIsCommentFormShown(true)
@@ -60,27 +48,6 @@ function Post() {
       setIsError(true)
     } finally {
       setIsLoading(false)
-    }
-  }
-
-  const fetchLowResImage = async () => {
-    try {
-      const { data } = await axios.get(`/api/v1/post/lowres/${id}`)
-      setLowResImage(data)
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
-  const fetchHighResImage = async () => {
-    try {
-      setIsHighQualityImageLoading(true)
-      const { data } = await axios.get(`/api/v1/post/highres/${id}`)
-      setHighResImage(data)
-    } catch (error) {
-      console.log(error)
-    } finally {
-      setIsHighQualityImageLoading(false)
     }
   }
 
@@ -129,10 +96,8 @@ function Post() {
 
   useEffect(() => {
     if (id) {
-      fetchLowResImage()
       fetchPostData()
       hasLike()
-      fetchHighResImage()
     }
   }, [id])
 
@@ -148,7 +113,10 @@ function Post() {
   return (
     <div className='post'>
       <div className='post__inner'>
-{/*         <PostComponent /> */}
+         <PostComponent lowResMedialUrl={post?.lowResMedialUrl ?? ""}
+            id={post?.id ?? 0}
+            mediaUrl={post?.mediaUrl ?? ""}
+            likeCount={post?.likeCount ?? 0} commentCount={post?.commentCount ?? 0} />
         {isCommentFormShown ? (
           <AnimatedCommentForm
             onSubmit={handleCommentFormSubmit}
@@ -236,30 +204,25 @@ function CommentSection({ postId }: CommentSectionPropType): JSX.Element {
 const AnimatedComment = motion(Comment)
 
 type PostComponentPropType = {
-  lowResImage: string,
-  highResImage: string,
+  id: number,
   likeCount: number,
   like: boolean,
   commentCount:number,
   postContent:string,
-  isHighQualityImageLoading:boolean,
+  mediaUrl:string,
+  lowResMediaUrl: string,
   deleteLike: () => Promise<void>
   putLikeToPost: () => Promise<void>
   handleShowCommentForm: () => Promise<void>
 }
 
 const PostComponent = ({
-    lowResImage,
-    highResImage,
-    postContent,
+    id,
     commentCount,
-    like,
+    lowResMedialUrl,
     likeCount,
-    isHighQualityImageLoading,
-    deleteLike,
-    putLikeToPost,
-    handleShowCommentForm
-  } : PostComponentPropType):JSX.Element => {
+    mediaUrl,
+  } : IPost):JSX.Element => {
 
   return <>
         <div className='post__location'>
@@ -267,15 +230,11 @@ const PostComponent = ({
           San Francisko
         </div>
         <div className='post__img-container'>
-          {isHighQualityImageLoading ? (
-            <BlurredImage src={lowResImage} alt='blurred' />
-          ) : (
-            <img className='post__img' src={highResImage} alt='post' loading='lazy' />
-          )}
+          <img className='post__img' src={mediaUrl} alt='post' loading='lazy' />
         </div>
         <div className='post__info'>
           <div className='post__likes'>
-            {like ? (
+{/*             {like ? (
               <Icon
                 icon='mdi:cards-heart'
                 className='post__likes-icon'
@@ -289,7 +248,7 @@ const PostComponent = ({
                 icon='mdi:cards-heart-outline'
                 onClick={putLikeToPost}
               />
-            )}
+            )} */}
             {likeCount}
           </div>
           <div className='post__comments'>
@@ -297,7 +256,7 @@ const PostComponent = ({
               className='post__comments-icon'
               fontSize={20}
               icon='uil:comment'
-              onClick={handleShowCommentForm}
+              //onClick={handleShowCommentForm}
             />
             {commentCount}
           </div>
@@ -305,8 +264,7 @@ const PostComponent = ({
             <Icon className='post__share-icon' icon='ph:share-fat-thin' fontSize={20} />
           </div>
         </div>
-        <div className='post__description'>{postContent}</div>
-
+{/*         <div className='post__description'>{postContent}</div> */}
   </>
 }
 
