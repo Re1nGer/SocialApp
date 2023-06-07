@@ -1,6 +1,6 @@
 import './Header.scss'
 import './ProfileMenu.scss'
-import { useContext, useEffect, useState } from 'react'
+import { useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Icon } from '@iconify/react'
 import { HeaderHamburgerMenu } from './HeaderHamburgerMenu'

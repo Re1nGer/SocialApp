@@ -16,7 +16,7 @@ export function HeaderLogoIcon({ onClick }: HeaderLogoIconPropType) {
         <defs>
           <style>
             {
-              '.cls-1{fill:var(--white);}.cls-2{fill:var(--white);}.cls-3{fill:var(--white);} '
+              '.cls-1{fill:#fff;}.cls-2{fill:#fff;}.cls-3{fill:#fff;} '
             }
           </style>
         </defs>

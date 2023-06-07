@@ -13,7 +13,7 @@ function MyProfilePage() {
 
   const [profileInfo, setProfileInfo] = useState<IProfileInfo | null>(null)
 
-  const { setHeaderProfileImageLink } = useContext(ThemeContext)
+  const { setHeaderProfileImageLink, setBackgroundProfileImageLink } = useContext(ThemeContext)
 
   const fetchUserData = async (): Promise<void> => {
     try {
@@ -21,6 +21,7 @@ function MyProfilePage() {
       const { data } = await axios.get<IProfileInfo>('/api/v1/user')
       setProfileInfo(data)
       setHeaderProfileImageLink(data.lowResImageLink)
+      setBackgroundProfileImageLink(data.profileBackgroundImagelink)
     } catch (error) {
       console.log(error)
     } finally {

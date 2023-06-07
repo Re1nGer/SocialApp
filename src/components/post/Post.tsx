@@ -2,14 +2,13 @@ import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { Icon } from '@iconify/react'
 import { SubmitHandler } from 'react-hook-form'
-import Comment from '../comment/Comment'
 import { axios } from '../../axios'
 import './Post.scss'
 import CircleLoader from '../loader/CircleLoader'
-import { AnimatePresence, motion } from 'framer-motion'
+import { motion } from 'framer-motion'
 import CommentForm, { CommentFormDefaultValuesType } from '../comment/CommentForm'
-import { BlurredImage } from './BlurredImage'
 import IPost from '../../types/IPost'
+import { CommentSection } from './CommentSection'
 
 function Post() {
   
@@ -113,8 +112,8 @@ function Post() {
   return (
     <div className='post'>
       <div className='post__inner'>
-         <PostComponent lowResMedialUrl={post?.lowResMedialUrl ?? ""}
-            id={post?.id ?? 0}
+         <PostComponent lowResMediaUrl={post?.lowResMediaUrl ?? ""}
+            id={post?.id ?? ""}
             mediaUrl={post?.mediaUrl ?? ""}
             likeCount={post?.likeCount ?? 0} commentCount={post?.commentCount ?? 0} />
         {isCommentFormShown ? (
@@ -135,91 +134,10 @@ function Post() {
 
 const AnimatedCommentForm = motion(CommentForm)
 
-type CommentSectionPropType = {
-  postId: number
-}
-
-type CommentType = {
-  id: number
-  username: string
-  dateCreated: string
-  message: string
-  postId: number
-  userId: number
-}
-
-
-function CommentSection({ postId }: CommentSectionPropType): JSX.Element {
-  const [isLoading, setIsLoading] = useState<boolean>(false)
-
-  const [isError, setIsError] = useState<boolean>(false)
-
-  const [comments, setComments] = useState<CommentType[]>([])
-
-  const fetchComments = async () => {
-    try {
-      setIsLoading(true)
-      const { data } = await axios.get<CommentType[]>(`/api/v1/comment/${postId}`)
-      setComments(data)
-    } catch (error) {
-      setIsError(true)
-      console.log(error)
-    } finally {
-      setIsLoading(false)
-    }
-  }
-
-  useEffect(() => {
-    fetchComments()
-  }, [postId])
-
-  if (isError) {
-    return <h1 style={{ color: '#fff' }}>Error fetching comments</h1>
-  }
-
-  if (isLoading) {
-    return <CircleLoader />
-  }
-
-  if (comments.length === 0) {
-    return <h5 style={{ color: '#fff' }}>No Comments Yet</h5>
-  }
-
-  return (
-    <>
-      {comments.map((item) => (
-        <AnimatePresence key={item.id}>
-          <AnimatedComment
-            {...item}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-          />
-        </AnimatePresence>
-      ))}
-    </>
-  )
-}
-
-const AnimatedComment = motion(Comment)
-
-type PostComponentPropType = {
-  id: number,
-  likeCount: number,
-  like: boolean,
-  commentCount:number,
-  postContent:string,
-  mediaUrl:string,
-  lowResMediaUrl: string,
-  deleteLike: () => Promise<void>
-  putLikeToPost: () => Promise<void>
-  handleShowCommentForm: () => Promise<void>
-}
-
 const PostComponent = ({
     id,
     commentCount,
-    lowResMedialUrl,
+    lowResMediaUrl,
     likeCount,
     mediaUrl,
   } : IPost):JSX.Element => {

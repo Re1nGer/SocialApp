@@ -1,8 +1,5 @@
-import { useEffect, useState } from 'react'
 import { Icon } from '@iconify/react'
 import './Profile.scss'
-import { axios } from '../../axios'
-import CircleLoader from '../loader/CircleLoader'
 import { ProfilePosts } from './ProfilePosts'
 import IPost from '../../types/IPost'
 
@@ -13,7 +10,7 @@ type PostsPropsType = {
 function Posts({ posts = [] }: PostsPropsType): JSX.Element {
 
   return (
-    <div className='posts__container'>
+    <div className='posts__container bg-gradient-to-r from-cool-gray-800 to-cool-gray-900'>
       <div className='posts__divider' />
       <div className='posts__tags'>
         <div className='posts__posts'>

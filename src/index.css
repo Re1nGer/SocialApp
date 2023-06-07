@@ -37,7 +37,6 @@
 }
 
 body {
-  background: var(--black);
   font-family: var(--font-main);
   transition: background 0.2s linear;
 }
