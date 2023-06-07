@@ -58,7 +58,7 @@ export function HeaderProfileMenu({ imgSrc }: HeaderProfileMenuType): JSX.Elemen
           </div>
           <div
             className='profile_menu__dropdown-item'
-            onClick={() => setIsLightTheme((prevState) => !prevState)}
+            //onClick={() => setIsLightTheme((prevState) => !prevState)}
           >
             <Icon fontSize={16} icon='mdi:weather-sunset-down' />
             Light Mode

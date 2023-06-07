@@ -8,6 +8,8 @@ export type ThemeContextType = {
   isChatDrawerOpen: boolean
   accessToken: string | null
   chatId: string | null,
+  headerProfileImageLink: string,
+  setHeaderProfileImageLink: (state: string) => void
   setIsLightTheme: (state: boolean) => void
   setIsLoggedIn: (state: boolean) => void
   setIsChatDrawerOpen: (state: boolean) => void
@@ -25,6 +27,7 @@ export function ThemeContextProvider({ children }: ThemeContextProviderType): JS
   const [isChatDrawerOpen, setIsChatDrawerOpen] = useState<boolean>(false)
   const [accessToken, setAccessToken] = useState<string | null>(null)
   const [chatId, setChatId] = useState<string | null>(null)
+  const [headerProfileImageLink, setHeaderProfileImageLink] = useState<string>('')
 
   const value: ThemeContextType = {
     isLightTheme,
@@ -32,6 +35,8 @@ export function ThemeContextProvider({ children }: ThemeContextProviderType): JS
     isChatDrawerOpen,
     accessToken,
     chatId,
+    headerProfileImageLink,
+    setHeaderProfileImageLink,
     setIsLightTheme,
     setIsLoggedIn,
     setIsChatDrawerOpen,

@@ -6,25 +6,11 @@ import CircleLoader from '../loader/CircleLoader'
 import { ProfilePosts } from './ProfilePosts'
 import IPost from '../../types/IPost'
 
-function Posts(): JSX.Element {
-  const [posts, setPosts] = useState<IPost[]>([])
-  const [isLoading, setIsLoading] = useState(false)
+type PostsPropsType = {
+  posts: IPost[]
+}
 
-  const fetchProfilePosts = async () => {
-    try {
-      setIsLoading(true)
-      const { data } = await axios.get<IPost[]>('/api/v1/post/list')
-      setPosts(data)
-    } catch (error) {
-      console.log(error)
-    } finally {
-      setIsLoading(false)
-    }
-  }
-
-  useEffect(() => {
-    fetchProfilePosts()
-  }, [])
+function Posts({ posts = [] }: PostsPropsType): JSX.Element {
 
   return (
     <div className='posts__container'>
@@ -45,36 +31,11 @@ function Posts(): JSX.Element {
       </div>
       {/*       extract into component */}
       <div className='posts__wrapper'>
-        {isLoading ? <CircleLoader /> : <ProfilePosts posts={posts} />}
+        <ProfilePosts posts={posts} />
       </div>
       {posts.length > 10 ? <div className='posts__load-more'>Load More</div> : null}
     </div>
   )
-}
-
-const ProfilePostsContainer = (): JSX.Element => {
-  const [posts, setPosts] = useState<IPost[]>([])
-  const [isLoading, setIsLoading] = useState<boolean>(false)
-
-  const fetchProfilePosts = async () => {
-    try {
-      setIsLoading(true)
-      const { data } = await axios.get<IPost[]>('/api/v1/post/list')
-      setPosts(data)
-    } catch (error) {
-      console.log(error)
-    } finally {
-      setIsLoading(false)
-    }
-  }
-
-  useEffect(() => {
-    fetchProfilePosts()
-  }, [])
-
-  if (isLoading) return <CircleLoader />
-
-  return <ProfilePosts posts={posts} />
 }
 
 export default Posts

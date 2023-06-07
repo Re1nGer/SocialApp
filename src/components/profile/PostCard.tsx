@@ -1,18 +1,11 @@
 import React, { LegacyRef } from 'react'
 import { Icon } from '@iconify/react'
 import { useNavigate } from 'react-router-dom'
+import IPost from '../../types/IPost'
 
 export type Ref = LegacyRef<HTMLDivElement> | undefined
 
-type PostType = {
-  id: number
-  lowResMediaUrl: string
-  mediaUrl: string
-  likeCount: number
-  commentCount: number
-}
-
-const Post = ({ id, lowResMediaUrl, likeCount, commentCount }: PostType, ref: Ref) => {
+const Post = ({ id, lowResMediaUrl, likeCount, commentCount }: IPost, ref: Ref) => {
   const navigate = useNavigate()
 
   // for now imgSrc can be transferred from state prop

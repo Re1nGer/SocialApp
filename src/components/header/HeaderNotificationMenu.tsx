@@ -32,7 +32,7 @@ const HeaderNotificationMenu = () => {
     }
 
     useEffect(() => {
-        fetchNotifications()
+        //fetchNotifications()
     }, [])
 
     return (

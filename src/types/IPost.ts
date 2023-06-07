@@ -1,7 +1,10 @@
 interface IPost {
-  id: number
-  lowResMedialUrl: string
+  id: string
+  userId: string
+  lowResMediaUrl: string
   mediaUrl: string
+  createdAt: Date
+  updatedAt: Date | null
   likeCount: number
   commentCount: number
 }

@@ -40,7 +40,7 @@ function Searchbar(): JSX.Element {
   }
 
   useEffect(() => {
-    fetchUsers(debouncedValue)
+    if (inputValue) fetchUsers(debouncedValue)
     if (users.length > 0) setIsResultOpen(true)
   }, [debouncedValue])
 

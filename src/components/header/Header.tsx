@@ -9,17 +9,10 @@ import { HeaderProfileMenu } from './HeaderProfileMenu'
 import { ThemeContext } from '../contexts/ThemeContext'
 import ChatDrawer from '../drawer/ChatDrawer'
 import Searchbar from './Searchbar'
-import { axios as call } from '../../axios'
 import HeaderNotificationMenu from './HeaderNotificationMenu'
 
-interface IUserImage {
-  lowResUserImageSrc: string
-}
-
 function Header(): JSX.Element {
-  const { isLightTheme, isLoggedIn, setIsChatDrawerOpen } = useContext(ThemeContext)
-
-  const [imageSrc, setImageSrc] = useState<string>('')
+  const { isLightTheme, isLoggedIn, setIsChatDrawerOpen, headerProfileImageLink } = useContext(ThemeContext)
 
   const navigate = useNavigate()
 
@@ -32,22 +25,6 @@ function Header(): JSX.Element {
     document.body.style.height = '100vh'
     document.body.style.overflow = 'hidden'
   }
-
-  const fetchProfileImage = async (): Promise<void> => {
-    try {
-      const { data } = await call.get<IUserImage>(`/api/v1/user/profileimage`)
-      setImageSrc(data.lowResUserImageSrc)
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
-
-  useEffect(() => {
-    if (isLoggedIn) {
-      fetchProfileImage()
-    } 
-  }, [isLoggedIn])
 
   return (
     <>
@@ -62,7 +39,7 @@ function Header(): JSX.Element {
           {isLoggedIn ? (
             <>
               <HeaderNotificationMenu />
-              <HeaderProfileMenu imgSrc={imageSrc} />
+              <HeaderProfileMenu imgSrc={headerProfileImageLink} />
             </>
           ) : null}
           {isLoggedIn ? (

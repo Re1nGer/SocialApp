@@ -4,11 +4,11 @@ import SignUpForm from './SignUpForm'
 
 function SignUpFormContainer(): JSX.Element {
   return (
-    <div className='flex'>
-      <div className='grow-[.5] bg-black min-h-[2000px] flex justify-center'>
+    <div className='flex min-h-[2000px]'>
+      <div className='grow-[.5] bg-black flex justify-center'>
         <PolaroidMenu />
       </div>
-      <div className='flex justify-center bg-white grow-[.5] flex-col items-center'>
+      <div className='flex bg-white grow-[.5] min-h-[2000px] items-center flex-col'>
         <SignUpForm />
         <RevealText />
       </div>

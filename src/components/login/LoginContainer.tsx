@@ -13,6 +13,7 @@ export type ApiErrorType = {
 }
 
 function LoginContainer(): JSX.Element {
+
   const navigate = useNavigate()
 
   const { setIsLoggedIn, setAccessToken } = useContext(ThemeContext)
@@ -20,7 +21,6 @@ function LoginContainer(): JSX.Element {
   const [apiErrors, setApiErrors] = useState<ApiErrorType>({ message: '' })
 
   const [isLoading, setIsLoading] = useState<boolean>(false)
-
 
   const onSubmit: SubmitHandler<LoginFormType> = async ({ email, password }, _): Promise<void> => {
     try {
@@ -48,16 +48,13 @@ function LoginContainer(): JSX.Element {
     }
   }
 
-
-
-
   return (
-    <div className='login__container'>
-      <div className='login__left'>
+    <div className='flex min-h-[2000px]'>
+      <div className='grow-[.5] flex justify-center h-full'>
         <PolaroidMenu />
       </div>
-      <div className='login__right'>
-        <LoginForm onSubmit={onSubmit} apiErrors={apiErrors} />
+      <div className='grow-[.5] bg-white flex flex-col min-h-[2000px] p-2 items-center'>
+        <LoginForm onSubmit={onSubmit} apiErrors={apiErrors} isLoading={isLoading} />
         {isLoading ? <WarframeLoader /> : null}
         <RevealText />
       </div>

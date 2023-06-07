@@ -1,10 +1,11 @@
-import ProfileImage from '../profile/ProfileImage'
+import ProfileBackgroundImage from '../profile/ProfileImage'
 import Posts from '../profile/Posts'
 import MyProfilePageContainer from '../profile/MyProfileContainer'
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import IProfileInfo from '../../types/IProfileInfo'
 import { axios } from '../../axios'
-import CircleLoader from '../loader/CircleLoader'
+import { ThemeContext } from '../contexts/ThemeContext'
+import BackgroundProfileImageLoader from '../profile/BackgroundProfileImageLoader'
 
 function MyProfilePage() {
 
@@ -12,11 +13,14 @@ function MyProfilePage() {
 
   const [profileInfo, setProfileInfo] = useState<IProfileInfo | null>(null)
 
+  const { setHeaderProfileImageLink } = useContext(ThemeContext)
+
   const fetchUserData = async (): Promise<void> => {
     try {
       setIsLoading(true)
-      const { data } = await axios.get('/api/v1/user')
+      const { data } = await axios.get<IProfileInfo>('/api/v1/user')
       setProfileInfo(data)
+      setHeaderProfileImageLink(data.lowResImageLink)
     } catch (error) {
       console.log(error)
     } finally {
@@ -28,18 +32,14 @@ function MyProfilePage() {
     fetchUserData()
   },[])
 
-
-  if (isLoading) {
-    return <>
-      <CircleLoader />
-    </>
-  }
-
+  //ugliest part
   return (
     <>
-      <ProfileImage link={profileInfo?.profileBackgroundImageLink || ""} />
-      <MyProfilePageContainer profileInfo={profileInfo} />
-      <Posts />
+    { isLoading ? <BackgroundProfileImageLoader /> : 
+      <ProfileBackgroundImage link={profileInfo?.profileBackgroundImagelink || ""} />
+     }
+      { isLoading ? null : ( <MyProfilePageContainer profileInfo={profileInfo} /> ) }
+      { isLoading ? null  : <Posts posts={profileInfo?.userPosts!}/>}
     </>
   )
 }
