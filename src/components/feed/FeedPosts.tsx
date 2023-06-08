@@ -14,8 +14,6 @@ export function FeedPosts(): JSX.Element {
 
   const [news, setNews] = useState<FeedPostPropType[]>([])
 
-  const [nextPageToken, setNextPageToken] = useState<string>('')
-
   const isInView = useInView(lastPost, { amount: 'some' })
 
   const fetchLatestNews = async () => {

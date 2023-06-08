@@ -49,7 +49,7 @@ function Searchbar(): JSX.Element {
       <Icon icon='material-symbols:search' fontSize={20} className='searchbar__input-icon' />
       <input
         onChange={handleInputChange}
-        className='searchbar__input'
+        className='searchbar__input text-black'
         placeholder='Type in email'
         value={inputValue}
       />

@@ -1,9 +1,10 @@
 import { Icon } from '@iconify/react'
 import CircleLoader from '../loader/CircleLoader'
 import UpdateProfileForm from './UpdateProfileForm'
-import { IProfileInfo } from './MyProfileContainer'
+import IProfileInfo from '../../types/IProfileInfo'
 import { ChangeEvent, useRef } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
+import BackgroundProfileImageLoader from './BackgroundProfileImageLoader'
 
 type ProfileInfoPropType = {
   updateProfileInfo: () => void
@@ -13,7 +14,7 @@ type ProfileInfoPropType = {
   handleCancelUpload: () => void
   setIsProfileModalOpen: (isModalOpen: boolean) => void
   profileInfo: IProfileInfo | null
-  profileImageSrc: string | null
+  profileImageSrc: string | undefined
   profileImage: Blob | null
   isLoading: boolean
   isProfileModalOpen: boolean
@@ -47,27 +48,23 @@ const MyProfileInfo = ({
         <div className='flex justify-start my-2'>
           <div className='flex gap-3 grow-[.5]'>
             <div className='flex flex-col'>
-              {isLoading ? (
-                <CircleLoader />
-              ) : (
-                <AnimatePresence>
-                  <motion.img
-                    transition={{ ease: 'easeOut', duration: 0.2 }}
-                    height={'300px'}
-                    width={'300px'}
-                    initial={{ scale: 0.5 }}
-                    animate={{ scale: 1 }}
-                    className='object-contain'
-                    src={profileImageSrc || profileInfo?.lowResImageLink || defaultUserImg}
-                    alt='profile'
-                  />
-                </AnimatePresence>
-              )}
+              <AnimatePresence>
+                <motion.img
+                  transition={{ ease: 'easeOut', duration: 0.2 }}
+                  height={'300px'}
+                  width={'300px'}
+                  initial={{ scale: 0.5 }}
+                  animate={{ scale: 1 }}
+                  className={'object-contain'}
+                  src={profileImageSrc || profileInfo?.lowResImageLink || defaultUserImg}
+                  alt='profile'
+                />
+              </AnimatePresence>
 
               {profileImage ? (
-                <div className='flex g-2'>
-                  <button onClick={updateProfileImage} className='bg-white'>Upload</button>
-                  <button onClick={handleCancelUpload} className='bg-white'>Cancel</button>
+                <div className='flex gap-2 justify-center my-3'>
+                  <button onClick={updateProfileImage} className='bg-white text-black border p-2 rounded-lg'>Upload</button>
+                  <button onClick={handleCancelUpload} className='bg-black text-white border p-2 rounded-lg'>Cancel</button>
                 </div>
               ) : (
                 <>

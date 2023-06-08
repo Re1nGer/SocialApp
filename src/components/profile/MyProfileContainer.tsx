@@ -10,11 +10,13 @@ type MyProfilePageContainerPropsType = {
 
 function MyProfilePageContainer({ profileInfo }: MyProfilePageContainerPropsType) {
 
-  const [profileImageSrc, setProfileImageSrc] = useState<string | null>(null)
+  const [profileImageSrc, setProfileImageSrc] = useState<string | undefined>("")
 
   const [profileImage, setProfileImage] = useState<Blob | null>(null)
 
   const [isProfileModalOpen, setIsProfileModalOpen] = useState<boolean>(false)
+
+  const [isLoading, setIsLoading] = useState<boolean>(false)
 
   const handleProfileModal = (): void => {
     setIsProfileModalOpen((prevstate) => !prevstate)
@@ -28,13 +30,19 @@ function MyProfilePageContainer({ profileInfo }: MyProfilePageContainerPropsType
 
   const handleCancelUpload = () => {
     setProfileImage(null)
-    setProfileImageSrc(profileInfo?.lowResImageLink ?? "")
+    setProfileImageSrc(profileInfo?.highResImageLink)
+  }
+
+  const prepareFormData = () => {
+    const formData = new FormData() 
+    formData.append("image", profileImage!)
+    return formData
   }
 
   const updateProfileImage = async () => {
     try {
-      const formData = new FormData()
-      formData.append('image', profileImage!)
+      setIsLoading(true)
+      const formData = prepareFormData()
       await axios.put('/api/v1/user/image', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
@@ -44,6 +52,9 @@ function MyProfilePageContainer({ profileInfo }: MyProfilePageContainerPropsType
     } catch (error) {
       console.log(error)
     }
+    finally {
+      setIsLoading(false)
+    }
   }
 
 
@@ -51,7 +62,7 @@ function MyProfilePageContainer({ profileInfo }: MyProfilePageContainerPropsType
 
   return (
     <MyProfileInfo
-      isLoading={false}
+      isLoading={isLoading}
       profileInfo={profileInfo}
       profileImageSrc={profileImageSrc}
       profileImage={profileImage}

@@ -25,7 +25,7 @@ export const ProfileInfo = ({
           ) : (
             <img
               className='profile-info__image'
-              src={profileInfo?.userImageSrc || defaultUserImg}
+              src={profileInfo?.lowResImageLink || defaultUserImg}
               alt='profile' />
           )}
         </div>

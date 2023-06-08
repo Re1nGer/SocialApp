@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import { useForm, SubmitHandler } from 'react-hook-form'
+import { Icon } from '@iconify/react'
 import { ApiErrorType } from './LoginContainer'
 
 export type LoginFormType = {
@@ -65,6 +66,13 @@ function LoginForm({ onSubmit, apiErrors, isLoading }: LoginFormPropType): JSX.E
           <div className='text-sm'>
             Don`&apos;t have an account yet? {''} <Link to='/signup'>Sign Up</Link>
           </div>
+          <section className='text-center my-2'>OR</section>
+          <section className='flex justify-center my-3'>
+            <button className='bg-white p-2 text-black flex items-center gap-2 border rounded-lg'>
+              <Icon icon="uit:google" />
+              Sign In With Google
+            </button>
+          </section>
         </section>
       </form>
     </div>
