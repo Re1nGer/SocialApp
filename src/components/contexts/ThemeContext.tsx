@@ -1,4 +1,5 @@
 import { createContext, useState } from 'react'
+import IProfileInfo from "../../types/IProfileInfo";
 
 export const ThemeContext = createContext<ThemeContextType>(null!)
 
@@ -8,12 +9,8 @@ export type ThemeContextType = {
   isChatDrawerOpen: boolean
   accessToken: string | null
   chatId: string | null,
-  headerProfileImageLink: string,
-  backgroundProfileImageLink: string,
-  username: string,
-  setUsername: (state: string) => void
-  setHeaderProfileImageLink: (state: string) => void
-  setBackgroundProfileImageLink: (state: string) => void
+  profileInfo: IProfileInfo,
+  setProfileInfo: (state: IProfileInfo) => void
   setIsLightTheme: (state: boolean) => void
   setIsLoggedIn: (state: boolean) => void
   setIsChatDrawerOpen: (state: boolean) => void
@@ -25,16 +22,22 @@ type ThemeContextProviderType = {
   children: JSX.Element
 }
 
+const defaultProfileInfo: IProfileInfo = {
+  lowResImageLink: '',
+  username: '',
+  highResImageLink: '',
+  profileBackgroundImagelink: '',
+  userPosts: []
+}
+
 export function ThemeContextProvider({ children }: ThemeContextProviderType): JSX.Element {
   const [isLightTheme, setIsLightTheme] = useState<boolean>(false)
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false)
   const [isChatDrawerOpen, setIsChatDrawerOpen] = useState<boolean>(false)
   const [accessToken, setAccessToken] = useState<string | null>(null)
   const [chatId, setChatId] = useState<string | null>(null)
-  const [headerProfileImageLink, setHeaderProfileImageLink] = useState<string>('')
-  const [backgroundProfileImageLink, setBackgroundProfileImageLink] = useState<string>('')
-  const [username, setUsername] = useState<string>('')
   const [userRequests, setUserRequests] = useState()
+  const [profileInfo, setProfileInfo] = useState<IProfileInfo>(defaultProfileInfo)
 
   const value: ThemeContextType = {
     isLightTheme,
@@ -42,12 +45,8 @@ export function ThemeContextProvider({ children }: ThemeContextProviderType): JS
     isChatDrawerOpen,
     accessToken,
     chatId,
-    headerProfileImageLink,
-    backgroundProfileImageLink,
-    username,
-    setUsername,
-    setHeaderProfileImageLink,
-    setBackgroundProfileImageLink,
+    profileInfo,
+    setProfileInfo,
     setIsLightTheme,
     setIsLoggedIn,
     setIsChatDrawerOpen,

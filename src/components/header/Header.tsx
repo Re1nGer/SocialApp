@@ -12,7 +12,7 @@ import Searchbar from './Searchbar'
 import HeaderNotificationMenu from './HeaderNotificationMenu'
 
 function Header(): JSX.Element {
-  const { isLightTheme, isLoggedIn, setIsChatDrawerOpen, headerProfileImageLink } = useContext(ThemeContext)
+  const { isLightTheme, isLoggedIn, setIsChatDrawerOpen, profileInfo: { lowResImageLink } } = useContext(ThemeContext)
 
   const navigate = useNavigate()
 
@@ -39,7 +39,7 @@ function Header(): JSX.Element {
           {isLoggedIn ? (
             <>
               <HeaderNotificationMenu />
-              <HeaderProfileMenu imgSrc={headerProfileImageLink} />
+              <HeaderProfileMenu imgSrc={lowResImageLink} />
             </>
           ) : null}
           {isLoggedIn ? (

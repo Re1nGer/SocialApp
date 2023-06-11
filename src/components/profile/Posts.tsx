@@ -3,11 +3,8 @@ import './Profile.scss'
 import { ProfilePosts } from './ProfilePosts'
 import IPost from '../../types/IPost'
 
-type PostsPropsType = {
-  posts: IPost[]
-}
+function Posts(): JSX.Element {
 
-function Posts({ posts = [] }: PostsPropsType): JSX.Element {
   return (
     <div className='mx-auto max-w-[1150px] w-full h-full relative'>
       <div className='py-[2rem]' />
@@ -27,9 +24,11 @@ function Posts({ posts = [] }: PostsPropsType): JSX.Element {
       </div>
       {/*       extract into component */}
       <div className='flex flex-wrap gap-[1rem]'>
-        <ProfilePosts posts={posts} />
+        <ProfilePosts  />
       </div>
+{/*
       {posts.length > 10 ? <div className='posts__load-more'>Load More</div> : null}
+*/}
     </div>
   )
 }

@@ -12,7 +12,7 @@ const UploadAndDisplayProfileImage = () => {
 
   const [profileImage, setProfileImage] = useState<Blob | null>(null);
 
-  const { headerProfileImageLink } = useContext(ThemeContext);
+  const { profileInfo: { highResImageLink } } = useContext(ThemeContext);
 
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -57,7 +57,7 @@ const UploadAndDisplayProfileImage = () => {
         initial={{ scale: 0.5 }}
         animate={{ scale: 1 }}
         className={"object-contain"}
-        src={profileImageSrc || headerProfileImageLink || defaultUserImg}
+        src={profileImageSrc || highResImageLink || defaultUserImg}
         alt="profile"
       />
     </AnimatePresence>

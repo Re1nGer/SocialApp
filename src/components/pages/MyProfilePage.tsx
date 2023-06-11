@@ -11,18 +11,13 @@ function MyProfilePage() {
 
   const [isLoading, setIsLoading] = useState<boolean>(false)
 
-  const [profileInfo, setProfileInfo] = useState<IProfileInfo | null>(null)
-
-  const { setHeaderProfileImageLink, setBackgroundProfileImageLink, setUsername } = useContext(ThemeContext)
+  const { setProfileInfo } = useContext(ThemeContext)
 
   const fetchUserData = async (): Promise<void> => {
     try {
       setIsLoading(true)
       const { data } = await axios.get<IProfileInfo>('/api/v1/user')
       setProfileInfo(data)
-      setHeaderProfileImageLink(data.lowResImageLink)
-      setBackgroundProfileImageLink(data.profileBackgroundImagelink)
-      setUsername(data.username)
     } catch (error) {
       console.log(error)
     } finally {
@@ -38,10 +33,10 @@ function MyProfilePage() {
   return (
     <>
     { isLoading ? <BackgroundProfileImageLoader /> : 
-      <ProfileBackgroundImage link={profileInfo?.profileBackgroundImagelink || ""} />
+      <ProfileBackgroundImage />
      }
       { isLoading ? null : ( <MyProfileInfo /> ) }
-      { isLoading ? null  : <Posts posts={profileInfo?.userPosts!}/>}
+      { isLoading ? null  : <Posts />}
     </>
   )
 }

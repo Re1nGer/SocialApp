@@ -1,7 +1,8 @@
 import './Profile.scss'
-import { ChangeEvent, useRef, useState } from 'react'
+import { ChangeEvent, useContext, useEffect, useRef, useState } from "react";
 import { axios } from '../../axios'
 import BackgroundProfileImageLoader from './BackgroundProfileImageLoader'
+import { ThemeContext } from "../contexts/ThemeContext";
 
 type ProfileBackgroundImagePropsType = {
   link: string
@@ -9,9 +10,11 @@ type ProfileBackgroundImagePropsType = {
 
 const defaultBackgroundImageLink: string  = "https://i.pinimg.com/600x315/8c/98/99/8c98994518b575bfd8c949e91d20548b.jpg"
 
-function ProfileBackgroundImage({ link }: ProfileBackgroundImagePropsType): JSX.Element {
+function ProfileBackgroundImage(): JSX.Element {
 
-  const [backgroundLink, setBackgroundLink] = useState<string | null>(link)
+  const { profileInfo: { profileBackgroundImagelink } } = useContext(ThemeContext)
+
+  const [backgroundLink, setBackgroundLink] = useState<string>("")
 
   const [isLoading, setIsLoading] = useState<boolean>(false)
 
@@ -40,6 +43,11 @@ function ProfileBackgroundImage({ link }: ProfileBackgroundImagePropsType): JSX.
       setIsLoading(false)
     }
   }
+
+  //probably there is a way to set the prop without useEffect hook
+  useEffect(() => {
+    setBackgroundLink(profileBackgroundImagelink)
+  }, [profileBackgroundImagelink])
 
   return (
     <div className='profile-image__wrapper overflow-hidden' onClick={handleClick}>
