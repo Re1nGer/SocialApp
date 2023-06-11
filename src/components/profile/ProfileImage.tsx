@@ -17,7 +17,7 @@ function ProfileBackgroundImage({ link }: ProfileBackgroundImagePropsType): JSX.
 
   const fileInputRef = useRef<HTMLInputElement>(null)
 
-  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+  const handleClick = () => {
     fileInputRef.current?.click();
   }
 
@@ -41,10 +41,6 @@ function ProfileBackgroundImage({ link }: ProfileBackgroundImagePropsType): JSX.
     }
   }
 
-/*   useEffect(() => {
-    if (link) setBackgroundLink(link)
-  },[link]) */
-
   return (
     <div className='profile-image__wrapper overflow-hidden' onClick={handleClick}>
       <input hidden type='file' ref={fileInputRef} onChange={handleBackgroundImageUpload} />
@@ -52,7 +48,8 @@ function ProfileBackgroundImage({ link }: ProfileBackgroundImagePropsType): JSX.
         { isLoading ? (
           <BackgroundProfileImageLoader />
         ) : null }
-        <img className={`profile-image__cut max-h-[400px] object-contain`} src={backgroundLink || defaultBackgroundImageLink} alt='profile header' />
+        <img className={`profile-image__cut max-h-[400px] object-contain`}
+             src={backgroundLink || defaultBackgroundImageLink} alt='profile header' />
       </div>
       <div className='profile-image__overlay' />
       <img className='profile-image__blur' src={backgroundLink || defaultBackgroundImageLink} alt='profile header' />

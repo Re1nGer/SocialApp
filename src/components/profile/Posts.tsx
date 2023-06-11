@@ -8,12 +8,11 @@ type PostsPropsType = {
 }
 
 function Posts({ posts = [] }: PostsPropsType): JSX.Element {
-
   return (
-    <div className='posts__container bg-gradient-to-r from-cool-gray-800 to-cool-gray-900'>
-      <div className='posts__divider' />
-      <div className='posts__tags'>
-        <div className='posts__posts'>
+    <div className='mx-auto max-w-[1150px] w-full h-full relative'>
+      <div className='py-[2rem]' />
+      <div className='flex justify-center gap-[4rem] mb-[2rem]'>
+        <div className='flex flex-wrap gap-[1rem]'>
           <Icon fontSize={16} icon='ic:baseline-chat' />
           Posts
         </div>
@@ -27,7 +26,7 @@ function Posts({ posts = [] }: PostsPropsType): JSX.Element {
         </div>
       </div>
       {/*       extract into component */}
-      <div className='posts__wrapper'>
+      <div className='flex flex-wrap gap-[1rem]'>
         <ProfilePosts posts={posts} />
       </div>
       {posts.length > 10 ? <div className='posts__load-more'>Load More</div> : null}

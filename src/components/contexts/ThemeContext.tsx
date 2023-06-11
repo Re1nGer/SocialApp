@@ -1,4 +1,4 @@
-import { FC, createContext, useState } from 'react'
+import { createContext, useState } from 'react'
 
 export const ThemeContext = createContext<ThemeContextType>(null!)
 
@@ -10,6 +10,8 @@ export type ThemeContextType = {
   chatId: string | null,
   headerProfileImageLink: string,
   backgroundProfileImageLink: string,
+  username: string,
+  setUsername: (state: string) => void
   setHeaderProfileImageLink: (state: string) => void
   setBackgroundProfileImageLink: (state: string) => void
   setIsLightTheme: (state: boolean) => void
@@ -31,6 +33,8 @@ export function ThemeContextProvider({ children }: ThemeContextProviderType): JS
   const [chatId, setChatId] = useState<string | null>(null)
   const [headerProfileImageLink, setHeaderProfileImageLink] = useState<string>('')
   const [backgroundProfileImageLink, setBackgroundProfileImageLink] = useState<string>('')
+  const [username, setUsername] = useState<string>('')
+  const [userRequests, setUserRequests] = useState()
 
   const value: ThemeContextType = {
     isLightTheme,
@@ -40,6 +44,8 @@ export function ThemeContextProvider({ children }: ThemeContextProviderType): JS
     chatId,
     headerProfileImageLink,
     backgroundProfileImageLink,
+    username,
+    setUsername,
     setHeaderProfileImageLink,
     setBackgroundProfileImageLink,
     setIsLightTheme,

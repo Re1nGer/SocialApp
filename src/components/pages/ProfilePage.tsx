@@ -52,15 +52,6 @@ function ProfilePage(): JSX.Element {
     }
   }
 
-/*   const fetchStatusFollowing = async () => {
-    try {
-      const { data } = await call.get<string>(`/api/v1/follow/isfollowing/${userId}`)
-      setIsFollowing(data === "true" ? true : false)
-    } catch (error) {
-      console.log(error)
-    }
-  } */
-
 /*   const fetchIsBlocked = async () => {
     try {
       const { data } = await call.get(`/api/v1/user/isblocked/${userId}`);
@@ -80,9 +71,6 @@ function ProfilePage(): JSX.Element {
 
   useEffect(() => {
     fetchUserInfo()
-    //fetchStatusFollowing()
-    //fetchUserPosts()
-    //fetchIsBlocked()
   }, [])
 
   return (
@@ -105,9 +93,8 @@ function ProfilePage(): JSX.Element {
           isBlocked={isBlocked}
         />
       ) }
-      <div className='posts__container'>
-        <div className='posts__wrapper'>
-          {isLoading ? <CircleLoader /> : null}
+      <div className='max-w-[1150px] mx-auto'>
+        <div className='flex flex-wrap gap-[1rem]'>
           {profileInfo?.userPosts.length === 0 ? <h1 className='text-white'>No Posts</h1> : null}
           {profileInfo?.userPosts.map((post) => (
             <AnimatedPostInView key={post.id}>
@@ -121,6 +108,3 @@ function ProfilePage(): JSX.Element {
 }
 
 export default ProfilePage
-
-
-
