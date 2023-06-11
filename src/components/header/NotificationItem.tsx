@@ -4,7 +4,7 @@ import IUser from '../../types/IUser';
 import CircleLoader from '../loader/CircleLoader';
 
 type NotificationItemPropType = {
-    userId: number;
+    userId: string;
 };
 
 export const NotificationItem = ({ userId }: NotificationItemPropType) => {

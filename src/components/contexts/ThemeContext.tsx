@@ -7,7 +7,7 @@ export type ThemeContextType = {
   isLightTheme: boolean
   isLoggedIn: boolean
   isChatDrawerOpen: boolean
-  accessToken: string | null
+  accessToken: string
   chatId: string | null,
   profileInfo: IProfileInfo,
   setProfileInfo: (state: IProfileInfo) => void
@@ -27,14 +27,15 @@ const defaultProfileInfo: IProfileInfo = {
   username: '',
   highResImageLink: '',
   profileBackgroundImagelink: '',
-  userPosts: []
+  userPosts: [],
+  userRequests: []
 }
 
 export function ThemeContextProvider({ children }: ThemeContextProviderType): JSX.Element {
   const [isLightTheme, setIsLightTheme] = useState<boolean>(false)
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false)
   const [isChatDrawerOpen, setIsChatDrawerOpen] = useState<boolean>(false)
-  const [accessToken, setAccessToken] = useState<string | null>(null)
+  const [accessToken, setAccessToken] = useState<string>('')
   const [chatId, setChatId] = useState<string | null>(null)
   const [userRequests, setUserRequests] = useState()
   const [profileInfo, setProfileInfo] = useState<IProfileInfo>(defaultProfileInfo)
