@@ -6,7 +6,7 @@ import { axios } from "../../axios";
 import { ThemeContext } from '../contexts/ThemeContext'
 
 function Layout(): JSX.Element {
-  const { isLightTheme, accessToken, setAccessToken } = useContext(ThemeContext)
+  const { isLightTheme, accessToken, setAccessToken, setIsLoggedIn } = useContext(ThemeContext)
 
   const location = useLocation()
 
@@ -14,6 +14,8 @@ function Layout(): JSX.Element {
     try {
       const { data } = await axios.get("/api/v1/account/refresh")
       setAccessToken(data.token)
+      setIsLoggedIn(true)
+      axios.defaults.headers.common.Authorization = `Bearer ${data.token}`
     }
     catch (error) {
       console.log(error)

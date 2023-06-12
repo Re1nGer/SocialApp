@@ -5,16 +5,16 @@ const defaultUserImg =
   'https://thumbs.dreamstime.com/b/default-avatar-profile-icon-vector-social-media-user-image-182145777.jpg'
 
 type SearchbarResultType = {
-  id: number
+  id: string
   username: string
-  lowResUserImageSrc: string
+  lowResImageLink: string
   handleResultClick: () => void
 }
 
 export const SearchbarResult = ({
   id,
   username,
-  lowResUserImageSrc,
+  lowResImageLink,
   handleResultClick,
 }: SearchbarResultType): JSX.Element => {
   return (
@@ -22,7 +22,7 @@ export const SearchbarResult = ({
       <div className='searchbar__result' key={id}>
         <img
           className='searchbar__result-img'
-          src={lowResUserImageSrc ? toImgSrc(lowResUserImageSrc) : defaultUserImg}
+          src={lowResImageLink || defaultUserImg}
           alt='search'
         />
         <div className='searchbar__result'>{username}</div>

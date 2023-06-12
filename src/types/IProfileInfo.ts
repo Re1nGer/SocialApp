@@ -7,7 +7,7 @@ interface IProfileInfo {
   highResImageLink: string
   profileBackgroundImagelink: string
   userPosts: IPost[],
-  userRequests: IUserRequest[]
+  userRequests: IUserRequest[],
 }
 
 export default IProfileInfo

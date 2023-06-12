@@ -1,7 +1,7 @@
 interface IUser {
-  id: number
+  id: string
   username: string
-  lowResUserImageSrc: string
+  lowResImageLink: string
 }
 
 export default IUser

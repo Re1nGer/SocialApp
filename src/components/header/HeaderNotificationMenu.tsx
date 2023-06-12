@@ -35,7 +35,7 @@ const HeaderNotificationMenu = () => {
                 { userRequests.length > 0 ? (
                     <ul role='list' className={`notification_menu__dropdown ${open ? 'notification_menu__dropdown--open' : ''}`}>
                         { userRequests.map(item => (
-                            <NotificationItem userId={item.senderUserId} />
+                            <NotificationItem key={item.id} userId={item.senderUserId} />
                         )) }
                     </ul>
                 ) : null }

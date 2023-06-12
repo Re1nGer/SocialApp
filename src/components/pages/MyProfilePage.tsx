@@ -11,7 +11,7 @@ function MyProfilePage() {
 
   const [isLoading, setIsLoading] = useState<boolean>(false)
 
-  const { setProfileInfo } = useContext(ThemeContext)
+  const { setProfileInfo, accessToken } = useContext(ThemeContext)
 
   const fetchUserData = async (): Promise<void> => {
     try {
@@ -27,7 +27,7 @@ function MyProfilePage() {
 
   useEffect(() => {
     fetchUserData()
-  },[])
+  },[accessToken])
 
   //ugliest part
   return (
