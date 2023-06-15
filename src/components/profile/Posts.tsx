@@ -1,7 +1,6 @@
 import { Icon } from '@iconify/react'
 import './Profile.scss'
 import { ProfilePosts } from './ProfilePosts'
-import IPost from '../../types/IPost'
 
 function Posts(): JSX.Element {
 

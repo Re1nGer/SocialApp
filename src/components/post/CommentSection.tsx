@@ -3,29 +3,24 @@ import { AnimatePresence, motion } from 'framer-motion'
 import Comment from '../comment/Comment'
 import { axios } from '../../axios'
 import CircleLoader from '../loader/CircleLoader'
+import IComment from "../../types/IComment";
 
 type CommentSectionPropType = {
-  postId: number
+  postId: string
 }
-type CommentType = {
-  id: number
-  username: string
-  dateCreated: string
-  message: string
-  postId: number
-  userId: number
-}
+
+
 export function CommentSection({ postId }: CommentSectionPropType): JSX.Element {
   const [isLoading, setIsLoading] = useState<boolean>(false)
 
   const [isError, setIsError] = useState<boolean>(false)
 
-  const [comments, setComments] = useState<CommentType[]>([])
+  const [comments, setComments] = useState<IComment[]>([])
 
   const fetchComments = async () => {
     try {
       setIsLoading(true)
-      const { data } = await axios.get<CommentType[]>(`/api/v1/comment/${postId}`)
+      const { data } = await axios.get<IComment[]>(`/api/v1/comment/${postId}`)
       setComments(data)
     } catch (error) {
       setIsError(true)

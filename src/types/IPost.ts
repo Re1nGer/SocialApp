@@ -7,6 +7,7 @@ interface IPost {
   updatedAt?: Date | null
   likeCount: number
   commentCount: number
+  message: string
 }
 
 export default IPost
