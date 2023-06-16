@@ -1,11 +1,10 @@
 import { useNavigate } from 'react-router-dom'
 import { SubmitHandler } from 'react-hook-form'
-import { useContext,  useState   } from 'react'
+import { useContext, useState } from 'react'
 import LoginForm, { LoginFormType } from './LoginForm'
 import { RevealText } from './RevealText'
 import { ThemeContext } from '../contexts/ThemeContext'
-import { axios as call } from '../../axios'
-import WarframeLoader from '../loader/WarframeLoader'
+import { axios } from '../../axios'
 import PolaroidMenu from './PolaroidMenu'
 
 export type ApiErrorType = {
@@ -28,11 +27,11 @@ function LoginContainer(): JSX.Element {
 
       const body = { email, password }
 
-      const { data } = await call.post('/api/v1/account/signin', body)
+      const { data } = await axios.post('/api/v1/account/signin', body)
 
       setAccessToken(data.token)
 
-      call.defaults.headers.common.Authorization = `Bearer ${data.token}`
+      axios.defaults.headers.common.Authorization = `Bearer ${data.token}`
 
       setIsLoggedIn(true)
 
@@ -55,7 +54,6 @@ function LoginContainer(): JSX.Element {
       </div>
       <div className='grow-[.5] bg-white flex flex-col min-h-[2000px] p-2 items-center'>
         <LoginForm onSubmit={onSubmit} apiErrors={apiErrors} isLoading={isLoading} />
-        {isLoading ? <WarframeLoader /> : null}
         <RevealText />
       </div>
     </div>

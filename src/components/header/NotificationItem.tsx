@@ -1,8 +1,9 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from "react";
 import { axios, axios as call } from "../../axios";
 import IUser from '../../types/IUser';
 import CircleLoader from '../loader/CircleLoader';
 import toast, { Toaster } from 'react-hot-toast';
+import { ThemeContext } from "../contexts/ThemeContext";
 
 type NotificationItemPropType = {
     userId: string;
@@ -21,6 +22,8 @@ export const NotificationItem = ({ userId }: NotificationItemPropType) => {
     const [isLoading, setIsLoading] = useState<boolean>(false)
 
     const [isAccepting, setIsAccepting] = useState<boolean>(false)
+
+    const { setProfileInfo, profileInfo } = useContext(ThemeContext);
 
     const fetchNotificationItem = async () => {
         try {
@@ -43,6 +46,9 @@ export const NotificationItem = ({ userId }: NotificationItemPropType) => {
                 duration: 3000,
                 position: "bottom-right"
             })
+            const newProfileInfoState = {...profileInfo }
+            newProfileInfoState.userRequests = [...newProfileInfoState.userRequests.filter(item => item.senderUserId !== userId)];
+            setProfileInfo(newProfileInfoState)
         } catch (error) {
             console.log(error)
         }

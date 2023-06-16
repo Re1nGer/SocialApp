@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react'
-import { AnimatePresence, motion } from 'framer-motion'
-import Comment from '../comment/Comment'
+import { AnimatePresence } from 'framer-motion'
 import { axios } from '../../axios'
 import CircleLoader from '../loader/CircleLoader'
 import IComment from "../../types/IComment";
+import AnimatedComment from "../profile/AnimatedComment";
 
 type CommentSectionPropType = {
   postId: string
@@ -61,4 +61,3 @@ export function CommentSection({ postId }: CommentSectionPropType): JSX.Element 
     </>
   )
 }
-const AnimatedComment = motion(Comment)

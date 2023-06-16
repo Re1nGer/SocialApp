@@ -78,7 +78,7 @@ function ProfilePage(): JSX.Element {
       { isLoading ? (
         <BackgroundProfileImageLoader />
       ) : (
-        <ProfileImage link={profileInfo?.profileBackgroundImagelink!} />
+        <ProfileImage />
       ) } 
       { isLoading ? (
         <CircleLoader />

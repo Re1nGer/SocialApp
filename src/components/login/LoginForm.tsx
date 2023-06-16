@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import { useForm, SubmitHandler } from 'react-hook-form'
 import { Icon } from '@iconify/react'
 import { ApiErrorType } from './LoginContainer'
+import WarframeLoader from "../loader/WarframeLoader";
 
 export type LoginFormType = {
   email: string
@@ -63,6 +64,7 @@ function LoginForm({ onSubmit, apiErrors, isLoading }: LoginFormPropType): JSX.E
               Login
             </button>
           </div>
+          {isLoading ? <WarframeLoader /> : null}
           <div className='text-sm'>
             Don`&apos;t have an account yet? {''} <Link to='/signup'>Sign Up</Link>
           </div>
