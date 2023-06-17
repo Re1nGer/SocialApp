@@ -1,9 +1,10 @@
-import { useContext, useEffect, useState } from "react";
+import React, { LegacyRef, useContext, useEffect, useState } from "react";
 import { axios, axios as call } from "../../axios";
 import IUser from '../../types/IUser';
 import CircleLoader from '../loader/CircleLoader';
 import toast, { Toaster } from 'react-hot-toast';
 import { ThemeContext } from "../contexts/ThemeContext";
+import { Link } from "react-router-dom";
 
 type NotificationItemPropType = {
     userId: string;
@@ -15,13 +16,11 @@ const defaultUser:IUser = {
     lowResImageLink: ""
 }
 
-export const NotificationItem = ({ userId }: NotificationItemPropType) => {
+const NotificationItem = ({ userId }: NotificationItemPropType, ref:LegacyRef<HTMLDivElement>) => {
 
     const [user, setUser] = useState<IUser>(defaultUser)
 
     const [isLoading, setIsLoading] = useState<boolean>(false)
-
-    const [isAccepting, setIsAccepting] = useState<boolean>(false)
 
     const { setProfileInfo, profileInfo } = useContext(ThemeContext);
 
@@ -40,7 +39,6 @@ export const NotificationItem = ({ userId }: NotificationItemPropType) => {
 
     const handleAccept = async () => {
         try {
-            setIsAccepting(true)
             await axios.post('/api/v1/follow/accept', { userRequestId: userId })
             toast.success('Request Accepted', {
                 duration: 3000,
@@ -52,14 +50,8 @@ export const NotificationItem = ({ userId }: NotificationItemPropType) => {
         } catch (error) {
             console.log(error)
         }
-        finally {
-            setIsAccepting(false)
-        }
     }
-
-    const handleDecline = async () => {
-
-    }
+    const handleDecline = async () => {}
 
     useEffect(() => {
         fetchNotificationItem();
@@ -69,15 +61,19 @@ export const NotificationItem = ({ userId }: NotificationItemPropType) => {
         return <CircleLoader />;
     }
 
-    return <>
-        <li className='notification_menu__dropdown-item'>
+    return <div ref={ref} onClick={(event) => event.stopPropagation()}>
+        <li className='p-[1rem] text-white text-center flex items-center justify-center transition-[color] hover:text-slate-200 ease-in text-sm cursor-pointer '>
             <div>Follow Request from {user?.username}</div>
-            <img className='notification_menu__dropdown-item_img' src={user.lowResImageLink} alt='user img' />
+            <Link to={`user/${user.id}`} className={'h-[25px] w-[25px]'}>
+                <img className='rounded-full object-cover h-full w-full' src={user.lowResImageLink} alt='user img' />
+            </Link>
         </li>
         <div className='flex justify-center gap-2 my-1'>
             <button className={'p-1 px-2 bg-black text-white rounded-lg border text-sm'} onClick={handleAccept}>Accept</button>
             <button className={'p-1 px-2 bg-white text-black rounded-lg border text-sm'}>Decline</button>
         </div>
         <Toaster />
-    </>;
+    </div>;
 };
+
+export default React.forwardRef(NotificationItem);

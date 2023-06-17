@@ -3,11 +3,11 @@ import './Searchbar.css'
 import { useState, ChangeEvent, useEffect } from 'react'
 import { axios } from '../../axios'
 import useDebounce from '../../hooks/useDebounce'
-import { SearchbarResult } from './SearchbarResult'
+import SearchbarResult from './SearchbarResult'
 import IUser from '../../types/IUser'
 
 
-function Searchbar(): JSX.Element {
+const Searchbar = (): JSX.Element => {
   const [inputValue, setInputValue] = useState<string>('')
 
   const [isLoading, setIsLoading] = useState<boolean>(false)

@@ -1,24 +1,21 @@
 import './Header.scss'
 import './ProfileMenu.scss'
 import { useContext } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { Icon } from '@iconify/react'
-import { HeaderHamburgerMenu } from './HeaderHamburgerMenu'
-import { HeaderLogoIcon } from '../svg/HeaderLogoIcon'
-import { HeaderProfileMenu } from './HeaderProfileMenu'
 import { ThemeContext } from '../contexts/ThemeContext'
+import { Icon } from '@iconify/react'
+import HeaderProfileMenu from './HeaderProfileMenu'
 import ChatDrawer from '../drawer/ChatDrawer'
 import Searchbar from './Searchbar'
 import HeaderNotificationMenu from './HeaderNotificationMenu'
+import HeaderLogoIcon from '../svg/HeaderLogoIcon'
+import HeaderHamburgerMenu from "./HeaderHamburgerMenu";
 
-function Header(): JSX.Element {
-  const { isLightTheme, isLoggedIn, setIsChatDrawerOpen, profileInfo: { lowResImageLink } } = useContext(ThemeContext)
+const Header = (): JSX.Element => {
 
-  const navigate = useNavigate()
 
-  const handleIconClick = () => {
-    navigate('/feed')
-  }
+  const { isLightTheme,
+    isLoggedIn,
+    setIsChatDrawerOpen } = useContext(ThemeContext)
 
   const handleDrawerOpen = () => {
     setIsChatDrawerOpen(true)
@@ -31,15 +28,15 @@ function Header(): JSX.Element {
       <ChatDrawer />
       <header className={`header ${isLightTheme ? 'header--light' : ''}`}>
         <div className='header__left'>
-          <HeaderHamburgerMenu isLightTheme={isLightTheme} />
-          <HeaderLogoIcon onClick={handleIconClick} />
+          <HeaderHamburgerMenu />
+          <HeaderLogoIcon />
         </div>
         {isLoggedIn ? <Searchbar /> : null}
         <div className='header__right'>
           {isLoggedIn ? (
             <>
               <HeaderNotificationMenu />
-              <HeaderProfileMenu imgSrc={lowResImageLink} />
+              <HeaderProfileMenu />
             </>
           ) : null}
           {isLoggedIn ? (

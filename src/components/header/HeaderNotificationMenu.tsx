@@ -1,11 +1,10 @@
-
-import { useContext, useEffect, useState } from "react";
-import { Icon } from '@iconify/react'
-import { axios as call } from '../../axios'
-import "./Header.scss"
-import { NotificationItem } from './NotificationItem'
-import INotification from '../../types/INotification'
+import AnimatedHeaderNotificationItem from "./AnimatedHeaderNotificationItem";
+import NotificationList from "./NotificationList";
+import HeaderNotificationBadge from "./HeaderNotificationIcon";
+import "./Header.scss";
+import { useContext, useState } from "react";
 import { ThemeContext } from "../contexts/ThemeContext";
+import { AnimatePresence } from "framer-motion";
 
 
 
@@ -14,31 +13,30 @@ const HeaderNotificationMenu = () => {
     const [open, setOpen] = useState<boolean>(false)
 
     const { profileInfo: { userRequests } } = useContext(ThemeContext)
-    const handleDropdownOverlayClose = (): void => {
-        setOpen(false)
-    }
-
     const handleDropdownMenuOpen = (): void => {
         setOpen((prevState) => !prevState)
     }
 
     return (
         <>
-            {open ? <div className='notification_menu__overlay' onClick={handleDropdownOverlayClose} /> : null}
-            <nav className='notification_menu__container'>
-                <div className='notification_menu' onClick={handleDropdownMenuOpen}>
-                <div className='notification__wrapper'>
-                    <Icon icon="ph:bell-bold" fontSize='25px' />
-                    <button className='notification__badge'>{userRequests.length}</button>
+            <nav className='relative' onClick={handleDropdownMenuOpen}>
+                <div className='h-full relative'>
+                    <HeaderNotificationBadge notificationCount={userRequests.length} />
                 </div>
-                </div>
-                { userRequests.length > 0 ? (
-                    <ul role='list' className={`notification_menu__dropdown ${open ? 'notification_menu__dropdown--open' : ''}`}>
-                        { userRequests.map(item => (
-                            <NotificationItem key={item.id} userId={item.senderUserId} />
-                        )) }
-                    </ul>
-                ) : null }
+                <AnimatePresence>
+                    {open && (
+                      <NotificationList>
+                          {userRequests.map(item => (
+                            <AnimatedHeaderNotificationItem
+                              exit={{ opacity: 0, scale: 0.5 }}
+                              initial={{ opacity: 0, scale: 0.5 }}
+                              animate={{ opacity: 1, scale: 1 }}
+                              key={item.id}
+                              userId={item.senderUserId} />
+                          ))}
+                      </NotificationList>
+                    )}
+                </AnimatePresence>
             </nav>
         </>
     )

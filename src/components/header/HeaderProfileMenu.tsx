@@ -4,15 +4,12 @@ import { useNavigate } from 'react-router-dom'
 import { ThemeContext } from '../contexts/ThemeContext'
 import { axios } from '../../axios'
 
-type HeaderProfileMenuType = {
-  imgSrc: string
-}
-
 const defaultUserImg: string =
   'https://thumbs.dreamstime.com/b/blank-black-white-image-placeholder-icon-design-178700126.jpg'
 
-export function HeaderProfileMenu({ imgSrc }: HeaderProfileMenuType): JSX.Element {
-  const { setIsLightTheme, setIsLoggedIn } = useContext(ThemeContext)
+const HeaderProfileMenu = (): JSX.Element => {
+
+  const {  setIsLoggedIn, profileInfo: { lowResImageLink } } = useContext(ThemeContext)
 
   const navigate = useNavigate()
 
@@ -51,7 +48,7 @@ export function HeaderProfileMenu({ imgSrc }: HeaderProfileMenuType): JSX.Elemen
       <div className='profile_menu__container'>
         <div className='profile_menu' onClick={handleDropdownMenuOpen}>
           <div className='profile_menu__picture_container'>
-            <img className='profile_menu__picture' src={imgSrc || defaultUserImg} alt='profile' />
+            <img className='profile_menu__picture' src={lowResImageLink || defaultUserImg} alt='profile' />
           </div>
         </div>
         <div className={`profile_menu__dropdown ${open ? 'profile_menu__dropdown--open' : ''}`}>
@@ -75,3 +72,5 @@ export function HeaderProfileMenu({ imgSrc }: HeaderProfileMenuType): JSX.Elemen
     </>
   )
 }
+
+export default HeaderProfileMenu

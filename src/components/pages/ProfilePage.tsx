@@ -1,5 +1,5 @@
 import CircleLoader from '../loader/CircleLoader'
-import { useContext, useEffect, useState } from 'react'
+import { ReactNode, useContext, useEffect, useState } from "react";
 import { useParams } from 'react-router-dom'
 import { AnimatedPostInView } from '../profile/AnimatedPostInView'
 import Post from '../profile/PostCard'
@@ -13,6 +13,29 @@ import BackgroundProfileImageLoader from '../profile/BackgroundProfileImageLoade
 export const defaultUserImg: string =
   'https://thumbs.dreamstime.com/b/blank-black-white-image-placeholder-icon-design-178700126.jpg'
 
+const defaultProfile : IProfileInfo= {
+  username: "",
+  lowResImageLink: "",
+  highResImageLink: "",
+  profileBackgroundImagelink: "",
+  userPosts: [],
+  userRequests: []
+}
+
+type ProfilePostsProp = {
+  children: ReactNode
+}
+
+const ProfilePosts = ({ children }: ProfilePostsProp) => {
+  return (
+    <div className="max-w-[1150px] mx-auto">
+      <div className="flex flex-wrap gap-[1rem]">
+        { children }
+      </div>
+    </div>
+  );
+}
+
 function ProfilePage(): JSX.Element {
 
   const [isLoading, setIsLoading] = useState<boolean>(false)
@@ -23,7 +46,7 @@ function ProfilePage(): JSX.Element {
 
   const [isFollowRequestSent, setIsFollowRequestSent] = useState<boolean>(false)
 
-  const [profileInfo, setProfileInfo] = useState<IProfileInfo>()
+  const [profileInfo, setProfileInfo] = useState<IProfileInfo>(defaultProfile)
 
   const { setIsChatDrawerOpen } = useContext(ThemeContext)
 
@@ -71,18 +94,20 @@ function ProfilePage(): JSX.Element {
 
   useEffect(() => {
     fetchUserInfo()
-  }, [])
+  }, [userId])
 
   return (
     <>
-      { isLoading ? (
+      {isLoading ? (
         <BackgroundProfileImageLoader />
       ) : (
-        <ProfileImage />
-      ) } 
-      { isLoading ? (
+        <ProfileImage
+          profileBackgroundImagelink={profileInfo.profileBackgroundImagelink}
+        />
+      )}
+      {isLoading ? (
         <CircleLoader />
-      ) :(
+      ) : (
         <ProfileInfo
           isLoading={isLoading}
           profileInfo={profileInfo}
@@ -92,17 +117,14 @@ function ProfilePage(): JSX.Element {
           isFollowRequestSent={isFollowRequestSent}
           isBlocked={isBlocked}
         />
-      ) }
-      <div className='max-w-[1150px] mx-auto'>
-        <div className='flex flex-wrap gap-[1rem]'>
-          {profileInfo?.userPosts.length === 0 ? <h1 className='text-white'>No Posts</h1> : null}
-          {profileInfo?.userPosts.map((post) => (
-            <AnimatedPostInView key={post.id}>
-              <Post {...post} />
-            </AnimatedPostInView>
-          ))}
-        </div>
-      </div>
+      )}
+      <ProfilePosts>
+        { profileInfo.userPosts.map( item =>(
+          <AnimatedPostInView key={item.id}>
+            <Post {...item} />
+          </AnimatedPostInView>
+        ))}
+      </ProfilePosts>
     </>
   )
 }

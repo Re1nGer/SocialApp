@@ -1,5 +1,4 @@
-import { Link } from 'react-router-dom'
-import { toImgSrc } from '../../utils/toImgSrc'
+import { Link, useParams } from "react-router-dom";
 
 const defaultUserImg =
   'https://thumbs.dreamstime.com/b/default-avatar-profile-icon-vector-social-media-user-image-182145777.jpg'
@@ -11,14 +10,19 @@ type SearchbarResultType = {
   handleResultClick: () => void
 }
 
-export const SearchbarResult = ({
+const SearchbarResult = ({
   id,
   username,
   lowResImageLink,
   handleResultClick,
 }: SearchbarResultType): JSX.Element => {
+
+  const { userId } = useParams()
+
+  console.log(userId, id)
+
   return (
-    <Link to={`/user/${id}`} onClick={handleResultClick}>
+    <Link to={userId ?? '' === id ? 'mypage' : `/user/${id}`} onClick={handleResultClick}>
       <div className='searchbar__result' key={id}>
         <img
           className='searchbar__result-img'
@@ -30,3 +34,5 @@ export const SearchbarResult = ({
     </Link>
   )
 }
+
+export default SearchbarResult

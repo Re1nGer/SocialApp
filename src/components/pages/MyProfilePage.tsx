@@ -11,7 +11,7 @@ function MyProfilePage() {
 
   const [isLoading, setIsLoading] = useState<boolean>(false)
 
-  const { setProfileInfo, accessToken } = useContext(ThemeContext)
+  const { setProfileInfo, accessToken, profileInfo } = useContext(ThemeContext)
 
   const fetchUserData = async (): Promise<void> => {
     try {
@@ -33,7 +33,7 @@ function MyProfilePage() {
   return (
     <>
     { isLoading ? <BackgroundProfileImageLoader /> : 
-      <ProfileBackgroundImage />
+      <ProfileBackgroundImage profileBackgroundImagelink={profileInfo.profileBackgroundImagelink} />
      }
       { isLoading ? null : ( <MyProfileInfo /> ) }
       { isLoading ? null  : <Posts />}
