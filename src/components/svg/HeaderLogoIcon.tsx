@@ -1,12 +1,10 @@
-import { MouseEventHandler } from 'react'
 import './HeaderIcon.css'
+import { Link } from "react-router-dom";
 
-type HeaderLogoIconPropType = {
-  onClick: MouseEventHandler<HTMLDivElement>
-}
-export function HeaderLogoIcon({ onClick }: HeaderLogoIconPropType) {
+const HeaderLogoIcon = () => {
+
   return (
-    <div className='m-icon' onClick={onClick}>
+    <Link className='m-icon' to={'/feed'}>
       <svg
         xmlns='http://www.w3.org/2000/svg'
         id='Layer_1'
@@ -16,7 +14,7 @@ export function HeaderLogoIcon({ onClick }: HeaderLogoIconPropType) {
         <defs>
           <style>
             {
-              '.cls-1{fill:var(--primary);}.cls-2{fill:var(--primary);}.cls-3{fill:var(--primary);} '
+              '.cls-1{fill:#fff;}.cls-2{fill:#fff;}.cls-3{fill:#fff;} '
             }
           </style>
         </defs>
@@ -32,6 +30,8 @@ export function HeaderLogoIcon({ onClick }: HeaderLogoIconPropType) {
           points='425.12 343.83 766.15 4.67 766.15 333.56 588.63 508.27 425.12 343.83'
         />
       </svg>
-    </div>
+    </Link>
   )
 }
+
+export default HeaderLogoIcon

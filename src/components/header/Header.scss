@@ -1,0 +1,128 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  background: var(--bc);
+  color: var(--white);
+  width: 100%;
+  min-height: 5rem;
+  align-items: center;
+  z-index: 10;
+  transition: background 0.2s linear;
+
+  &--light {
+    background: #f0f1f2;
+  }
+
+  &__left {
+    height: 100%;
+    padding: 1rem;
+    align-items: center;
+    display: flex;
+    gap: 2rem;
+  }
+
+  &__right {
+    display: flex;
+    align-items: center;
+    position: relative;
+    gap: 1rem;
+    margin-right: 1rem;
+  }
+
+  &__right-chat_icon {
+    cursor: pointer;
+  }
+
+  .ham_menu {
+    margin: 0;
+    width: 2em;
+    height: 1.5em;
+    position: relative;
+    transform: rotate(0deg);
+    transition: 0.35s cubic-bezier(0.175, 0.685, 0.32, 1.175);
+    cursor: pointer;
+    z-index: 110;
+
+    &__bar {
+      display: block;
+      position: absolute;
+      height: 2px;
+      width: 100%;
+      background: var(--white);
+      border-radius: 19px;
+      opacity: 1;
+      left: 0;
+      transform: rotate(0deg);
+      transition: 0.35s cubic-bezier(0.175, 0.685, 0.32, 1.175);
+
+      &--light {
+        background: var(--black);
+      }
+
+      &_first {
+        top: 0;
+      }
+
+      &_second {
+        top: 0.75rem;
+      }
+
+      &_third {
+        top: 0.75rem;
+      }
+
+      &_fourth {
+        top: 1.5rem;
+      }
+
+      &_first--open {
+        top: 2em;
+        width: 0;
+      }
+
+      &_second--open {
+        width: 100%;
+        transform: rotate(45deg);
+      }
+
+      &_third--open {
+        width: 100%;
+        transform: rotate(-45deg);
+      }
+
+      &_fourth--open {
+        top: 18px;
+        width: 0;
+        left: 50%;
+      }
+    }
+  }
+}
+
+.notification { 
+
+  &__wrapper {
+    position: relative;
+    cursor: pointer;
+  }
+
+  &__badge {
+    position: absolute;
+    right: -0.7em;
+    top: -0.7em;
+    min-width: 1.6em; /* or width, explained below. */
+    height: 1.6em;
+    border-radius: 0.8em; /* or 50%, explained below. */
+    border: 0.05em solid black;
+    background-color: white;
+
+    /* number size and position */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.8em;
+    color: black;
+    font-weight: 700;
+  }
+
+}

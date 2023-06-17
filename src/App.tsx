@@ -1,4 +1,4 @@
-import './App.css'
+import './index.css'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import { ThemeContextProvider } from './components/contexts/ThemeContext'
 import Layout from './components/Layout/Layout'
@@ -8,6 +8,7 @@ import PostPage from './components/pages/PostPage'
 import FeedPage from './components/pages/FeedPage'
 import SignUpPage from './components/pages/SignUp'
 import PrivateRoute from './components/route/PrivateRoute'
+import MyProfilePage from './components/pages/MyProfilePage'
 
 function App() {
   return (
@@ -19,7 +20,8 @@ function App() {
             <Route path='/login' element={<LoginPage />} />
             <Route path='/signup' element={<SignUpPage />} />
             <Route element={<PrivateRoute />}>
-              <Route path='/mypage' element={<ProfilePage />} />
+              <Route path='/user/:userId' element={<ProfilePage />} />
+              <Route path='/mypage' element={<MyProfilePage />} />
               <Route path='/post/:id' element={<PostPage />} />
               <Route path='/feed' element={<FeedPage />} />
             </Route>

@@ -1,18 +1,17 @@
-import React, { SyntheticEvent, useContext, useEffect, useState } from 'react'
-
+import { SyntheticEvent, useContext, useEffect, useState } from 'react'
 import { Icon } from '@iconify/react'
 import { ThemeContext } from '../contexts/ThemeContext'
-import TestImage from '../../assets/loveSand.jpg'
+import TestImage from '../../assets/profileHeaderImage.jpg'
 import './animations.css'
-import './Drawer.css'
+import './Drawer.scss'
 
 function ChatDrawer() {
   // const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-  const { isChatDrawerOpen, setIsChatDrawerOpen } = useContext(ThemeContext)
+  const { isChatDrawerOpen, setIsChatDrawerOpen, setChatId, chatId } = useContext(ThemeContext)
 
   const [isLoading, setIsLoading] = useState<boolean>(false)
 
-  const [chatId, setChatId] = useState<number | null>(null)
+  const [chats, setChats] = useState()
 
   const handleDrawerClose = () => {
     setIsChatDrawerOpen(false)
@@ -25,6 +24,17 @@ function ChatDrawer() {
     document.body.style.overflow = 'unset'
     document.body.style.height = 'unset'
   }
+
+  const fetchChats = async () => {
+    try {
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  useEffect(() => {
+    fetchChats()
+  }, [])
 
   return (
     <>
@@ -49,11 +59,11 @@ function ChatDrawer() {
         ) : (
           <div className='drawer__results-container'>
             {/*                         exising chats need to be fetched from server */}
-            <ChatDrawerUserCard setChatId={setChatId} id={2} />
-            <ChatDrawerUserCard setChatId={setChatId} id={2} />
-            <ChatDrawerUserCard setChatId={setChatId} id={2} />
-            <ChatDrawerUserCard setChatId={setChatId} id={2} />
-            <ChatDrawerUserCard setChatId={setChatId} id={2} />
+            <ChatDrawerUserCard setChatId={setChatId} id={'2'} />
+            <ChatDrawerUserCard setChatId={setChatId} id={'2'} />
+            <ChatDrawerUserCard setChatId={setChatId} id={'2'} />
+            <ChatDrawerUserCard setChatId={setChatId} id={'2'} />
+            <ChatDrawerUserCard setChatId={setChatId} id={'2'} />
           </div>
         )}
       </div>
@@ -64,12 +74,11 @@ function ChatDrawer() {
 export default ChatDrawer
 
 type ChatDrawerUserCardType = {
-  setChatId: (id: number) => void
-  id: number
+  setChatId: (id: string | null) => void
+  id: string | null
 }
 
 function ChatDrawerUserCard({ setChatId, id }: ChatDrawerUserCardType) {
-  // const id = "2";
 
   const handleUserCardClick = () => {
     setChatId(id)
@@ -91,7 +100,7 @@ function ChatDrawerUserCard({ setChatId, id }: ChatDrawerUserCardType) {
 }
 
 type ChatDrawerRoomType = {
-  id: number
+  id: string | null
 }
 
 function ChatDrawerRoom({ id }: ChatDrawerRoomType) {

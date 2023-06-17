@@ -1,5 +1,5 @@
-import './Feed.css'
-import React, { FormEvent } from 'react'
+import './Feed.scss'
+import React from 'react'
 import { AnimatePresence } from 'framer-motion'
 import axios, { AxiosError } from 'axios'
 import { FeedMain } from './FeedMain'

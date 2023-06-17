@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 :root {
   --bc: #04020a;
   --header-bc: #f0f1f2;
@@ -33,7 +37,6 @@
 }
 
 body {
-  background: var(--black);
   font-family: var(--font-main);
   transition: background 0.2s linear;
 }

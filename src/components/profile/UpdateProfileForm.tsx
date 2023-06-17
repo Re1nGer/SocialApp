@@ -1,5 +1,6 @@
 import { SubmitHandler, useForm } from 'react-hook-form'
-import './Profile.css'
+import './Profile.scss'
+import { useRef } from 'react'
 
 export type ProfileFormType = {
   username: string
@@ -10,13 +11,22 @@ const defaultValues: ProfileFormType = { username: '', bio: '' }
 
 type LoginFormPropType = {
   onSubmit: SubmitHandler<ProfileFormType>
+  setIsModalOpen: (isModalOpen: boolean) => void
 }
-const UpdateProfileForm = ({ onSubmit }: LoginFormPropType) => {
+const UpdateProfileForm = ({ onSubmit, setIsModalOpen }: LoginFormPropType) => {
+
   const { register, handleSubmit } = useForm<ProfileFormType>({ defaultValues })
 
+  const dialogRef = useRef<HTMLDialogElement>(null);
+
+  const handleModal = (event: React.MouseEvent<HTMLDialogElement>): void => {
+    //setIsModalOpen(false)
+    dialogRef.current?.showModal();
+  }
+  //Need to figure out how to encapsulate this 
+
   return (
-    <>
-      <div className='profile__form-overlay'></div>
+    <dialog data-modal onClick={handleModal} ref={dialogRef}>
       <form className='profile__form' onSubmit={handleSubmit(onSubmit)}>
         <h4 className='profile__form-title'>Update Profile</h4>
         <div className='profile__form-username_wrapper'>
@@ -35,7 +45,7 @@ const UpdateProfileForm = ({ onSubmit }: LoginFormPropType) => {
           Update
         </button>
       </form>
-    </>
+    </dialog>
   )
 }
 

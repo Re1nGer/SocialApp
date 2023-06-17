@@ -1,20 +1,19 @@
 import { useContext, useState } from 'react'
 import { Icon } from '@iconify/react'
 import { useNavigate } from 'react-router-dom'
-import ProfileImage from '../../assets/profileImage.jpg'
 import { ThemeContext } from '../contexts/ThemeContext'
 import { axios } from '../../axios'
 
-type HeaderProfileMenuType = {
-  imgSrc: string
-}
+const defaultUserImg: string =
+  'https://thumbs.dreamstime.com/b/blank-black-white-image-placeholder-icon-design-178700126.jpg'
 
-export function HeaderProfileMenu({ imgSrc }: HeaderProfileMenuType): JSX.Element {
-  const { setIsLightTheme, setIsLoggedIn } = useContext(ThemeContext)
+const HeaderProfileMenu = (): JSX.Element => {
+
+  const {  setIsLoggedIn, profileInfo: { lowResImageLink } } = useContext(ThemeContext)
 
   const navigate = useNavigate()
 
-  const [open, setOpen] = useState(false)
+  const [open, setOpen] = useState<boolean>(false)
 
   const handleDropdownOverlayClose = () => {
     setOpen(false)
@@ -40,7 +39,7 @@ export function HeaderProfileMenu({ imgSrc }: HeaderProfileMenuType): JSX.Elemen
     axios.defaults.headers.common.Authorization = ''
     sessionStorage.clear()
     setIsLoggedIn(false)
-    navigate('/')
+    navigate('/', { replace: false })
   }
 
   return (
@@ -49,7 +48,7 @@ export function HeaderProfileMenu({ imgSrc }: HeaderProfileMenuType): JSX.Elemen
       <div className='profile_menu__container'>
         <div className='profile_menu' onClick={handleDropdownMenuOpen}>
           <div className='profile_menu__picture_container'>
-            <img className='profile_menu__picture' src={ProfileImage} alt='profile' />
+            <img className='profile_menu__picture' src={lowResImageLink || defaultUserImg} alt='profile' />
           </div>
         </div>
         <div className={`profile_menu__dropdown ${open ? 'profile_menu__dropdown--open' : ''}`}>
@@ -59,7 +58,7 @@ export function HeaderProfileMenu({ imgSrc }: HeaderProfileMenuType): JSX.Elemen
           </div>
           <div
             className='profile_menu__dropdown-item'
-            onClick={() => setIsLightTheme((prevState: boolean) => !prevState)}
+            //onClick={() => setIsLightTheme((prevState) => !prevState)}
           >
             <Icon fontSize={16} icon='mdi:weather-sunset-down' />
             Light Mode
@@ -73,3 +72,5 @@ export function HeaderProfileMenu({ imgSrc }: HeaderProfileMenuType): JSX.Elemen
     </>
   )
 }
+
+export default HeaderProfileMenu

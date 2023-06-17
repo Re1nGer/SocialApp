@@ -1,33 +1,23 @@
-import { useState } from 'react'
+import HeaderHamburgerIcon from "./HeaderHamburgerIcon";
+import { useState } from "react";
+import { AnimatePresence } from "framer-motion";
+import HeaderHamburgerDrawer from "./HeaderHamburgerDrawer";
 
-type HeaderHamburgerMenuPropType = {
-  isLightTheme: boolean
-}
 
-export function HeaderHamburgerMenu({ isLightTheme }: HeaderHamburgerMenuPropType) {
+const HeaderHamburgerMenu = () => {
+
   const [open, setOpen] = useState<boolean>(false)
+  const handleOpen = () => {
+    setOpen((prevState) => !prevState)
+  }
 
   return (
-    <div className='ham_menu' onClick={() => setOpen((prevState) => !prevState)}>
-      <span
-        className={`ham_menu__bar ham_menu__bar_first
-                    ${open ? 'ham_menu__bar_first--open' : null}
-                    ${isLightTheme ? 'ham_menu__bar--light' : null}`}
-      >
-        {' '}
-      </span>
-      <span
-        className={`ham_menu__bar ham_menu__bar_second ${open ? 'ham_menu__bar_second--open' : null}
-                    ${isLightTheme ? 'ham_menu__bar--light' : null}`}
-      />
-      <span
-        className={`ham_menu__bar ham_menu__bar_third ${open ? 'ham_menu__bar_third--open' : null}
-                    ${isLightTheme ? 'ham_menu__bar--light' : null}`}
-      />
-      <span
-        className={`ham_menu__bar ham_menu__bar_fourth ${open ? 'ham_menu__bar_fourth--open' : null}
-                    ${isLightTheme ? 'ham_menu__bar--light' : null}`}
-      />
-    </div>
+    <>
+      <HeaderHamburgerIcon open={open} handleOpen={handleOpen} />
+      <AnimatePresence>
+        { open && ( <HeaderHamburgerDrawer /> ) }
+      </AnimatePresence>
+    </>
   )
 }
+export default HeaderHamburgerMenu

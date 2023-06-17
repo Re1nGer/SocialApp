@@ -1,17 +1,20 @@
 import { Icon } from '@iconify/react'
-import { MouseEventHandler } from 'react'
-import ProfileImage from '../../assets/profileImage.jpg'
+import { MouseEventHandler, useContext } from 'react'
 import { FeedPosts } from './FeedPosts'
+import { ThemeContext } from '../contexts/ThemeContext'
 
 type FeedMainProp = {
   onClick: MouseEventHandler
 }
 
 export function FeedMain({ onClick }: FeedMainProp): JSX.Element {
+
+  const { profileInfo : { lowResImageLink } } = useContext(ThemeContext)
+
   return (
     <div className='feed__main'>
       <div className='feed__input-container'>
-        <img className='feed__input-img' src={ProfileImage} alt='profile' />
+        <img className='feed__input-img' src={lowResImageLink} alt='profile' />
         <div className='feed__input-form_container'>
           <input className='feed__input-input' placeholder="What's happening" onClick={onClick} />
           <div className='feed__input-options'>

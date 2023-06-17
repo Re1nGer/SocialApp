@@ -3,31 +3,30 @@ import './Searchbar.css'
 import { useState, ChangeEvent, useEffect } from 'react'
 import { axios } from '../../axios'
 import useDebounce from '../../hooks/useDebounce'
-import { SearchbarResult } from './SearchbarResult'
+import SearchbarResult from './SearchbarResult'
+import IUser from '../../types/IUser'
 
-type Users = {
-  id: number
-  username: string
-  picture: string
-}
 
-function Searchbar(): JSX.Element {
+const Searchbar = (): JSX.Element => {
   const [inputValue, setInputValue] = useState<string>('')
 
   const [isLoading, setIsLoading] = useState<boolean>(false)
 
+  const [isResultOpen, setIsResultOpen] = useState<boolean>(false)
+
   const debouncedValue = useDebounce<string>(inputValue, 500)
 
-  const [users, setUsers] = useState<Users[]>([])
+  const [users, setUsers] = useState<IUser[]>([])
 
   const handleInputChange = async (event: ChangeEvent<HTMLInputElement>) => {
     setInputValue(event.target.value)
   }
 
+  //TODO: add pagination
   const fetchUsers = async (keyword: string): Promise<void> => {
     try {
       setIsLoading(true)
-      const { data } = await axios.get<Users[]>(`/api/v1/user/list?q=${keyword}`)
+      const { data } = await axios.get<IUser[]>(`/api/v1/user/list?q=${keyword}`)
       setUsers(data)
     } catch (error) {
       console.log(error)
@@ -36,8 +35,13 @@ function Searchbar(): JSX.Element {
     }
   }
 
+  const handleResultClick = () => {
+    setIsResultOpen(false)
+  }
+
   useEffect(() => {
-    fetchUsers(debouncedValue)
+    if (inputValue) fetchUsers(debouncedValue)
+    if (users.length > 0) setIsResultOpen(true)
   }, [debouncedValue])
 
   return (
@@ -45,17 +49,17 @@ function Searchbar(): JSX.Element {
       <Icon icon='material-symbols:search' fontSize={20} className='searchbar__input-icon' />
       <input
         onChange={handleInputChange}
-        className='searchbar__input'
+        className='searchbar__input text-black'
         placeholder='Type in email'
         value={inputValue}
       />
-      {users.length > 0 ? (
+      { users.length > 0 && isResultOpen ? (
         <div className='searchbar__results'>
           {users.map((item) => (
-            <SearchbarResult key={item.id} {...item} />
+            <SearchbarResult key={item.id} {...item} handleResultClick={handleResultClick} />
           ))}
         </div>
-      ) : null}
+      ) : null }
     </div>
   )
 }

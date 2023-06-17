@@ -1,5 +1,5 @@
 import { LegacyRef, forwardRef } from 'react'
-import './polaroid.css'
+import './polaroid.scss'
 
 type PolaroidPropType = {
   imgSrc: string
