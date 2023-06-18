@@ -1,10 +1,10 @@
-import { useEffect, useRef, useState } from 'react'
-import { AnimatePresence, motion, useInView } from 'framer-motion'
+import { useContext, useEffect, useRef, useState } from "react";
+import { AnimatePresence, useInView } from 'framer-motion'
 import { axios as call } from '../../axios'
 import CircleLoader from '../loader/CircleLoader'
-import { FeedPost, FeedPostPropType } from './FeedPost'
-
-// const api_key = import.meta.env.VITE_API_KEY;
+import IPost from "../../types/IPost";
+import AnimatedFeedPost from "./AnimatedFeedPost";
+import { ThemeContext } from "../contexts/ThemeContext";
 
 export function FeedPosts(): JSX.Element {
 
@@ -12,15 +12,17 @@ export function FeedPosts(): JSX.Element {
 
   const [isLoading, setIsLoading] = useState<boolean>(true)
 
-  const [news, setNews] = useState<FeedPostPropType[]>([])
+  const [news, setNews] = useState<IPost[]>([])
 
   const isInView = useInView(lastPost, { amount: 'some' })
 
-  const fetchLatestNews = async () => {
+  const { accessToken }  = useContext(ThemeContext)
+
+  const fetchLatestPosts = async () => {
     try {
       setIsLoading(true)
       // for some weird reason mode property fixes cors issue but it complains in typescript
-      const { data } = await call.get("/api/v1/feed")
+      const { data } = await call.get<IPost[]>("/api/v1/feed")
       setNews(data)
     } catch (error) {
       console.log(error)
@@ -30,18 +32,19 @@ export function FeedPosts(): JSX.Element {
   }
 
   useEffect(() => {
-    fetchLatestNews()
-  }, [isInView])
+    fetchLatestPosts()
+  }, [isInView, accessToken])
 
   return (
     <>
       {news.map((item) => (
         <AnimatePresence key={item.id}>
           <AnimatedFeedPost
+            whileInView={{ opacity: 1 }}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             key={item.id}
-            {...item}
+            post={item}
           />
         </AnimatePresence>
       ))}
@@ -50,5 +53,3 @@ export function FeedPosts(): JSX.Element {
     </>
   )
 }
-
-const AnimatedFeedPost = motion(FeedPost)

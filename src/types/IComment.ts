@@ -1,5 +1,5 @@
-type IComment = {
-  id: number
+interface IComment {
+  id: string
   username: string
   dateCreated: string
   message: string

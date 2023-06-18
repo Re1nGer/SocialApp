@@ -12,12 +12,12 @@ export function FeedMain({ onClick }: FeedMainProp): JSX.Element {
   const { profileInfo : { lowResImageLink } } = useContext(ThemeContext)
 
   return (
-    <div className='feed__main'>
+    <div className='feed__main px-2'>
       <div className='feed__input-container'>
         <img className='feed__input-img' src={lowResImageLink} alt='profile' />
         <div className='feed__input-form_container'>
-          <input className='feed__input-input' placeholder="What's happening" onClick={onClick} />
-          <div className='feed__input-options'>
+          <input className='feed__input-input' placeholder="What's happening ?" onClick={onClick} />
+          <div className='hidden gap-1 md:flex'>
             <div className='feed__input--photo'>
               <button className='feed__input-btn'>
                 <Icon icon='gg:image' fontSize={20} />

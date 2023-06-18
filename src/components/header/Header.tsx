@@ -4,7 +4,6 @@ import { useContext } from 'react'
 import { ThemeContext } from '../contexts/ThemeContext'
 import { Icon } from '@iconify/react'
 import HeaderProfileMenu from './HeaderProfileMenu'
-import ChatDrawer from '../drawer/ChatDrawer'
 import Searchbar from './Searchbar'
 import HeaderNotificationMenu from './HeaderNotificationMenu'
 import HeaderLogoIcon from '../svg/HeaderLogoIcon'
@@ -13,19 +12,21 @@ import HeaderHamburgerMenu from "./HeaderHamburgerMenu";
 const Header = (): JSX.Element => {
 
 
-  const { isLightTheme,
-    isLoggedIn,
-    setIsChatDrawerOpen } = useContext(ThemeContext)
+  const { isLightTheme, isLoggedIn, } = useContext(ThemeContext)
 
+/*
   const handleDrawerOpen = () => {
     setIsChatDrawerOpen(true)
     document.body.style.height = '100vh'
     document.body.style.overflow = 'hidden'
   }
+*/
 
   return (
     <>
+{/*
       <ChatDrawer />
+*/}
       <header className={`header ${isLightTheme ? 'header--light' : ''}`}>
         <div className='header__left'>
           <HeaderHamburgerMenu />
@@ -41,7 +42,7 @@ const Header = (): JSX.Element => {
           ) : null}
           {isLoggedIn ? (
             <div className='header__right-chat_icon'>
-              <Icon icon='ph:paper-plane-tilt-bold' fontSize='25px' onClick={handleDrawerOpen} />
+              <Icon icon='ph:paper-plane-tilt-bold' fontSize='25px' /> {/* onClick={handleDrawerOpen} /> */}
             </div>
           ) : null}
         </div>

@@ -100,6 +100,7 @@ function Post({ id }: PostPropsType) {
       await axios.post('/api/v1/comment', body)
       setIsCommentFormShown(false)
       setIsCommentShown(true)
+      setPost((prevState) => ({ ...prevState, commentCount: prevState.commentCount + 1 }))
     } catch (error) {
       console.log(error)
     }

@@ -3,6 +3,7 @@ import { useForm, SubmitHandler } from 'react-hook-form'
 import { Icon } from '@iconify/react'
 import { ApiErrorType } from './LoginContainer'
 import WarframeLoader from "../loader/WarframeLoader";
+import { motion } from 'framer-motion'
 
 export type LoginFormType = {
   email: string
@@ -23,7 +24,12 @@ function LoginForm({ onSubmit, apiErrors, isLoading }: LoginFormPropType): JSX.E
 
   return (
     <div className='flex justify-center items-center h-[50%]'>
-      <form className='flex flex-column justify-center' onSubmit={handleSubmit(onSubmit)}>
+      <motion.form
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          className='flex flex-column justify-center'
+          onSubmit={handleSubmit(onSubmit)}
+      >
         <section className='flex flex-col'>
           <section className='flex flex-col justify-center'>
             <h2 className='text-lg my-3 text-center font-semibold'>Log In</h2>
@@ -34,8 +40,9 @@ function LoginForm({ onSubmit, apiErrors, isLoading }: LoginFormPropType): JSX.E
             </label>
             <input
               id='input-email'
-              className='p-3 rounded-lg border'
+              className={`transition-opacity duration-200 p-3 rounded-lg border ${isLoading ? 'opacity-50' : ''}`}
               placeholder='Email'
+              type={'email'}
               {...register('email', { required: 'Email Is Required' })}
             />
             {errors?.email && ( <small className='text-red-500'>{errors.email.message}</small>) }
@@ -47,8 +54,8 @@ function LoginForm({ onSubmit, apiErrors, isLoading }: LoginFormPropType): JSX.E
             </label>
             <input
               id='input-password'
-              className='p-3 rounded-lg focus:border-0 border'
-              type='password'
+              className={`transition-opacity duration-200 p-3 rounded-lg focus:outline-0 border ${isLoading ? 'opacity-50' : ''}`}
+              type={'password'}
               placeholder='Password'
               {...register('password', { required: 'Password Is Required' })}
             />
@@ -57,7 +64,7 @@ function LoginForm({ onSubmit, apiErrors, isLoading }: LoginFormPropType): JSX.E
           </div>
           <div className='flex justify-center my-4'>
             <button
-              className='rounded-lg p-3 grow text-white bg-black w-75 hover:bg-slate-800 ease-in-out duration-200'
+              className={`rounded-lg p-3 grow text-white bg-black w-75 hover:bg-slate-800 ease-in-out duration-200 ${isLoading ? 'opacity-50' : ''}`}
               disabled={isLoading}
               type='submit'
             >
@@ -76,7 +83,7 @@ function LoginForm({ onSubmit, apiErrors, isLoading }: LoginFormPropType): JSX.E
             </button>
           </section>
         </section>
-      </form>
+      </motion.form>
     </div>
   )
 }

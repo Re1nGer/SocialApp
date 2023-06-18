@@ -42,4 +42,3 @@ function MyProfilePage() {
 }
 
 export default MyProfilePage
-

@@ -16,7 +16,7 @@
   display: flex;
   justify-content: center;
   flex-direction: column;
-  max-width: 300px;
+  min-width: 300px;
   background: var(--gray-extra-dark);
 }
 

@@ -2,7 +2,7 @@ import IProfileInfo from '../../types/IProfileInfo';
 import CircleLoader from '../loader/CircleLoader';
 import { defaultUserImg } from './ProfilePage';
 
-export type ProfileInfoPropsType = {
+type ProfileInfoPropsType = {
   isLoading: boolean,
   profileInfo: IProfileInfo | undefined,
   isFollowing: boolean,

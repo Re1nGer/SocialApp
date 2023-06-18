@@ -14,6 +14,7 @@ export const defaultUserImg: string =
   'https://thumbs.dreamstime.com/b/blank-black-white-image-placeholder-icon-design-178700126.jpg'
 
 const defaultProfile : IProfileInfo= {
+  id: "",
   username: "",
   lowResImageLink: "",
   highResImageLink: "",

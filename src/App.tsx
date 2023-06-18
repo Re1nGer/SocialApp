@@ -9,6 +9,8 @@ import FeedPage from './components/pages/FeedPage'
 import SignUpPage from './components/pages/SignUp'
 import PrivateRoute from './components/route/PrivateRoute'
 import MyProfilePage from './components/pages/MyProfilePage'
+import SearchPage from "./components/pages/SearchPage";
+import AccountPage from "./components/pages/AccountPage";
 
 function App() {
   return (
@@ -24,6 +26,8 @@ function App() {
               <Route path='/mypage' element={<MyProfilePage />} />
               <Route path='/post/:id' element={<PostPage />} />
               <Route path='/feed' element={<FeedPage />} />
+              <Route path='/search' element={<SearchPage />} />
+              <Route path='/account' element={<AccountPage />} />
             </Route>
           </Route>
         </Routes>

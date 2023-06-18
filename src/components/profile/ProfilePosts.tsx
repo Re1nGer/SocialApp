@@ -12,7 +12,7 @@ export const ProfilePosts = (): JSX.Element => {
 
   return (
     <>
-      {userPosts.map((post) => (
+      {userPosts.map((post: IPost) => (
         <AnimatedPostInView key={post.id}>
           <Post {...post} />
         </AnimatedPostInView>

@@ -62,7 +62,7 @@ const NotificationItem = ({ userId }: NotificationItemPropType, ref:LegacyRef<HT
     }
 
     return <div ref={ref} onClick={(event) => event.stopPropagation()}>
-        <li className='p-[1rem] text-white text-center flex items-center justify-center transition-[color] hover:text-slate-200 ease-in text-sm cursor-pointer '>
+        <li className='p-[1rem] text-white text-center flex items-center justify-center transition-[color] hover:text-slate-200 ease-in text-sm cursor-pointer'>
             <div>Follow Request from {user?.username}</div>
             <Link to={`user/${user.id}`} className={'h-[25px] w-[25px]'}>
                 <img className='rounded-full object-cover h-full w-full' src={user.lowResImageLink} alt='user img' />

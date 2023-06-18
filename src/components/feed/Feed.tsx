@@ -31,10 +31,8 @@ function Feed(): JSX.Element {
     const image = event.target[1].files[0]
     try {
       setIsLoading(true)
-
       const form = new FormData()
       form.append('htmlContent', htmlContent)
-      console.log(image)
       form.append('image', image)
       await call.post('/api/v1/post', form, {
         headers: {
@@ -63,22 +61,23 @@ function Feed(): JSX.Element {
             animate={{ opacity: 1, scale: 1 }}
             handleClose={handleClose}
             handleSubmitForm={handleSubmit}
+            isLoading={isLoading}
           />
         ) : null}
       </AnimatePresence>
 
       <div className='feed'>
-        <div className='feed__inner'>
-          <div className='feed__left'>
+        <div className='xl:justify-center flex justify-center'>
+          <div className='hidden xl:block'>
             <FeedProfile />
             <br />
             <br />
             <FeedFollow />
           </div>
-          <div className='feed__center'>
+          <div className='flex justify-center xl:w-full'>
             <FeedMain onClick={handleOpen} />
           </div>
-          <div className='feed__right'>
+          <div className='hidden xl:block feed__right'>
             <FeedTrends />
           </div>
         </div>

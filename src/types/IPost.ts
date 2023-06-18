@@ -1,3 +1,7 @@
+import ILike from "./ILike";
+import IComment from "./IComment";
+import IUser from "./IUser";
+
 interface IPost {
   id: string
   userId?: string
@@ -8,6 +12,9 @@ interface IPost {
   likeCount: number
   commentCount: number
   message: string
+  user?: IUser,
+  likes?: ILike[],
+  comments?: IComment[]
 }
 
 export default IPost
