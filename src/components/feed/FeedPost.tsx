@@ -1,16 +1,16 @@
 import './Feed.scss'
-import { CommentSection } from '../post/CommentSection'
 import IPost from "../../types/IPost";
 import { Icon } from "@iconify/react";
 import React, { useContext } from "react";
 import { ThemeContext } from "../contexts/ThemeContext";
 import { Link } from "react-router-dom";
+import CommentSection from "../post/CommentSection";
 
 export type FeedPostPropType = {
   post: IPost
 }
 
-function FeedPost({ post }: FeedPostPropType, ref: any): JSX.Element {
+const FeedPost = ({ post }: FeedPostPropType, ref: any): JSX.Element => {
 
   const { profileInfo: { id } } = useContext(ThemeContext)
 

@@ -4,7 +4,7 @@ interface IComment {
   dateCreated: string
   message: string
   postId: number
-  userId: number
+  userId: string
 }
 
 export default IComment

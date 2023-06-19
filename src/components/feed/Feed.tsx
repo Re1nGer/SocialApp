@@ -7,9 +7,10 @@ import { FeedTrends } from './FeedTrends'
 import { FeedProfile } from './FeedProfile'
 import { FeedFollow } from './FeedFollow'
 import { axios as call } from '../../axios'
-import { FeedPostModalFormValues, AnimatedPostForm } from './FeedPostModalFormValues'
+import { FeedPostModalFormValues } from './FeedPostModalFormValues'
+import AnimatedPostForm from "./AnimatedPostForm";
 
-function Feed(): JSX.Element {
+const Feed = (): JSX.Element => {
   const [isPostFormOpen, setIsPostFormOpen] = React.useState<boolean>(false)
 
   const [isLoading, setIsLoading] = React.useState<boolean>(false)
@@ -24,6 +25,7 @@ function Feed(): JSX.Element {
     setIsPostFormOpen(true)
   }
 
+  //TODO: Can potentially extract this out into PostForm
   const handleSubmit = async (data: FeedPostModalFormValues, event: any) => {
     if (!event.target[1].files[0]) return
     event.preventDefault()

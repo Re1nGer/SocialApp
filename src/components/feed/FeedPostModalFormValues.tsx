@@ -1,5 +1,4 @@
 import React, { ChangeEvent, LegacyRef } from 'react'
-import { motion } from 'framer-motion'
 import { Icon } from '@iconify/react'
 import { useForm, SubmitHandler } from 'react-hook-form'
 import WarframeLoader from "../loader/WarframeLoader";
@@ -82,4 +81,3 @@ export const FeedPostFormModal = (
     </>
   )
 }
-export const AnimatedPostForm = motion(React.forwardRef(FeedPostFormModal))

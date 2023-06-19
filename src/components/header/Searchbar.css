@@ -6,6 +6,7 @@
 }
 
 .searchbar__input {
+  min-width: 300px;
   padding: 0.5rem 2.5rem;
   background: #f0f1f2;
   border-radius: 0.2rem;

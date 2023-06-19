@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 
 function PostPage() {
   const { id } = useParams()
-  return <Post id={id ?? ""} />
+  return <Post postId={id!} />
 }
 
 export default PostPage
