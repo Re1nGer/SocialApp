@@ -1,6 +1,10 @@
+import ILike from "./ILike";
+import IComment from "./IComment";
+import IUser from "./IUser";
+
 interface IPost {
   id: string
-  userId?: string
+  userId: string
   lowResMediaUrl: string
   mediaUrl: string
   createdAt?: Date
@@ -8,6 +12,12 @@ interface IPost {
   likeCount: number
   commentCount: number
   message: string
+  user?: IUser,
+  likes: ILike[],
+  hasUserLike?: boolean,
+  comments: IComment[],
+  username?: string,
+  userImageLink?: string
 }
 
 export default IPost

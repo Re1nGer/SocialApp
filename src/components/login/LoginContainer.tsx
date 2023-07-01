@@ -11,7 +11,7 @@ export type ApiErrorType = {
   message: string
 }
 
-function LoginContainer(): JSX.Element {
+const LoginContainer = (): JSX.Element => {
 
   const navigate = useNavigate()
 

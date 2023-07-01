@@ -9,7 +9,7 @@ const NotificationList = ({ children }: NotificationListProps) => {
                     animate={{ opacity: 1, scale: 1 }}
                     exit={{ opacity: 0 }}
                     role="list"
-                    className={`h-[200px] bg-black w-[200px] absolute top-[3rem] right-0`}
+                    className={`h-[200px] bg-black w-[200px] absolute top-[3rem] right-0 z-10`}
   >
     {children}
   </motion.ul>;

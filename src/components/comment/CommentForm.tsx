@@ -13,6 +13,7 @@ export type CommentFormPropType = {
 type Ref = LegacyRef<HTMLFormElement> | undefined
 
 const CommentForm = ({ onSubmit }: CommentFormPropType, ref: Ref) => {
+
   const { handleSubmit, register } = useForm<CommentFormDefaultValuesType>()
 
   return (
@@ -22,7 +23,11 @@ const CommentForm = ({ onSubmit }: CommentFormPropType, ref: Ref) => {
         {...register('message')}
         placeholder='Type In Comment'
       />
-      <button type='submit'>Submit</button>
+      <button
+        type={'submit'}
+        className={'outline-0 border text-white rounded-xl p-2 my-2 hover:bg-white transition-colors duration-150 hover:text-black'}>
+        Post Comment
+      </button>
     </form>
   )
 }

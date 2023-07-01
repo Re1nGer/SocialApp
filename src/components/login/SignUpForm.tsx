@@ -4,13 +4,15 @@ import axios, { AxiosError } from 'axios'
 import { ThemeContext } from '../contexts/ThemeContext'
 import { axios as call } from '../../axios'
 import { SubmitHandler, useForm } from 'react-hook-form'
+import WarframeLoader from "../loader/WarframeLoader";
+import { motion } from "framer-motion";
 
 type SignUpFormType = {
   email: string
   password: string
 }
 
-function SignUpForm(): JSX.Element {
+const SignUpForm = (): JSX.Element => {
 
   const navigate = useNavigate()
 
@@ -52,7 +54,12 @@ function SignUpForm(): JSX.Element {
 
   return (
     <div className='flex justify-center items-center h-[50%]'>
-      <form className='flex flex-col gap-3' onSubmit={handleSubmit(signUp)}>
+      <motion.form
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        className='flex flex-col gap-3'
+        onSubmit={handleSubmit(signUp)}
+      >
         <h1 className='text-lg text-center font-semibold'>Sign Up</h1>
         {error ? <h1 className='text-red-500'>Error !!!</h1> : null}
         <div className='flex flex-col'>
@@ -61,7 +68,8 @@ function SignUpForm(): JSX.Element {
           </label>
           <input
             id='email'
-            className='p-3 rounded-lg border'
+            type={'email'}
+            className={`transition-opacity duration-200 p-3 rounded-lg border ${isLoading ? 'opacity-50' : ''}`}
             placeholder='Email'
             { ...register('email', { required: "Email is required" }) }
           />
@@ -73,20 +81,21 @@ function SignUpForm(): JSX.Element {
           </label>
           <input
             id='password'
-            className='p-3 rounded-lg border'
+            className={`transition-opacity duration-200 p-3 rounded-lg border ${isLoading ? 'opacity-50' : ''}`}
             type='password'
             placeholder='Password'
             {...register('password', { required: "Password cannot be empty" })}
           />
           { errors?.password && (<small className='text-red-500'>{errors.password.message}</small>) }
         </div>
-        <button className='bg-black text-white p-3 rounded-lg' disabled={isLoading} type='submit'>
+        { isLoading && <WarframeLoader /> }
+        <button className={`bg-black text-white p-3 rounded-lg ${isLoading ? 'opacity-50' : ''}`} disabled={isLoading} type='submit'>
           Sign Up
         </button>
         <div className='form__signup-link'>
-          Already have an account ?  <Link color='#fff' to='/login'>Log In</Link>
+          Already have an account ?  <Link className={'text-black'} to='/login'>Log In</Link>
         </div>
-      </form>
+      </motion.form>
     </div>
   )
 }

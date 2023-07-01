@@ -4,8 +4,9 @@ import Footer from '../footer/Footer'
 import { useContext, useEffect } from "react";
 import { axios } from "../../axios";
 import { ThemeContext } from '../contexts/ThemeContext'
+import MobileBottomNavigation from "./BottomNavigation";
 
-function Layout(): JSX.Element {
+const Layout = (): JSX.Element => {
   const { isLightTheme, accessToken, setAccessToken, setIsLoggedIn } = useContext(ThemeContext)
 
   const location = useLocation()
@@ -33,6 +34,7 @@ function Layout(): JSX.Element {
         <Header />
         <Outlet />
         <Footer />
+        <MobileBottomNavigation />
       </div>
     </>
   )

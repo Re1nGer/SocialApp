@@ -7,7 +7,7 @@ export function FeedProfile(): JSX.Element {
   const { profileInfo: { lowResImageLink, profileBackgroundImagelink, username } } = useContext(ThemeContext)
 
   return (
-    <div className='feed__profile'>
+    <div className='feed__profile '>
       <div className=' max-h-[200px]'>
         <img className='object-cover rounded-xl w-full max-h-[200px]'
              src={profileBackgroundImagelink} alt='cap' />

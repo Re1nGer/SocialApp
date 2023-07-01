@@ -6,14 +6,9 @@ const MyProfileInfo = () => {
 
   return (
     <>
-      {/*
-      {isProfileModalOpen ? (
-        <UpdateProfileForm onSubmit={updateProfileInfo} setIsModalOpen={setIsProfileModalOpen} />
-      ) : null}
-*/}
       <div className='max-w-[1150px] w-full mx-auto'>
         <div className='flex justify-start my-2'>
-          <div className='flex gap-3 grow-[.5]'>
+          <div className='flex flex-col sm:flex-row items-center sm:items-start gap-3 grow-[.5]'>
             <UploadAndDisplayProfileImage />
             <DisplayProfileInfo />
           </div>
@@ -22,7 +17,6 @@ const MyProfileInfo = () => {
               icon='material-symbols:edit'
               fontSize='25px'
               color='#fff'
-              //onClick={handleProfileModal}
             />
           </div>
         </div>

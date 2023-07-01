@@ -1,19 +1,21 @@
 import React, { ChangeEvent, LegacyRef } from 'react'
-import { motion } from 'framer-motion'
 import { Icon } from '@iconify/react'
 import { useForm, SubmitHandler } from 'react-hook-form'
+import WarframeLoader from "../loader/WarframeLoader";
 
 type FeedPostModalType = {
   handleClose: () => void
-  handleSubmitForm: SubmitHandler<FeedPostModalFormValues>
+  handleSubmitForm: SubmitHandler<FeedPostModalFormValues>,
+  isLoading: boolean
 }
 type Ref = LegacyRef<HTMLFormElement> | undefined
+
 export type FeedPostModalFormValues = {
   htmlContent: string
 }
 
 export const FeedPostFormModal = (
-  { handleClose, handleSubmitForm }: FeedPostModalType,
+  { handleClose, handleSubmitForm, isLoading }: FeedPostModalType,
   ref: Ref,
 ) => {
   const [imageSrc, setImageSrc] = React.useState<string | null>(null)
@@ -54,7 +56,7 @@ export const FeedPostFormModal = (
         </label>
         <div className='feed__post-drag-drop'>
           {imageSrc ? (
-            <img className='feed__post-drag' src={imageSrc} alt='post form' />
+            <img className={`transition-opacity duration-150 feed__post-drag ${isLoading ? 'opacity-50' : ''}`} src={imageSrc} alt='post form' />
           ) : (
             <p>Drag and drop your files here</p>
           )}
@@ -62,7 +64,7 @@ export const FeedPostFormModal = (
         </div>
         <input
           accept='image/*'
-          style={{ display: 'none' }}
+          className={'hidden'}
           type='file'
           id='postfile'
           name='postfile'
@@ -73,9 +75,9 @@ export const FeedPostFormModal = (
             <span className='feed__post-form_upload-btn'>Upload from computer</span>
           </label>
         )}
-        <button className='feed__post-form_btn'>Submit Post</button>
+        { isLoading && <WarframeLoader /> }
+        <button className={`transition-opacity duration-150 feed__post-form_btn ${isLoading ? 'opacity-50' : ''}`}>Submit Post</button>
       </form>
     </>
   )
 }
-export const AnimatedPostForm = motion(React.forwardRef(FeedPostFormModal))

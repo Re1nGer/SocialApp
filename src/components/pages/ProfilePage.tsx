@@ -14,6 +14,7 @@ export const defaultUserImg: string =
   'https://thumbs.dreamstime.com/b/blank-black-white-image-placeholder-icon-design-178700126.jpg'
 
 const defaultProfile : IProfileInfo= {
+  id: "",
   username: "",
   lowResImageLink: "",
   highResImageLink: "",
@@ -36,7 +37,7 @@ const ProfilePosts = ({ children }: ProfilePostsProp) => {
   );
 }
 
-function ProfilePage(): JSX.Element {
+const ProfilePage = (): JSX.Element => {
 
   const [isLoading, setIsLoading] = useState<boolean>(false)
 
@@ -74,16 +75,6 @@ function ProfilePage(): JSX.Element {
       setIsFollowRequestSent(false)
     }
   }
-
-/*   const fetchIsBlocked = async () => {
-    try {
-      const { data } = await call.get(`/api/v1/user/isblocked/${userId}`);
-      setIsBlocked(data)
-    } catch (error) {
-      console.log(error)
-    }
-  } */
-
   const handleStartConversation = async () => {
     setIsChatDrawerOpen(true)
     try { 

@@ -23,6 +23,7 @@ type ThemeContextProviderType = {
 }
 
 const defaultProfileInfo: IProfileInfo = {
+  id: '',
   lowResImageLink: '',
   username: '',
   highResImageLink: '',
@@ -37,7 +38,6 @@ export function ThemeContextProvider({ children }: ThemeContextProviderType): JS
   const [isChatDrawerOpen, setIsChatDrawerOpen] = useState<boolean>(false)
   const [accessToken, setAccessToken] = useState<string>('')
   const [chatId, setChatId] = useState<string | null>(null)
-  const [userRequests, setUserRequests] = useState()
   const [profileInfo, setProfileInfo] = useState<IProfileInfo>(defaultProfileInfo)
 
   const value: ThemeContextType = {

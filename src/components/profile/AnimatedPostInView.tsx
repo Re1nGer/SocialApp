@@ -1,7 +1,6 @@
 import React, { useRef } from 'react'
-import { motion, useAnimation, useInView } from 'framer-motion'
+import { motion } from 'framer-motion'
 
-// const AnimatedPost = motion(Post);
 type AnimatedPostInViewPropsType = {
   children: JSX.Element
 }
@@ -9,22 +8,13 @@ type AnimatedPostInViewPropsType = {
 export function AnimatedPostInView({ children }: AnimatedPostInViewPropsType): JSX.Element {
   const ref = useRef(null)
 
-  const inView = useInView(ref, { once: true })
-
-  const controls = useAnimation()
-
-  React.useEffect(() => {
-    if (inView) {
-      controls.start({ opacity: 1, scale: 1 })
-    }
-  }, [inView, controls])
-
   return (
     <motion.section
       ref={ref}
       initial={{ opacity: 0, scale: 0.5 }}
-      animate={controls}
       transition={{ duration: 0.5 }}
+      whileTap={{ scale: 1.1 }}
+      whileInView={{ scale: 1, opacity: 1 }}
     >
       {children}
     </motion.section>
