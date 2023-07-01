@@ -51,7 +51,20 @@ const NotificationItem = ({ userId }: NotificationItemPropType, ref:LegacyRef<HT
             console.log(error)
         }
     }
-    const handleDecline = async () => {}
+    const handleDecline = async () => {
+        try {
+            await axios.post('/api/v1/follow/reject', { userRequestId: userId })
+            toast.error('Request Declined', {
+                duration: 3000,
+                position: "bottom-right"
+            })
+            const newProfileInfoState = {...profileInfo }
+            newProfileInfoState.userRequests = [...newProfileInfoState.userRequests.filter(item => item.senderUserId !== userId)];
+            setProfileInfo(newProfileInfoState)
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
     useEffect(() => {
         fetchNotificationItem();
@@ -70,7 +83,7 @@ const NotificationItem = ({ userId }: NotificationItemPropType, ref:LegacyRef<HT
         </li>
         <div className='flex justify-center gap-2 my-1'>
             <button className={'p-1 px-2 bg-black text-white rounded-lg border text-sm'} onClick={handleAccept}>Accept</button>
-            <button className={'p-1 px-2 bg-white text-black rounded-lg border text-sm'}>Decline</button>
+            <button className={'p-1 px-2 bg-white text-black rounded-lg border text-sm'} onClick={handleDecline}>Decline</button>
         </div>
         <Toaster />
     </div>;

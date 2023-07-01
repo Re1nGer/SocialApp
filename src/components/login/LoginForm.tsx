@@ -18,7 +18,7 @@ type LoginFormPropType = {
   isLoading: boolean
 }
 
-function LoginForm({ onSubmit, apiErrors, isLoading }: LoginFormPropType): JSX.Element {
+const LoginForm = ({ onSubmit, apiErrors, isLoading }: LoginFormPropType): JSX.Element => {
 
   const { register, formState: { errors }, handleSubmit } = useForm<LoginFormType>({ defaultValues })
 

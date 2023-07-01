@@ -12,7 +12,7 @@ type SignUpFormType = {
   password: string
 }
 
-function SignUpForm(): JSX.Element {
+const SignUpForm = (): JSX.Element => {
 
   const navigate = useNavigate()
 

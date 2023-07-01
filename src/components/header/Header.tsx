@@ -11,22 +11,10 @@ import HeaderHamburgerMenu from "./HeaderHamburgerMenu";
 
 const Header = (): JSX.Element => {
 
-
   const { isLightTheme, isLoggedIn, } = useContext(ThemeContext)
-
-/*
-  const handleDrawerOpen = () => {
-    setIsChatDrawerOpen(true)
-    document.body.style.height = '100vh'
-    document.body.style.overflow = 'hidden'
-  }
-*/
 
   return (
     <>
-{/*
-      <ChatDrawer />
-*/}
       <header className={`header ${isLightTheme ? 'header--light' : ''}`}>
         <div className='header__left'>
           <HeaderHamburgerMenu />
