@@ -37,8 +37,8 @@ const PostComponent = ({
 
   return <>
     <div className={'flex gap-2 my-2 items-center'}>
-      <img src={post.user?.lowResImageLink} className={'rounded-full h-[50px] w-[50px]'} alt={'user'} />
-      <span className={'text-white'}>{post.user?.username}</span>
+      <img src={post.userImageLink} className={'rounded-full h-[50px] w-[50px]'} alt={'user'} />
+      <span className={'text-white'}>{post.username}</span>
     </div>
     <div className='post__img-container'>
       <img className='post__img' src={post.mediaUrl} alt='post' loading='lazy' />

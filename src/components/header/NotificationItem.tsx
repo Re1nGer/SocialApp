@@ -1,5 +1,5 @@
 import React, { LegacyRef, useContext, useEffect, useState } from "react";
-import { axios, axios as call } from "../../axios";
+import { axios } from "../../axios";
 import IUser from '../../types/IUser';
 import CircleLoader from '../loader/CircleLoader';
 import toast, { Toaster } from 'react-hot-toast';
@@ -27,7 +27,7 @@ const NotificationItem = ({ userId }: NotificationItemPropType, ref:LegacyRef<HT
     const fetchNotificationItem = async () => {
         try {
             setIsLoading(true);
-            const { data } = await call.get<IUser>(`/api/v1/user/${userId}`);
+            const { data } = await axios.get<IUser>(`/api/v1/user/${userId}`);
             setUser(data);
         } catch (error) {
             console.log(error);

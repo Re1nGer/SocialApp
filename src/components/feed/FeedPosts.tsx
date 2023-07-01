@@ -1,5 +1,5 @@
 import { useContext, useEffect, useRef, useState } from "react";
-import { AnimatePresence, useInView } from 'framer-motion'
+import { AnimatePresence } from "framer-motion";
 import { axios as call } from '../../axios'
 import CircleLoader from '../loader/CircleLoader'
 import IPost from "../../types/IPost";
@@ -13,8 +13,6 @@ export function FeedPosts(): JSX.Element {
   const [isLoading, setIsLoading] = useState<boolean>(true)
 
   const [news, setNews] = useState<IPost[]>([])
-
-  const isInView = useInView(lastPost, { amount: 'some' })
 
   const { accessToken }  = useContext(ThemeContext)
 
@@ -33,20 +31,20 @@ export function FeedPosts(): JSX.Element {
 
   useEffect(() => {
     fetchLatestPosts()
-  }, [isInView, accessToken])
+  }, [accessToken])
 
   return (
     <>
       {news.map((item) => (
-        <AnimatePresence key={item.id}>
-          <AnimatedFeedPost
-            whileInView={{ opacity: 1 }}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            key={item.id}
-            post={item}
-          />
-        </AnimatePresence>
+          <AnimatePresence key={item.id}>
+            <AnimatedFeedPost
+              whileInView={{ opacity: 1 }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              key={item.id}
+              post={item}
+            />
+          </AnimatePresence>
       ))}
       {isLoading ? <CircleLoader /> : null}
       <div ref={lastPost} />
