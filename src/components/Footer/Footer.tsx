@@ -1,7 +1,7 @@
 import './Footer.css'
 import FooterIcon from '../svg/FooterIcon'
 
-function Footer() {
+const Footer = () => {
   return (
     <footer className='footer'>
       <div className='footer__inner'>
