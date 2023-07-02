@@ -18,9 +18,9 @@ This is a social app written in React that allows users to upload and share post
 - Postgres
 - Asp.NET WEB API
 
-## NewsCatcherAPI
+## NOTE
 
-NewsCatcherAPI is a news API that provides real-time news articles from various sources. The API is integrated into this app to provide users with up-to-date news related to their interests. You can find more information about the NewsCatcherAPI [here](https://newscatcherapi.com/).
+Current Environment is not yet hooked up with backend
 
 ## Getting Started
 
