@@ -18,14 +18,13 @@ export const FeedPostFormModal = (
   { handleClose, handleSubmitForm, isLoading }: FeedPostModalType,
   ref: Ref,
 ) => {
-  const [imageSrc, setImageSrc] = React.useState<string | null>(null)
+  const { register, handleSubmit } = useForm<FeedPostModalFormValues>()
 
+  const [imageSrc, setImageSrc] = React.useState<string | null>(null)
   const onImagePreviewChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files) return
     setImageSrc(URL.createObjectURL(e.target.files[0]))
   }
-
-  const { register, handleSubmit } = useForm<FeedPostModalFormValues>()
 
   return (
     <>

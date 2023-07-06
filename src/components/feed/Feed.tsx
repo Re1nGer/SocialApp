@@ -2,7 +2,7 @@ import './Feed.scss'
 import React from 'react'
 import { AnimatePresence } from 'framer-motion'
 import axios, { AxiosError } from 'axios'
-import { FeedMain } from './FeedMain'
+import FeedMain from './FeedMain'
 import { FeedTrends } from './FeedTrends'
 import { FeedProfile } from './FeedProfile'
 import { FeedFollow } from './FeedFollow'
@@ -33,10 +33,10 @@ const Feed = (): JSX.Element => {
     const image = event.target[1].files[0]
     try {
       setIsLoading(true)
-      const form = new FormData()
-      form.append('htmlContent', htmlContent)
-      form.append('image', image)
-      await call.post('/api/v1/post', form, {
+      const formData = new FormData()
+      formData.append('image', image)
+      formData.append('htmlContent', htmlContent)
+      await call.post('/api/v1/post', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -69,11 +69,9 @@ const Feed = (): JSX.Element => {
       </AnimatePresence>
 
       <div className='feed'>
-        <div className='xl:justify-center flex justify-center'>
-          <div className='hidden xl:block'>
+        <div className='xl:justify-center justify-center xl:flex'>
+          <div className='hidden xl:flex flex-col gap-5'>
             <FeedProfile />
-            <br />
-            <br />
             <FeedFollow />
           </div>
           <div className='flex justify-center xl:w-full'>

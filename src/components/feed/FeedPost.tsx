@@ -9,7 +9,7 @@ import { axios } from "../../axios";
 import AnimatedCommentForm from "../profile/AnimatedCommentForm";
 import { SubmitHandler } from "react-hook-form";
 import { CommentFormDefaultValuesType } from "../comment/CommentForm";
-import { AnimatePresence } from "framer-motion";
+import { AnimatePresence, motion, useAnimation } from "framer-motion";
 
 export type FeedPostPropType = {
   post: IPost
@@ -22,10 +22,13 @@ const FeedPost = ({ post }: FeedPostPropType, ref: any): JSX.Element => {
   const [localPost, setLocalPost] = useState<IPost>(post);
 
   const [isCommentFormShown, setIsCommentFormShown] = useState<boolean>(false)
+
+  const animation = useAnimation();
   const putLike = async () => {
     try {
       await axios.put(`/api/v1/like/${post.id}`)
       setLocalPost(prevState => ({...prevState, likeCount: prevState.likeCount + 1, hasUserLike: true}))
+      animation.start({ opacity: 1, animationDuration: "1.5" }, { opacity: 0, animationDuration: "1.5" });
     } catch (error) {
       console.log(error)
     }
@@ -38,6 +41,13 @@ const FeedPost = ({ post }: FeedPostPropType, ref: any): JSX.Element => {
     } catch (error) {
       console.log(error)
     }
+  }
+
+  const handleDoubleClickLike = async () => {
+    if (localPost.hasUserLike) {
+      await deleteLike();
+    }
+    else await putLike();
   }
 
   const handleFormShow = () => {
@@ -61,31 +71,45 @@ const FeedPost = ({ post }: FeedPostPropType, ref: any): JSX.Element => {
     setLocalPost(post)
   }, [post.id])
 
+
   return (
-    <div className='flex flex-col gap-[1rem]' ref={ref}>
+    <div className='flex flex-col gap-[1rem] relative' ref={ref}>
       <span className={'flex gap-1 items-center'}>
         <Link to={id === localPost.userId ? '/mypage' : `/user/${localPost.userId}`}>
           <img src={localPost?.userImageLink} alt={'profile'} className={'w-[40px] h-[40px] rounded-full'} />
         </Link>
         <span className={'text-white'}>{localPost.username}</span>
       </span>
-      <img src={post.mediaUrl} alt={'post'} className={'max-h-[400px] object-contain'} />
-      <div className={'flex gap-1 text-white'}>
-        <div className='flex gap-2 items-center'>
-          {localPost.likeCount}
-          <Icon fontSize={20}
-            icon={localPost.hasUserLike ? 'mdi:cards-heart' : 'mdi:cards-heart-outline'}
-            className={'cursor-pointer'}
-            onClick={localPost.hasUserLike ? deleteLike : putLike}
-          />
+      <div className='relative h-full w-full cursor-pointer' onDoubleClick={handleDoubleClickLike}>
+        <img src={post.mediaUrl} alt={'post'} className={'max-h-[400px] w-full object-contain '}  />
+        <div className='absolute w-full left-[50%] top-[50%] max-h-[400px]'>
+          <motion.i initial={{ opacity:0 }} animate={animation}>
+            <Icon icon='teenyicons:heart-solid' fontSize={30} fontWeight={800} className={'relative z-10'} color={'white'} />
+          </motion.i>
         </div>
-        <div className='flex gap-2 items-center'>
-          {localPost.commentCount}
-          <Icon fontSize={20}
-                onClick={handleFormShow}
-                icon='uil:comment'
-                className={'cursor-pointer'} />
+      </div>
+      <div className={'flex gap-1 text-white justify-between'}>
+        <div className={'flex gap-1'}>
+          <div className='flex gap-2 items-center'>
+            {localPost.likeCount}
+            <Icon fontSize={20}
+                  icon={localPost.hasUserLike ? 'mdi:cards-heart' : 'mdi:cards-heart-outline'}
+                  className={'cursor-pointer'}
+                  onClick={localPost.hasUserLike ? deleteLike : putLike}
+            />
+          </div>
+          <div className='flex gap-2 items-center'>
+            {localPost.commentCount}
+            <Icon fontSize={20}
+                  onClick={handleFormShow}
+                  icon='uil:comment'
+                  className={'cursor-pointer'} />
+          </div>
         </div>
+
+          <div>
+            <Icon icon="mdi:bookmark-outline" className={'cursor-pointer'} fontSize={30} />
+          </div>
       </div>
       <div className={'text-white'}>
         {localPost.message}

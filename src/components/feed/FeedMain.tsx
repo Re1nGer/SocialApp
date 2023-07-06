@@ -6,7 +6,7 @@ type FeedMainProp = {
   onClick: MouseEventHandler
 }
 
-export function FeedMain({ onClick }: FeedMainProp): JSX.Element {
+const FeedMain = ({ onClick }: FeedMainProp): JSX.Element => {
 
   return (
     <div className='feed__main px-2'>
@@ -15,3 +15,5 @@ export function FeedMain({ onClick }: FeedMainProp): JSX.Element {
     </div>
   )
 }
+
+export default FeedMain;

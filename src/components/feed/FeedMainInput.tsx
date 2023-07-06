@@ -1,12 +1,16 @@
 import { Icon } from "@iconify/react";
 import React, { useContext } from "react";
 import { ThemeContext } from "../contexts/ThemeContext";
+
+const defaultUserImg: string =
+  'https://thumbs.dreamstime.com/b/blank-black-white-image-placeholder-icon-design-178700126.jpg'
+
 export function FeedMainInput(props: { onClick: React.MouseEventHandler }) {
 
   const { profileInfo: { lowResImageLink } } = useContext(ThemeContext)
 
   return <div className="feed__input-container">
-    <img className="feed__input-img" src={lowResImageLink} alt="profile" />
+    <img className="feed__input-img" src={lowResImageLink ?? defaultUserImg} alt="profile" />
     <div className="feed__input-form_container">
       <input className="feed__input-input" placeholder="What's happening ?" onClick={props.onClick} />
       <div className="hidden gap-1 md:flex">

@@ -47,9 +47,9 @@ body {
   background-color: var(--white);
 }
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 4px;
   background-color: var(--white);
 }
 ::-webkit-scrollbar-thumb {
-  background-color: var(--primary);
+  background-color: var(--black);
 }

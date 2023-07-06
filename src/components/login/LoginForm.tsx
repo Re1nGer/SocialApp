@@ -1,9 +1,12 @@
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from "react-router-dom";
 import { useForm, SubmitHandler } from 'react-hook-form'
 import { Icon } from '@iconify/react'
 import { ApiErrorType } from './LoginContainer'
 import WarframeLoader from "../loader/WarframeLoader";
 import { motion } from 'framer-motion'
+import { useContext, useState } from "react";
+import { ThemeContext } from "../contexts/ThemeContext";
+import { axios } from "../../axios";
 
 export type LoginFormType = {
   email: string
@@ -12,15 +15,43 @@ export type LoginFormType = {
 
 const defaultValues: LoginFormType = { email: '', password: '' }
 
-type LoginFormPropType = {
-  onSubmit: SubmitHandler<LoginFormType>
-  apiErrors: ApiErrorType
-  isLoading: boolean
-}
-
-const LoginForm = ({ onSubmit, apiErrors, isLoading }: LoginFormPropType): JSX.Element => {
+const LoginForm = (): JSX.Element => {
 
   const { register, formState: { errors }, handleSubmit } = useForm<LoginFormType>({ defaultValues })
+
+  const navigate = useNavigate()
+
+  const { setIsLoggedIn, setAccessToken } = useContext(ThemeContext)
+
+  const [apiErrors, setApiErrors] = useState<ApiErrorType>({ message: '' })
+
+  const [isLoading, setIsLoading] = useState<boolean>(false)
+
+  const onSubmit: SubmitHandler<LoginFormType> = async ({ email, password }, _): Promise<void> => {
+    try {
+      setIsLoading(true)
+
+      const body = { email, password }
+
+      const { data } = await axios.post('/api/v1/account/signin', body)
+
+      setAccessToken(data.token)
+
+      axios.defaults.headers.common.Authorization = `Bearer ${data.token}`
+
+      setIsLoggedIn(true)
+
+      sessionStorage.setItem('isAuthenticated', 'true')
+
+      navigate('/mypage', { replace: true })
+    } catch (error: any) {
+      console.log(error)
+
+      setApiErrors(error.response.data.error)
+    } finally {
+      setIsLoading(false)
+    }
+  }
 
   return (
     <div className='flex justify-center items-center h-[50%]'>
@@ -79,7 +110,7 @@ const LoginForm = ({ onSubmit, apiErrors, isLoading }: LoginFormPropType): JSX.E
           <section className='flex justify-center my-3'>
             <button className='bg-white p-2 text-black flex items-center gap-2 border rounded-lg'>
               <Icon icon="uit:google" />
-              Sign In With Google
+              Log In With Google
             </button>
           </section>
         </section>

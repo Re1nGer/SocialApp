@@ -12,7 +12,7 @@ export function FeedPosts(): JSX.Element {
 
   const [isLoading, setIsLoading] = useState<boolean>(true)
 
-  const [news, setNews] = useState<IPost[]>([])
+  const [posts, setPosts] = useState<IPost[]>([])
 
   const { accessToken }  = useContext(ThemeContext)
 
@@ -21,7 +21,7 @@ export function FeedPosts(): JSX.Element {
       setIsLoading(true)
       // for some weird reason mode property fixes cors issue but it complains in typescript
       const { data } = await call.get<IPost[]>("/api/v1/feed")
-      setNews(data)
+      setPosts(data)
     } catch (error) {
       console.log(error)
     } finally {
@@ -35,17 +35,19 @@ export function FeedPosts(): JSX.Element {
 
   return (
     <>
-      {news.map((item) => (
-          <AnimatePresence key={item.id}>
-            <AnimatedFeedPost
-              whileInView={{ opacity: 1 }}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              key={item.id}
-              post={item}
-            />
-          </AnimatePresence>
-      ))}
+      { posts.length > 0 ? (
+        posts.map((item) => (
+            <AnimatePresence key={item.id}>
+              <AnimatedFeedPost
+                whileInView={{ opacity: 1 }}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                key={item.id}
+                post={item}
+              />
+            </AnimatePresence>
+          ))
+      ) : <span className={'text-white text-center font-bold mt-10'}>No Feed Posts</span> }
       {isLoading ? <CircleLoader /> : null}
       <div ref={lastPost} />
     </>

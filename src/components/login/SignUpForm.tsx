@@ -6,6 +6,7 @@ import { axios as call } from '../../axios'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import WarframeLoader from "../loader/WarframeLoader";
 import { motion } from "framer-motion";
+import { Icon } from "@iconify/react";
 
 type SignUpFormType = {
   email: string
@@ -92,9 +93,16 @@ const SignUpForm = (): JSX.Element => {
         <button className={`bg-black text-white p-3 rounded-lg ${isLoading ? 'opacity-50' : ''}`} disabled={isLoading} type='submit'>
           Sign Up
         </button>
-        <div className='form__signup-link'>
+        <div className='text-sm'>
           Already have an account ?  <Link className={'text-black'} to='/login'>Log In</Link>
         </div>
+        <section className='text-center my-2'>OR</section>
+        <section className='flex justify-center my-3'>
+          <button className='bg-white p-2 text-black flex items-center gap-2 border rounded-lg'>
+            <Icon icon="uit:google" />
+            Sign Up With Google
+          </button>
+        </section>
       </motion.form>
     </div>
   )

@@ -2,16 +2,15 @@
   position: relative;
   z-index: 10;
   min-width: 250px;
-  border-radius: 5px;
   display: none;
 }
 
 .searchbar__input {
-  min-width: 300px;
+  min-width: 500px;
   padding: 0.5rem 2.5rem;
   background: #f0f1f2;
   border-radius: 0.2rem;
-  width: 75%;
+  width: 100%;
   outline: none;
   border: none;
 }
@@ -24,6 +23,7 @@
 }
 
 .searchbar__results {
+  min-height: 150px;
   display: flex;
   flex-direction: column;
   color: var(--black);
@@ -56,10 +56,6 @@
 
 .searchbar__result-details {
   flex: 1;
-}
-
-.searchbar__input:focus {
-  border: 1px solid #6c757d;
 }
 
 @media screen and (min-width: 600px) {

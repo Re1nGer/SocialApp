@@ -15,7 +15,7 @@ const HeaderHamburgerMenu = () => {
     <>
       <HeaderHamburgerIcon open={open} handleOpen={handleOpen} />
       <AnimatePresence>
-        { open && ( <HeaderHamburgerDrawer /> ) }
+        { open && ( <HeaderHamburgerDrawer setOpen={setOpen} /> ) }
       </AnimatePresence>
     </>
   )

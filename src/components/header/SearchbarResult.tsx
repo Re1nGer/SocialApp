@@ -6,23 +6,22 @@ const defaultUserImg =
 type SearchbarResultType = {
   id: string
   username: string
-  lowResImageLink: string
-  handleResultClick: () => void
+  lowResImageLink: string,
+  setShowResults: (showResults: boolean) => void
 }
 
 const SearchbarResult = ({
   id,
   username,
   lowResImageLink,
-  handleResultClick,
+  setShowResults
 }: SearchbarResultType): JSX.Element => {
 
   const { userId } = useParams()
-
-  console.log(userId, id)
+  const handleCloseResults = () => setShowResults(false);
 
   return (
-    <Link to={userId ?? '' === id ? 'mypage' : `/user/${id}`} onClick={handleResultClick}>
+    <Link to={userId ?? '' === id ? 'mypage' : `/user/${id}`} onClick={handleCloseResults}>
       <div className='searchbar__result' key={id}>
         <img
           className='searchbar__result-img'

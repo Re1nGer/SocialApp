@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react'
 
-export function RevealText(): JSX.Element {
+function RevealText(): JSX.Element {
   const revealTextRef = useRef<HTMLHeadingElement | null>(null)
 
   useEffect(() => {
@@ -29,3 +29,5 @@ export function RevealText(): JSX.Element {
     </div>
   )
 }
+
+export default RevealText;
