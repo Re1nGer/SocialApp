@@ -7,7 +7,7 @@ import { ThemeContext } from '../contexts/ThemeContext'
 import BackgroundProfileImageLoader from '../profile/BackgroundProfileImageLoader'
 import MyProfileInfo from "../profile/MyProfileInfo";
 
-function MyProfilePage() {
+const MyProfilePage = (): JSX.Element => {
 
   const [isLoading, setIsLoading] = useState<boolean>(false)
 

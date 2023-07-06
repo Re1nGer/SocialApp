@@ -44,14 +44,35 @@ const FeedPost = ({ post }: FeedPostPropType, ref: any): JSX.Element => {
   }
 
   const handleDoubleClickLike = async () => {
-    if (localPost.hasUserLike) {
-      await deleteLike();
-    }
+    if (localPost.hasUserLike) await deleteLike();
     else await putLike();
   }
 
   const handleFormShow = () => {
     setIsCommentFormShown(!isCommentFormShown)
+  }
+
+  const handleBookmark = async () => {
+    if (localPost.hasUserSaved) await deleteBookmark();
+    else await putBookmark();
+  }
+
+  const deleteBookmark = async () => {
+    try {
+      await axios.delete(`/api/v1/post/bookmark/${post.id}`)
+      setLocalPost(prevState => ({...prevState, hasUserSaved: false }))
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const putBookmark = async () => {
+    try {
+      await axios.post(`/api/v1/post/bookmark/${post.id}`)
+      setLocalPost(prevState => ({...prevState, hasUserSaved: true }))
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   //TODO: probably props assignment is not appropriate
@@ -82,11 +103,6 @@ const FeedPost = ({ post }: FeedPostPropType, ref: any): JSX.Element => {
       </span>
       <div className='relative h-full w-full cursor-pointer' onDoubleClick={handleDoubleClickLike}>
         <img src={post.mediaUrl} alt={'post'} className={'max-h-[400px] w-full object-contain '}  />
-        <div className='absolute w-full left-[50%] top-[50%] max-h-[400px]'>
-          <motion.i initial={{ opacity:0 }} animate={animation}>
-            <Icon icon='teenyicons:heart-solid' fontSize={30} fontWeight={800} className={'relative z-10'} color={'white'} />
-          </motion.i>
-        </div>
       </div>
       <div className={'flex gap-1 text-white justify-between'}>
         <div className={'flex gap-1'}>
@@ -108,8 +124,9 @@ const FeedPost = ({ post }: FeedPostPropType, ref: any): JSX.Element => {
         </div>
 
           <div>
-            <Icon icon="mdi:bookmark-outline" className={'cursor-pointer'} fontSize={30} />
+            <Icon icon={localPost.hasUserSaved ? 'mdi:bookmark' : 'mdi:bookmark-outline'} className={'cursor-pointer'} fontSize={30} onClick={handleBookmark} />
           </div>
+
       </div>
       <div className={'text-white'}>
         {localPost.message}

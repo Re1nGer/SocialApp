@@ -29,7 +29,8 @@ const defaultProfileInfo: IProfileInfo = {
   highResImageLink: '',
   profileBackgroundImagelink: '',
   userPosts: [],
-  userRequests: []
+  userRequests: [],
+  postBookmarks: []
 }
 
 export function ThemeContextProvider({ children }: ThemeContextProviderType): JSX.Element {

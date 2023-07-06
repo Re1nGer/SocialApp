@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Comments from "./Comments";
+import { motion } from "framer-motion";
 
 type CommentSectionPropType = {
   postId: string

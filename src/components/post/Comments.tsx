@@ -3,6 +3,7 @@ import IComment from "../../types/IComment";
 import AnimatedComment from "../profile/AnimatedComment";
 import { useEffect, useState } from "react";
 import { axios } from "../../axios";
+import { motion } from "framer-motion";
 import CircleLoader from "../loader/CircleLoader";
 
 type CommentSectionPropType = {
@@ -42,7 +43,7 @@ const Comments = ({ postId }: CommentSectionPropType): JSX.Element => {
   }
 
   return (
-    <>
+    <motion.div layout>
       {comments.map((item) => (
         <AnimatePresence key={item.id}>
           <AnimatedComment
@@ -53,7 +54,7 @@ const Comments = ({ postId }: CommentSectionPropType): JSX.Element => {
           />
         </AnimatePresence>
       ))}
-    </>
+    </motion.div>
   )
 }
 export default Comments

@@ -9,6 +9,7 @@ interface IProfileInfo {
   profileBackgroundImagelink: string
   userPosts: IPost[],
   userRequests: IUserRequest[],
+  postBookmarks: string[],
 }
 
 export default IProfileInfo

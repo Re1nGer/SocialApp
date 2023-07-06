@@ -15,9 +15,10 @@ interface IPost {
   user?: IUser,
   likes: ILike[],
   hasUserLike?: boolean,
+  hasUserSaved?: boolean,
   comments: IComment[],
   username?: string,
-  userImageLink?: string
+  userImageLink?: string,
 }
 
 export default IPost
