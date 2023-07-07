@@ -26,7 +26,7 @@ const MyProfilePage = (): JSX.Element => {
   }
 
   useEffect(() => {
-    fetchUserData()
+      fetchUserData()
   },[accessToken])
 
   //ugliest part

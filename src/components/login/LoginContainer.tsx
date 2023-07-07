@@ -2,10 +2,6 @@ import LoginForm from './LoginForm'
 import RevealText from './RevealText'
 import PolaroidMenu from './PolaroidMenu'
 
-export type ApiErrorType = {
-  message: string
-}
-
 const LoginContainer = (): JSX.Element => {
   return (
     <div className='flex min-h-[1500px]'>

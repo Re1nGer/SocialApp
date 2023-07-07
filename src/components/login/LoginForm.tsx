@@ -1,16 +1,22 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useForm, SubmitHandler } from 'react-hook-form'
 import { Icon } from '@iconify/react'
-import { ApiErrorType } from './LoginContainer'
+import IAPIError from "../../types/IAPIError";
 import WarframeLoader from "../loader/WarframeLoader";
 import { motion } from 'framer-motion'
 import { useContext, useState } from "react";
 import { ThemeContext } from "../contexts/ThemeContext";
-import { axios } from "../../axios";
+import { axios as call } from '../../axios';
+import axios from 'axios';
 
 export type LoginFormType = {
   email: string
   password: string
+}
+
+interface Error {
+  code: number,
+  message: string
 }
 
 const defaultValues: LoginFormType = { email: '', password: '' }
@@ -23,9 +29,19 @@ const LoginForm = (): JSX.Element => {
 
   const { setIsLoggedIn, setAccessToken } = useContext(ThemeContext)
 
-  const [apiErrors, setApiErrors] = useState<ApiErrorType>({ message: '' })
+  const [apiErrors, setApiErrors] = useState<IAPIError>({ message: '', type: '' });
 
   const [isLoading, setIsLoading] = useState<boolean>(false)
+
+  const formatErrors = (error: Error) => {
+    console.log(error);
+    if (error.message === "INVALID_PASSWORD")
+      setApiErrors({ message: "Invalid Password", type: "password" })
+    else if (error.message === "EMAIL_NOT_FOUND")
+      setApiErrors({ message: "Email Not Found", type: "email" })
+    else
+      setApiErrors({ message: "Something Went Wrong", type: "unknown" })
+  };
 
   const onSubmit: SubmitHandler<LoginFormType> = async ({ email, password }, _): Promise<void> => {
     try {
@@ -33,7 +49,7 @@ const LoginForm = (): JSX.Element => {
 
       const body = { email, password }
 
-      const { data } = await axios.post('/api/v1/account/signin', body)
+      const { data } = await call.post('/api/v1/account/signin', body)
 
       setAccessToken(data.token)
 
@@ -44,10 +60,11 @@ const LoginForm = (): JSX.Element => {
       sessionStorage.setItem('isAuthenticated', 'true')
 
       navigate('/mypage', { replace: true })
-    } catch (error: any) {
-      console.log(error)
-
-      setApiErrors(error.response.data.error)
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        formatErrors(error?.response?.data.error);
+      }
+      else console.log(error)
     } finally {
       setIsLoading(false)
     }
@@ -72,12 +89,13 @@ const LoginForm = (): JSX.Element => {
             <input
               id='input-email'
               className={`transition-opacity duration-200 p-3 rounded-lg border ${isLoading ? 'opacity-50' : ''}`}
+              onFocus={() => apiErrors.type === "email" && setApiErrors({ message: '', type: '' })}
               placeholder='Email'
               type={'email'}
-              {...register('email', { required: 'Email Is Required' })}
+              {...register('email', { required: 'Email Is Required'}) }
             />
-            {errors?.email && ( <small className='text-red-500'>{errors.email.message}</small>) }
-            {apiErrors.message === "EMAIL_NOT_FOUND" && <span className='text-red-500'>{apiErrors.message}</span>}
+            {errors?.email ? ( <small className='text-red-500'>{errors.email.message}</small>)
+            : (apiErrors.type === "email" && <small className='text-red-500'>{apiErrors.message}</small>) }
           </div>
           <div className='flex flex-col'>
             <label className='my-2' htmlFor='input-password'>
@@ -90,8 +108,8 @@ const LoginForm = (): JSX.Element => {
               placeholder='Password'
               {...register('password', { required: 'Password Is Required' })}
             />
-            {errors?.password && ( <small className='text-red-500'>{errors.password.message}</small>) }
-            {apiErrors.message === "INVALID_PASSWORD" && <span className='text-red-500'>{apiErrors.message}</span>}
+            {errors?.password ? ( <small className='text-red-500'>{errors.password.message}</small> )
+              : ( apiErrors.type === "password" && <small className='text-red-500'>{apiErrors.message}</small> )  }
           </div>
           <div className='flex justify-center my-4'>
             <button
@@ -113,6 +131,7 @@ const LoginForm = (): JSX.Element => {
               Log In With Google
             </button>
           </section>
+          {apiErrors.type === "unknown" && <small className='text-red-500'>{apiErrors.message}</small>}
         </section>
       </motion.form>
     </div>
