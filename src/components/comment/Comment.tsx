@@ -1,5 +1,4 @@
 import React, { LegacyRef, useState } from 'react'
-
 import './Comment.css'
 import dayjs from 'dayjs'
 
