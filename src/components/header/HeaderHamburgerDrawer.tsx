@@ -31,7 +31,7 @@ const HeaderHamburgerDrawer = ({ setOpen }: HeaderHamburgerDrawerProps) => {
           Feed
           <Icon icon="fluent:feed-28-regular" />
         </span>
-        <span onClick={() => handleNavigate('/posts')} className={"flex items-center gap-2 no-underline decoration-0 text-white text-3xl font-bold my-4"}>
+        <span onClick={() => handleNavigate('/mypage')} className={"flex items-center gap-2 no-underline decoration-0 text-white text-3xl font-bold my-4"}>
           Posts
           <Icon icon="ic:outline-broken-image" />
         </span>

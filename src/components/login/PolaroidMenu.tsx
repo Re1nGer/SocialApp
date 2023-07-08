@@ -3,7 +3,7 @@ import Girl from '../../assets/girl1.jpg';
 import Girl1 from '../../assets/girl2.jpg';
 import Girl2 from '../../assets/girl3.jpg';
 import Girl3 from '../../assets/girl4.jpg';
-import { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { useLayoutEffect, useRef, useState } from 'react';
 import { gsap, Power3 } from 'gsap'
 
 const PolaroidMenu = (): JSX.Element => {
@@ -14,10 +14,6 @@ const PolaroidMenu = (): JSX.Element => {
   const image1Ref = useRef(null)
   const image2Ref = useRef(null)
   const image3Ref = useRef(null)
-
-  useEffect(() => {
-    if (window.innerWidth < 600) setAnchor(175)
-  }, [])
 
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {

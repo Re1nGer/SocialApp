@@ -72,6 +72,7 @@ const LoginForm = (): JSX.Element => {
               <h2 className='text-lg my-3 text-center font-semibold'>Log In</h2>
               <TextInputField
                 required
+                type={'email'}
                 name={'email'}
                 placeholder={'Email'}
                 disabled={isLoading}

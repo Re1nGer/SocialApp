@@ -9,7 +9,7 @@ import { axios } from "../../axios";
 import AnimatedCommentForm from "../profile/AnimatedCommentForm";
 import { SubmitHandler } from "react-hook-form";
 import { CommentFormDefaultValuesType } from "../comment/CommentForm";
-import { AnimatePresence, motion, useAnimation } from "framer-motion";
+import { AnimatePresence, useAnimation } from "framer-motion";
 
 export type FeedPostPropType = {
   post: IPost
@@ -122,11 +122,9 @@ const FeedPost = ({ post }: FeedPostPropType, ref: any): JSX.Element => {
                   className={'cursor-pointer'} />
           </div>
         </div>
-
-          <div>
-            <Icon icon={localPost.hasUserSaved ? 'mdi:bookmark' : 'mdi:bookmark-outline'} className={'cursor-pointer'} fontSize={30} onClick={handleBookmark} />
-          </div>
-
+        <div>
+          <Icon icon={localPost.hasUserSaved ? 'mdi:bookmark' : 'mdi:bookmark-outline'} className={'cursor-pointer'} fontSize={30} onClick={handleBookmark} />
+        </div>
       </div>
       <div className={'text-white'}>
         {localPost.message}
