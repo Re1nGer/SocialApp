@@ -2,7 +2,7 @@ import Post from './PostCard'
 import { AnimatedPostInView } from './AnimatedPostInView'
 import IPost from '../../types/IPost'
 import { useContext } from "react";
-import { ThemeContext } from "../contexts/ThemeContext";
+import { ThemeContext } from "../../contexts/ThemeContext";
 
 export const ProfilePosts = (): JSX.Element => {
 

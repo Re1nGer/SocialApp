@@ -3,7 +3,7 @@ import { axios } from "../../axios";
 import IUser from '../../types/IUser';
 import CircleLoader from '../loader/CircleLoader';
 import toast, { Toaster } from 'react-hot-toast';
-import { ThemeContext } from "../contexts/ThemeContext";
+import { ThemeContext } from "../../contexts/ThemeContext";
 import { Link } from "react-router-dom";
 
 type NotificationItemPropType = {

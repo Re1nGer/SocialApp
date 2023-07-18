@@ -1,7 +1,7 @@
 import './Header.scss'
 import './ProfileMenu.scss'
 import { useContext } from 'react'
-import { ThemeContext } from '../contexts/ThemeContext'
+import { ThemeContext } from '../../contexts/ThemeContext'
 import { Icon } from '@iconify/react'
 import HeaderProfileMenu from './HeaderProfileMenu'
 import Searchbar from './Searchbar'

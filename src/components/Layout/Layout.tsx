@@ -3,7 +3,7 @@ import Header from '../header/Header'
 //import Footer from '../footer/Footer'
 import { useContext, useEffect } from "react";
 import { axios } from "../../axios";
-import { ThemeContext } from '../contexts/ThemeContext'
+import { ThemeContext } from '../../contexts/ThemeContext'
 import MobileBottomNavigation from "./BottomNavigation";
 
 const Layout = (): JSX.Element => {

@@ -7,7 +7,7 @@ import { axios as call } from '../../axios'
 import ProfileImage from '../profile/ProfileImage'
 import { ProfileInfo } from './ProfileInfo'
 import IProfileInfo from '../../types/IProfileInfo'
-import { ThemeContext } from '../contexts/ThemeContext'
+import { ThemeContext } from '../../contexts/ThemeContext'
 import BackgroundProfileImageLoader from '../profile/BackgroundProfileImageLoader'
 
 export const defaultUserImg: string =
@@ -20,7 +20,8 @@ const defaultProfile : IProfileInfo= {
   highResImageLink: "",
   profileBackgroundImagelink: "",
   userPosts: [],
-  userRequests: []
+  userRequests: [],
+  postBookmarks: []
 }
 
 type ProfilePostsProp = {

@@ -4,7 +4,7 @@ import './Post.scss'
 import CircleLoader from '../loader/CircleLoader'
 import IPost from '../../types/IPost'
 import PostComponent from "../profile/PostComponent";
-import { ThemeContext } from "../contexts/ThemeContext";
+import { ThemeContext } from "../../contexts/ThemeContext";
 import CommentSection from "./CommentSection";
 
 type PostPropsType = {

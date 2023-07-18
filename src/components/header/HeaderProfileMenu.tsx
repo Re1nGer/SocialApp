@@ -1,7 +1,7 @@
 import { useContext, useState } from 'react'
 import { Icon } from '@iconify/react'
 import { useNavigate } from 'react-router-dom'
-import { ThemeContext } from '../contexts/ThemeContext'
+import { ThemeContext } from '../../contexts/ThemeContext'
 import { axios } from '../../axios'
 
 const defaultUserImg: string =

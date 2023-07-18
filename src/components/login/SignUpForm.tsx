@@ -1,13 +1,13 @@
 import { useNavigate, Link } from 'react-router-dom'
 import { useContext, useState } from 'react'
 import axios from 'axios'
-import { ThemeContext } from '../contexts/ThemeContext'
+import { ThemeContext } from '../../contexts/ThemeContext'
 import { axios as call } from '../../axios'
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import WarframeLoader from "../loader/WarframeLoader";
 import { motion } from "framer-motion";
 import { Icon } from "@iconify/react";
-import TextInputField from "../../InputField/TextInputField";
+import TextInputField from "../InputField/TextInputField";
 import IAPIError from "../../types/IAPIError";
 import IError from "../../types/IError";
 

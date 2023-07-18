@@ -1,5 +1,5 @@
 import { createContext, useState } from 'react'
-import IProfileInfo from "../../types/IProfileInfo";
+import IProfileInfo from "../types/IProfileInfo";
 
 export const ThemeContext = createContext<ThemeContextType>(null!)
 

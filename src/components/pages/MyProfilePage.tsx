@@ -3,7 +3,7 @@ import Posts from '../profile/Posts'
 import { useContext, useEffect, useState } from 'react'
 import IProfileInfo from '../../types/IProfileInfo'
 import { axios } from '../../axios'
-import { ThemeContext } from '../contexts/ThemeContext'
+import { ThemeContext } from '../../contexts/ThemeContext'
 import BackgroundProfileImageLoader from '../profile/BackgroundProfileImageLoader'
 import MyProfileInfo from "../profile/MyProfileInfo";
 

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import IAPIError from "../types/IAPIError";
+import IAPIError from "../../types/IAPIError";
 import { useFormContext, RegisterOptions, FieldError, get } from "react-hook-form";
 
 type TextInputFieldProps = {
@@ -19,9 +19,9 @@ type TextInputFieldProps = {
   onBlur?: React.FocusEventHandler<HTMLInputElement>,
 };
 
-const baseInputStyles: string = "transition:opacity duration-200 w-full p-3 mb-2 text-base text-gray-700 placeholder-gray-600 border rounded-lg";
 const baseErrorStyles: string = "text-red-500 text-small";
 const baseApiError: IAPIError = { type: '', message: '' };
+const baseInputStyles: string = "transition:opacity duration-200 w-full p-3 mb-2 text-base text-gray-700 placeholder-gray-600 border rounded-lg";
 
 const TextInputField = ({
                           id,

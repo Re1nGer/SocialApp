@@ -5,11 +5,11 @@ import IAPIError from "../../types/IAPIError";
 import WarframeLoader from "../loader/WarframeLoader";
 import { motion } from 'framer-motion'
 import { useContext, useState } from "react";
-import { ThemeContext } from "../contexts/ThemeContext";
+import { ThemeContext } from "../../contexts/ThemeContext";
 import { axios as call } from '../../axios';
 import axios from 'axios';
 import IError from "../../types/IError";
-import TextInputField from "../../InputField/TextInputField";
+import TextInputField from "../InputField/TextInputField";
 
 export type LoginFormType = {
   email: string
