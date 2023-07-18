@@ -4,7 +4,7 @@ import { axios as call } from '../../axios'
 import CircleLoader from '../loader/CircleLoader'
 import IPost from "../../types/IPost";
 import AnimatedFeedPost from "./AnimatedFeedPost";
-import { ThemeContext } from "../contexts/ThemeContext";
+import { ThemeContext } from "../../contexts/ThemeContext";
 
 export function FeedPosts(): JSX.Element {
 

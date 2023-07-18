@@ -1,17 +1,19 @@
 import { SyntheticEvent, useContext, useEffect, useState } from 'react'
 import { Icon } from '@iconify/react'
-import { ThemeContext } from '../contexts/ThemeContext'
+import { ThemeContext } from '../../contexts/ThemeContext'
 import TestImage from '../../assets/profileHeaderImage.jpg'
+import { axios as call } from '../../axios';
 import './animations.css'
 import './Drawer.scss'
+import IChat from "../../types/IChat";
 
-function ChatDrawer() {
-  // const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+const ChatDrawer = (): JSX.Element => {
+
   const { isChatDrawerOpen, setIsChatDrawerOpen, setChatId, chatId } = useContext(ThemeContext)
 
   const [isLoading, setIsLoading] = useState<boolean>(false)
 
-  const [chats, setChats] = useState()
+  const [chats, setChats] = useState<IChat[]>([]);
 
   const handleDrawerClose = () => {
     setIsChatDrawerOpen(false)
@@ -27,8 +29,13 @@ function ChatDrawer() {
 
   const fetchChats = async () => {
     try {
+      const { data } = await call.get<IChat[]>('/api/v1/chat');
+      setChats(data);
     } catch (error) {
       console.log(error)
+    }
+    finally {
+      setIsLoading(false);
     }
   }
 
@@ -58,12 +65,9 @@ function ChatDrawer() {
           <ChatDrawerRoom id={chatId} />
         ) : (
           <div className='drawer__results-container'>
-            {/*                         exising chats need to be fetched from server */}
-            <ChatDrawerUserCard setChatId={setChatId} id={'2'} />
-            <ChatDrawerUserCard setChatId={setChatId} id={'2'} />
-            <ChatDrawerUserCard setChatId={setChatId} id={'2'} />
-            <ChatDrawerUserCard setChatId={setChatId} id={'2'} />
-            <ChatDrawerUserCard setChatId={setChatId} id={'2'} />
+            { chats.map(item => (
+              <ChatDrawerUserCard setChatId={setChatId} id={item.id} />
+            )) }
           </div>
         )}
       </div>
@@ -78,7 +82,7 @@ type ChatDrawerUserCardType = {
   id: string | null
 }
 
-function ChatDrawerUserCard({ setChatId, id }: ChatDrawerUserCardType) {
+const ChatDrawerUserCard = ({ setChatId, id }: ChatDrawerUserCardType) => {
 
   const handleUserCardClick = () => {
     setChatId(id)
@@ -103,7 +107,7 @@ type ChatDrawerRoomType = {
   id: string | null
 }
 
-function ChatDrawerRoom({ id }: ChatDrawerRoomType) {
+const ChatDrawerRoom = ({ id }: ChatDrawerRoomType) => {
   const [isLoading, setIsLoading] = useState<boolean>(false)
 
   const [messages, setMessages] = useState<Array<number>>(Array.from(Array(10).keys()))

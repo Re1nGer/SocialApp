@@ -1,6 +1,6 @@
 import './index.css'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
-import { ThemeContextProvider } from './components/contexts/ThemeContext'
+import { ThemeContextProvider } from './contexts/ThemeContext'
 import Layout from './components/Layout/Layout'
 import ProfilePage from './components/pages/ProfilePage'
 import LoginPage from './components/pages/LoginPage'

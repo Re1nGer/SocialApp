@@ -2,7 +2,7 @@ import './Feed.scss'
 import IPost from "../../types/IPost";
 import { Icon } from "@iconify/react";
 import React, { useContext, useEffect, useState } from "react";
-import { ThemeContext } from "../contexts/ThemeContext";
+import { ThemeContext } from "../../contexts/ThemeContext";
 import { Link } from "react-router-dom";
 import CommentSection from "../post/CommentSection";
 import { axios } from "../../axios";
