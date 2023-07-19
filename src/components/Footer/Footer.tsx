@@ -1,11 +1,11 @@
 import './Footer.css'
-import FooterIcon from '../svg/FooterIcon'
+import HeaderLogoIcon from '../svg/HeaderLogoIcon'
 
 const Footer = () : JSX.Element => {
   return (
     <footer className='footer'>
       <div className='footer__inner'>
-        <FooterIcon />
+        <HeaderLogoIcon />
       </div>
     </footer>
   )
