@@ -18,10 +18,6 @@ This is a social app written in React that allows users to upload and share post
 - Postgres
 - Asp.NET WEB API
 
-## NOTE
-
-Current Environment is not yet hooked up with backend
-
 ## Getting Started
 
 To get started with this app, follow the instructions below:
