@@ -1,10 +1,10 @@
 import { Outlet, useLocation } from "react-router-dom";
 import Header from '../header/Header'
-//import Footer from '../footer/Footer'
 import { useContext, useEffect } from "react";
 import { axios } from "../../axios";
 import { ThemeContext } from '../../contexts/ThemeContext'
 import MobileBottomNavigation from "./BottomNavigation";
+import Footer from "../footer/Footer";
 
 const Layout = (): JSX.Element => {
   const { isLightTheme, accessToken, setAccessToken, setIsLoggedIn } = useContext(ThemeContext)
@@ -33,6 +33,7 @@ const Layout = (): JSX.Element => {
       <div className={isLightTheme ? 'bg-white' : 'bg-black'}>
         <Header />
         <Outlet />
+        <Footer />
         <MobileBottomNavigation />
       </div>
     </>
