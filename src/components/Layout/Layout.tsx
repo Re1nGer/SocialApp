@@ -33,7 +33,9 @@ const Layout = (): JSX.Element => {
       <div className={isLightTheme ? 'bg-white' : 'bg-black'}>
         <Header />
         <Outlet />
+{/*
         <Footer />
+*/}
         <MobileBottomNavigation />
       </div>
     </>
