@@ -1,6 +1,6 @@
 import { useContext, useState } from 'react'
 import { Icon } from '@iconify/react'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from "react-router-dom";
 import { ThemeContext } from '../../contexts/ThemeContext'
 import { axios } from '../../axios'
 
@@ -52,10 +52,10 @@ const HeaderProfileMenu = (): JSX.Element => {
           </div>
         </div>
         <div className={`z-10 profile_menu__dropdown ${open ? 'profile_menu__dropdown--open' : ''}`}>
-          <div className='profile_menu__dropdown-item'>
+          <Link to={'/account'} className='profile_menu__dropdown-item'>
             <Icon fontSize={16} icon='mdi:user' />
-            Username
-          </div>
+            Account
+          </Link>
           <div
             className='profile_menu__dropdown-item'
             //onClick={() => setIsLightTheme((prevState) => !prevState)}

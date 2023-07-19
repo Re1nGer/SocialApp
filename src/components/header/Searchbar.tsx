@@ -1,6 +1,6 @@
 import { Icon } from '@iconify/react'
 import './Searchbar.css'
-import { useState, ChangeEvent, useEffect } from 'react'
+import { useState, ChangeEvent, useEffect, useCallback, useMemo } from "react";
 import { axios } from '../../axios'
 import useDebounce from '../../hooks/useDebounce'
 import SearchbarResult from './SearchbarResult'
@@ -36,6 +36,8 @@ const Searchbar = (): JSX.Element => {
   useEffect(() => {
     if (inputValue) fetchUsers(debouncedValue)
   }, [debouncedValue])
+
+  useMemo(() => inputValue === "" && setShowResults(false), [inputValue]);
 
   return (
     <div className='searchbar'>

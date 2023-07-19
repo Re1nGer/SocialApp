@@ -286,8 +286,6 @@
 .feed__post-form {
   -webkit-box-shadow: 0 10px 6px -6px #777;
   -moz-box-shadow: 0 10px 6px -6px #777;
-  box-shadow: 0 10px 6px -6px #777;
-
   position: absolute;
   width: 100%;
   left: 0;
@@ -299,6 +297,10 @@
   max-width: 500px;
   margin: 0 auto;
   z-index: 10;
+
+  @media(max-width: 500px) {
+    max-width: 360px;
+  }
 }
 
 .feed__post-form_title-container {
@@ -377,7 +379,6 @@
   font-weight: bold;
   border: none;
   padding: 0.5rem;
-  transition: background-color 0.2s ease;
   cursor: pointer;
   margin: 1rem 0;
   transition: all 0.2s linear;
@@ -408,7 +409,6 @@
   padding: clamp(0.5rem, 1rem, 1.5rem);
   background: var(--gray-extra-dark);
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-  padding: 20px;
   border-radius: 2rem;
   gap: 0.5rem;
   color: var(--white);

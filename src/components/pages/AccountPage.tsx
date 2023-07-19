@@ -1,42 +1,37 @@
-import { useForm } from "react-hook-form";
+import { FormProvider, useForm } from "react-hook-form";
 import { useState } from "react";
+import TextInputField from "../InputField/TextInputField";
 
 const AccountPage = () => {
 
-  const { register, handleSubmit } = useForm()
+  const form = useForm();
 
-  const [isLoading, setIsLoading] = useState<boolean>(false)
+  const { handleSubmit } = form;
 
-  const onSubmit = async (data: any) => {
-
-  }
-
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const onSubmit = async (data: any) => {};
 
   return (
-    <div className={'h-screen'}>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <div className='flex-col flex w-full items-center'>
-          <label className='my-2 text-white' htmlFor='input-email'>
-            Bio
-          </label>
-          <input
-            id='input-email'
-            className={`transition-opacity duration-200 p-3 rounded-lg border ${isLoading ? 'opacity-50' : ''}`}
-            placeholder='Bio'
-            {...register('bio')}
-          />
-        </div>
-        <div className='flex justify-center my-4'>
-          <button
-            className={`rounded-lg p-3 text-white shadow bg-black border min-w-[250px] hover:bg-slate-800 ease-in-out duration-200 ${isLoading ? 'opacity-50' : ''}`}
-            disabled={isLoading}
-            type='submit'
-          >
-            Submit
-          </button>
-        </div>
-      </form>
+    <FormProvider {...form}>
+      <div className={'h-screen'}>
+        <form onSubmit={handleSubmit(onSubmit)} className={'max-w-[1150px] mx-auto'}>
+          <div className='flex-col flex w-full items-center gap-2'>
+            <TextInputField name={'username'} placeholder={'Username'} disabled={isLoading} />
+            <TextInputField name={'bio'} placeholder={'Bio'} disabled={isLoading} />
+          </div>
+          <div className='flex justify-center my-4'>
+            <button
+              className={`rounded-lg p-3 text-white shadow bg-black border min-w-[250px] hover:bg-slate-800 ease-in-out duration-200 ${isLoading ? 'opacity-50' : ''}`}
+              disabled={isLoading}
+              type='submit'
+            >
+              Submit
+            </button>
+          </div>
+        </form>
       </div>
+
+    </FormProvider>
   )
 }
 
