@@ -7,7 +7,7 @@ import MobileBottomNavigation from "./BottomNavigation";
 import Footer from "../footer/Footer";
 
 const Layout = (): JSX.Element => {
-  const { isLightTheme, accessToken, setAccessToken, setIsLoggedIn } = useContext(ThemeContext)
+  const { isLightTheme, accessToken, setAccessToken, setIsLoggedIn, setStreamToken } = useContext(ThemeContext)
 
   const location = useLocation()
 
@@ -15,6 +15,7 @@ const Layout = (): JSX.Element => {
     try {
       const { data } = await axios.get("/api/v1/account/refresh")
       setAccessToken(data.token)
+      setStreamToken(data.streamToken);
       setIsLoggedIn(true)
       axios.defaults.headers.common.Authorization = `Bearer ${data.token}`
     }
