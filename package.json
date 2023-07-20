@@ -21,7 +21,9 @@
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.43.5",
     "react-hot-toast": "^2.4.1",
-    "react-router-dom": "^6.8.2"
+    "react-router-dom": "^6.8.2",
+    "stream-chat": "^8.10.1",
+    "stream-chat-react": "^10.8.7"
   },
   "devDependencies": {
     "@iconify/react": "^4.1.0",

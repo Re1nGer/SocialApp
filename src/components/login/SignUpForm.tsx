@@ -24,7 +24,7 @@ const SignUpForm = (): JSX.Element => {
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  const { setIsLoggedIn, setAccessToken } = useContext(ThemeContext);
+  const { setIsLoggedIn, setAccessToken, setStreamToken } = useContext(ThemeContext);
 
   const form = useForm<SignUpFormType>({ defaultValues });
 
@@ -44,6 +44,7 @@ const SignUpForm = (): JSX.Element => {
       const { data } = await call.post('/api/v1/account/signup', body);
       setIsLoggedIn(true);
       setAccessToken(data.token);
+      setStreamToken(data.streamToken);
       call.defaults.headers.common.Authorization = `Bearer ${data.token}`;
       sessionStorage.setItem('isAuthenticated', 'true');
       navigate('/mypage', { replace: true });

@@ -11,6 +11,7 @@ import PrivateRoute from './components/route/PrivateRoute'
 import MyProfilePage from './components/pages/MyProfilePage'
 import SearchPage from "./components/pages/SearchPage";
 import AccountPage from "./components/pages/AccountPage";
+import "stream-chat-react/dist/css/index.css";
 
 function App() {
   return (

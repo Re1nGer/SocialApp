@@ -1,9 +1,9 @@
 import IPost from "./IPost"
 import IUserRequest from "./IUserRequest";
 
-interface IProfileInfo {
+type IProfileInfo = {
   id: string,
-  username: string
+  username: string,
   lowResImageLink: string
   highResImageLink: string
   profileBackgroundImagelink: string

@@ -26,16 +26,16 @@ const LoginForm = (): JSX.Element => {
 
   const navigate = useNavigate()
 
-  const { setIsLoggedIn, setAccessToken } = useContext(ThemeContext)
+  const { setIsLoggedIn, setAccessToken, setStreamToken } = useContext(ThemeContext)
 
   const [apiErrors, setApiErrors] = useState<IAPIError>({ message: '', type: '' });
 
   const [isLoading, setIsLoading] = useState<boolean>(false)
 
   const formatErrors = (error: IError) => {
-    if (error.message === "INVALID_PASSWORD")
+    if (error?.message === "INVALID_PASSWORD")
       setApiErrors({ message: "Invalid Password", type: "password" })
-    else if (error.message === "EMAIL_NOT_FOUND")
+    else if (error?.message === "EMAIL_NOT_FOUND")
       setApiErrors({ message: "Email Not Found", type: "email" })
     else setApiErrors({ message: "Something Went Wrong", type: "unknown" })
   };
@@ -46,9 +46,11 @@ const LoginForm = (): JSX.Element => {
       const body = { email, password };
       const { data } = await call.post('/api/v1/account/signin', body);
       setAccessToken(data.token);
+      setStreamToken(data.streamToken);
       call.defaults.headers.common.Authorization = `Bearer ${data.token}`;
       setIsLoggedIn(true);
       sessionStorage.setItem('isAuthenticated', 'true');
+      
       navigate('/mypage', { replace: true });
     } catch (error) {
       if (axios.isAxiosError(error))

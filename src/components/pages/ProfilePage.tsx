@@ -78,7 +78,8 @@ const ProfilePage = (): JSX.Element => {
   }
   const handleStartConversation = async () => {
     setIsChatDrawerOpen(true)
-    try { 
+    try {
+      await call.post("/api/v1/chat", { userId: userId });
      } catch (error) {
       console.log(error)
      }

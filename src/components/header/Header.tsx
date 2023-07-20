@@ -8,13 +8,21 @@ import Searchbar from './Searchbar'
 import HeaderNotificationMenu from './HeaderNotificationMenu'
 import HeaderLogoIcon from '../svg/HeaderLogoIcon'
 import HeaderHamburgerMenu from "./HeaderHamburgerMenu";
+import ChatDrawer from "../drawer/ChatDrawer";
 
 const Header = (): JSX.Element => {
 
-  const { isLightTheme, isLoggedIn, } = useContext(ThemeContext)
+  const { isLightTheme, isLoggedIn, setIsChatDrawerOpen, } = useContext(ThemeContext)
+
+  const handleDrawerOpen = () => {
+    setIsChatDrawerOpen(true);
+  };
 
   return (
     <>
+      { isLoggedIn && (
+        <ChatDrawer />
+      ) }
       <header className={`header ${isLightTheme ? 'header--light' : ''}`}>
         <div className='header__left'>
           <HeaderHamburgerMenu />
@@ -30,7 +38,7 @@ const Header = (): JSX.Element => {
           ) : null}
           {isLoggedIn ? (
             <div className='header__right-chat_icon'>
-              <Icon icon='ph:paper-plane-tilt-bold' fontSize='25px' /> {/* onClick={handleDrawerOpen} /> */}
+              <Icon icon='ph:paper-plane-tilt-bold' onClick={handleDrawerOpen} fontSize='25px' />
             </div>
           ) : null}
         </div>

@@ -10,6 +10,7 @@
   overflow-y: hidden;
   transition: 0.5s;
   padding-top: 0.5rem;
+  max-width: 350px;
 }
 
 .drawer__overlay {
@@ -22,7 +23,7 @@
 }
 
 .drawer--open {
-  width: 350px;
+  width: 100%;
   @media screen and (max-width: 600px) {
     width: 100%;
   }
@@ -139,8 +140,6 @@
   max-height: 75px;
   word-wrap: break-word;
   word-break: break-all;
-  overflow-x: hidden;
-  overflow-y: auto;
   resize: none;
 }
 

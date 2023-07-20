@@ -9,11 +9,11 @@ type ProfileInfoPropsType = {
   handleFollow: () => Promise<void>,
   handleStartConversation: () => Promise<void>,
   isFollowRequestSent: boolean,
-  isBlocked: boolean
+  isBlocked: boolean,
 }
 
 export const ProfileInfo = ({
-  isLoading, profileInfo, isFollowing, handleFollow, isFollowRequestSent, isBlocked
+  isLoading, profileInfo, isFollowing, handleFollow, isFollowRequestSent, isBlocked, handleStartConversation
 }: ProfileInfoPropsType): JSX.Element => {
 
   return <div className='profile-info__container'>
@@ -45,7 +45,7 @@ export const ProfileInfo = ({
             <p>You follow this user</p>
           ) : (
             <button className='profile-info__follow-btn' onClick={handleFollow}>
-              {isFollowRequestSent ? "Request has been sent" : "Follow"}
+              { isFollowRequestSent ? "Request has been sent" : "Follow" }
             </button>
           )}
           <br />
@@ -54,7 +54,7 @@ export const ProfileInfo = ({
           ) : <button className='profile-info__follow-btn'>Block this user</button>}
           <br />
           {!isBlocked ? (
-            <button className='profile-info__follow-btn'>Start Conversation</button>
+            <button className='profile-info__follow-btn' onClick={handleStartConversation}>Start Conversation</button>
           ) : null}
         </div>
       </div>

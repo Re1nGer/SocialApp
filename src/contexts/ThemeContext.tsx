@@ -1,5 +1,6 @@
 import { createContext, useState } from 'react'
 import IProfileInfo from "../types/IProfileInfo";
+import { StreamChat } from "stream-chat";
 
 export const ThemeContext = createContext<ThemeContextType>(null!)
 
@@ -8,14 +9,18 @@ export type ThemeContextType = {
   isLoggedIn: boolean
   isChatDrawerOpen: boolean
   accessToken: string
-  chatId: string | null,
-  profileInfo: IProfileInfo,
+  streamToken: string
+  chatId: string | null
+  streamChat: StreamChat | undefined,
+  profileInfo: IProfileInfo
   setProfileInfo: (state: IProfileInfo) => void
   setIsLightTheme: (state: boolean) => void
   setIsLoggedIn: (state: boolean) => void
   setIsChatDrawerOpen: (state: boolean) => void
   setAccessToken: (state: string) => void
   setChatId: (state: string | null) => void
+  setStreamChat: (state: StreamChat | undefined) => void
+  setStreamToken: (state: string) => void
 }
 
 type ThemeContextProviderType = {
@@ -40,6 +45,8 @@ export function ThemeContextProvider({ children }: ThemeContextProviderType): JS
   const [accessToken, setAccessToken] = useState<string>('')
   const [chatId, setChatId] = useState<string | null>(null)
   const [profileInfo, setProfileInfo] = useState<IProfileInfo>(defaultProfileInfo)
+  const [streamToken, setStreamToken] = useState<string>('')
+  const [streamChat, setStreamChat] = useState<StreamChat | undefined>(undefined)
 
   const value: ThemeContextType = {
     isLightTheme,
@@ -48,13 +55,17 @@ export function ThemeContextProvider({ children }: ThemeContextProviderType): JS
     accessToken,
     chatId,
     profileInfo,
+    streamToken,
+    streamChat,
     setProfileInfo,
     setIsLightTheme,
     setIsLoggedIn,
     setIsChatDrawerOpen,
     setAccessToken,
-    setChatId
-  }
+    setChatId,
+    setStreamChat,
+    setStreamToken
+  };
 
   return <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>
 }
