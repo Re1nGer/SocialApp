@@ -1,5 +1,4 @@
 import { useContext } from 'react'
-import { Icon } from '@iconify/react'
 import { ThemeContext } from '../../contexts/ThemeContext'
 import './animations.css'
 import './Drawer.scss'
@@ -36,12 +35,6 @@ const ChatDrawer = (): JSX.Element => {
         onClick={(e) => e.stopPropagation()}
         className={`drawer py-5 ${isChatDrawerOpen ? 'drawer--open' : ''} `}
       >
-        <div className='drawer__title'>
-          <div className='drawer__tile-text'>DM</div>
-          <div className='drawer__close'>
-            <Icon onClick={handleDrawerClose} icon='ic:round-close' color='#fff' fontSize='20px' />
-          </div>
-        </div>
         <Chat client={streamChat} >
             <ChannelList filters={{ members: { $in: [profileInfo.id] }} } List={ChannelListCustom}  sendChannelsToList={true} />
             <Channel>
@@ -76,16 +69,15 @@ const CustomChannelHeader = (props: ChannelHeaderProps) => {
 
 const ChannelListCustom = ({ loadedChannels }: ChannelListMessengerProps) => {
   const { setActiveChannel, channel : activeChannel } = useChatContext();
-  console.log(loadedChannels);
-
+  const { setIsChatDrawerOpen } = useContext(ThemeContext);
   if (activeChannel)
     return <div></div>
 
   return <div className={'flex flex-col gap-3 h-full w-full min-w-[350px]'}>
+    <button onClick={() => setIsChatDrawerOpen(false)} className={'transition-colors duration-150 hover:bg-black hover:text-white rounded-3xl p-3 outline-0 border bg-white text-black'}>Close</button>
     { loadedChannels?.map(item => <div className={'transition-colors duration-150  m-2 w-full p-3 flex gap-3 cursor-pointer rounded-2xl bg-white hover:bg-black hover:text-white'} key={item.id} onClick={() => setActiveChannel(item)}>
       { item.data?.image && (
         <img src={item.data?.image} alt={'group'} />
-
       ) }
       { item.data?.name  || item.id}
     </div>) }
