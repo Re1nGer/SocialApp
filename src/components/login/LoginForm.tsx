@@ -9,7 +9,7 @@ import { ThemeContext } from "../../contexts/ThemeContext";
 import { axios as call } from '../../axios';
 import axios from 'axios';
 import IError from "../../types/IError";
-import TextInputField from "../InputField/TextInputField";
+import TextInputField from "../inputField/TextInputField";
 
 export type LoginFormType = {
   email: string

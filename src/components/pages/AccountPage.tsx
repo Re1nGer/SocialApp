@@ -1,6 +1,6 @@
 import { FormProvider, useForm } from "react-hook-form";
 import { useState } from "react";
-import TextInputField from "../InputField/TextInputField";
+import TextInputField from "../inputField/TextInputField";
 
 const AccountPage = () => {
 

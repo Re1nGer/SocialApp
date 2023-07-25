@@ -7,9 +7,12 @@ const SavedPosts = () => {
   const { profileInfo: { postBookmarks } } = useContext(ThemeContext)
 
   return (
-    <div className={'flex flex-col justify-start'}>
-      { postBookmarks.map(item => <Post key={item} postId={item} /> ) }
-    </div>
+    <>
+      <div className={'flex flex-col justify-start'}>
+        { postBookmarks.map(item => <Post key={item} postId={item} /> ) }
+      </div>
+      { postBookmarks.length === 0 && <span className={'text-white font-bold'}>No Saved Posts</span> }
+    </>
   );
 };
 

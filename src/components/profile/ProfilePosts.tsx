@@ -17,6 +17,7 @@ export const ProfilePosts = (): JSX.Element => {
           <Post {...post} />
         </AnimatedPostInView>
       ))}
+      { userPosts.length === 0 && <span className={'text-white font-bold'}>No Posts</span> }
     </>
   )
 }

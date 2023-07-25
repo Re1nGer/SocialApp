@@ -3,6 +3,7 @@ import { useState } from "react";
 import { ProfilePosts } from "./ProfilePosts";
 import SavedPosts from "./SavedPosts";
 import { motion } from "framer-motion";
+import Images from "./Images";
 
 const ProfilePostOptions = () => {
 
@@ -13,7 +14,7 @@ const ProfilePostOptions = () => {
       case 0:
         return <ProfilePosts />;
       case 1:
-        return <div>Images</div>;
+        return <Images />;
       case 2:
         return <SavedPosts />;
       default:

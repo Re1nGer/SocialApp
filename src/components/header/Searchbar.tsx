@@ -1,6 +1,6 @@
 import { Icon } from '@iconify/react'
 import './Searchbar.css'
-import { useState, ChangeEvent, useEffect, useCallback, useMemo } from "react";
+import { useState, ChangeEvent, useEffect, useMemo } from "react";
 import { axios } from '../../axios'
 import useDebounce from '../../hooks/useDebounce'
 import SearchbarResult from './SearchbarResult'
@@ -33,6 +33,10 @@ const Searchbar = (): JSX.Element => {
     }
   }
 
+  const handleOnFocus = () => {
+    if (inputValue) fetchUsers(debouncedValue)
+  }
+
   useEffect(() => {
     if (inputValue) fetchUsers(debouncedValue)
   }, [debouncedValue])
@@ -46,6 +50,7 @@ const Searchbar = (): JSX.Element => {
         onChange={handleInputChange}
         className='searchbar__input rounded-2xl text-black transition-transform duration-150'
         placeholder='Type in email'
+        onFocus={handleOnFocus}
         value={inputValue}
       />
       { showResults && (

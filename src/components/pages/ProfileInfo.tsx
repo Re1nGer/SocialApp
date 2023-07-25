@@ -1,34 +1,56 @@
-import IProfileInfo from '../../types/IProfileInfo';
 import CircleLoader from '../loader/CircleLoader';
 import { defaultUserImg } from './ProfilePage';
+import IProfileInfo from "../../types/IProfile";
+import { axios as call } from "../../axios";
+import { useParams } from "react-router-dom";
+import { useContext, useState } from "react";
+import { ThemeContext } from "../../contexts/ThemeContext";
 
 type ProfileInfoPropsType = {
   isLoading: boolean,
-  profileInfo: IProfileInfo | undefined,
-  isFollowing: boolean,
-  handleFollow: () => Promise<void>,
-  handleStartConversation: () => Promise<void>,
-  isFollowRequestSent: boolean,
-  isBlocked: boolean,
+  profileInfo: IProfileInfo,
 }
 
-export const ProfileInfo = ({
-  isLoading, profileInfo, isFollowing, handleFollow, isFollowRequestSent, isBlocked, handleStartConversation
-}: ProfileInfoPropsType): JSX.Element => {
+const ProfileInfo = ({ isLoading, profileInfo }: ProfileInfoPropsType): JSX.Element => {
+  const { userId } = useParams();
+
+  const { setIsChatDrawerOpen } = useContext(ThemeContext)
+
+  const [isFollowRequestSent, setIsFollowRequestSent] = useState<boolean>(false)
+
+  const handleFollow = async () => {
+    try {
+      const body = { targetUserId: userId };
+      await call.post("/api/v1/follow", body);
+      setIsFollowRequestSent(true)
+    } catch (error) {
+      console.log(error);
+      setIsFollowRequestSent(false)
+    }
+  }
+  const handleStartConversation = async () => {
+    setIsChatDrawerOpen(true)
+    try {
+      await call.post("/api/v1/chat", { userId: userId });
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
 
   return <div className='profile-info__container'>
-    <div className='profile-info__inner'>
       <div className='profile-info_user-container'>
-        <div className='profile-info__image-container'>
-          {isLoading ? (
-            <CircleLoader />
-          ) : (
-            <img
-              className='profile-info__image'
-              src={profileInfo?.lowResImageLink || defaultUserImg}
-              alt='profile' />
-          )}
-        </div>
+        {isLoading ? (
+          <CircleLoader />
+        ) : (
+          <img
+            className='profile-info__image'
+            src={profileInfo?.lowResImageLink || defaultUserImg}
+            width={'300px'}
+            height={'300px'}
+            alt='profile' />
+
+        )}
 
         <div className='profile-info__details'>
           <h1 className='profile-info__username'>{profileInfo?.username}</h1>
@@ -41,23 +63,20 @@ export const ProfileInfo = ({
               @Otheruser
             </a>
           </p>
-          {isFollowing ? (
-            <p>You follow this user</p>
+          {profileInfo.isFollowing ? (
+              <button className='profile-info__follow-btn'>
+                You follow this user
+              </button>
           ) : (
-            <button className='profile-info__follow-btn' onClick={handleFollow}>
+            <button className='profile-info__follow-btn' onClick={isFollowRequestSent ? undefined : handleFollow}>
               { isFollowRequestSent ? "Request has been sent" : "Follow" }
             </button>
           )}
           <br />
-          {isBlocked ? (
-            <p>You blocked this user</p>
-          ) : <button className='profile-info__follow-btn'>Block this user</button>}
-          <br />
-          {!isBlocked ? (
-            <button className='profile-info__follow-btn' onClick={handleStartConversation}>Start Conversation</button>
-          ) : null}
+          <button className='profile-info__follow-btn' onClick={handleStartConversation}>Start Conversation</button>
         </div>
       </div>
-    </div>
   </div>;
 };
+
+export default ProfileInfo;

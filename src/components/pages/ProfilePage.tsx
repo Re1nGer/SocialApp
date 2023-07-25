@@ -5,10 +5,10 @@ import { AnimatedPostInView } from '../profile/AnimatedPostInView'
 import Post from '../profile/PostCard'
 import { axios as call } from '../../axios'
 import ProfileImage from '../profile/ProfileImage'
-import { ProfileInfo } from './ProfileInfo'
-import IProfileInfo from '../../types/IProfileInfo'
-import { ThemeContext } from '../../contexts/ThemeContext'
+import ProfileInfo from './ProfileInfo'
 import BackgroundProfileImageLoader from '../profile/BackgroundProfileImageLoader'
+import IProfileInfo from "../../types/IProfile";
+import { ThemeContext } from "../../contexts/ThemeContext";
 
 export const defaultUserImg: string =
   'https://thumbs.dreamstime.com/b/blank-black-white-image-placeholder-icon-design-178700126.jpg'
@@ -21,7 +21,8 @@ const defaultProfile : IProfileInfo= {
   profileBackgroundImagelink: "",
   userPosts: [],
   userRequests: [],
-  postBookmarks: []
+  postBookmarks: [],
+  isFollowing: false
 }
 
 type ProfilePostsProp = {
@@ -42,15 +43,9 @@ const ProfilePage = (): JSX.Element => {
 
   const [isLoading, setIsLoading] = useState<boolean>(false)
 
-  const [isFollowing, setIsFollowing] = useState<boolean>(false)
-
-  const [isBlocked, setIsBlocked] = useState<boolean>(false)
-
-  const [isFollowRequestSent, setIsFollowRequestSent] = useState<boolean>(false)
-
   const [profileInfo, setProfileInfo] = useState<IProfileInfo>(defaultProfile)
 
-  const { setIsChatDrawerOpen } = useContext(ThemeContext)
+  const { accessToken } = useContext(ThemeContext);
 
   const { userId } = useParams()
 
@@ -66,28 +61,9 @@ const ProfilePage = (): JSX.Element => {
     }
   }
 
-  const handleFollow = async () => {
-    try {
-      const body = { targetUserId: userId };
-      await call.post("/api/v1/follow", body);
-      setIsFollowRequestSent(true)
-    } catch (error) {
-      console.log(error);
-      setIsFollowRequestSent(false)
-    }
-  }
-  const handleStartConversation = async () => {
-    setIsChatDrawerOpen(true)
-    try {
-      await call.post("/api/v1/chat", { userId: userId });
-     } catch (error) {
-      console.log(error)
-     }
-  }
-
   useEffect(() => {
     fetchUserInfo()
-  }, [userId])
+  }, [userId, accessToken])
 
   return (
     <>
@@ -101,15 +77,7 @@ const ProfilePage = (): JSX.Element => {
       {isLoading ? (
         <CircleLoader />
       ) : (
-        <ProfileInfo
-          isLoading={isLoading}
-          profileInfo={profileInfo}
-          isFollowing={isFollowing}
-          handleFollow={handleFollow}
-          handleStartConversation={handleStartConversation}
-          isFollowRequestSent={isFollowRequestSent}
-          isBlocked={isBlocked}
-        />
+        <ProfileInfo isLoading={isLoading} profileInfo={profileInfo} />
       )}
       <ProfilePosts>
         { profileInfo.userPosts.map( item =>(

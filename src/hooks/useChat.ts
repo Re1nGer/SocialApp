@@ -4,12 +4,11 @@ import { StreamChat } from "stream-chat";
 
 const useChat = () => {
 
-  const { streamToken, profileInfo, setStreamChat, streamChat } = useContext(ThemeContext);
+  const { streamToken, profileInfo, setStreamChat, streamChat, accessToken } = useContext(ThemeContext);
 
   useEffect(() => {
     if (!streamToken) return;
     const chat = new StreamChat(import.meta.env.VITE_STREAM_KEY);
-    let isInterrupted= false;
     chat.on((event) => {
       if (event.total_unread_count !== undefined) {
         console.log(event.total_unread_count);
@@ -20,17 +19,15 @@ const useChat = () => {
       }
     });
     const connect = chat.connectUser(profileInfo, streamToken).then(() => {
-      if (isInterrupted) return;
       setStreamChat(chat);
     });
     return () => {
-      isInterrupted = true;
       setStreamChat(undefined);
       connect.then(() => {
         chat.disconnectUser();
       })
     }
-  }, [streamToken, profileInfo.id])
+  }, [streamToken, profileInfo.id, accessToken])
 
   return { streamChat, profileInfo };
 

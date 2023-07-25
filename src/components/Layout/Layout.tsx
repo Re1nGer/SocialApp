@@ -4,10 +4,16 @@ import { useContext, useEffect } from "react";
 import { axios } from "../../axios";
 import { ThemeContext } from '../../contexts/ThemeContext'
 import MobileBottomNavigation from "./BottomNavigation";
-import Footer from "../footer/Footer";
+import MyProfileInfoType from "../../types/MyProfileInfoType";
 
 const Layout = (): JSX.Element => {
-  const { isLightTheme, accessToken, setAccessToken, setIsLoggedIn, setStreamToken } = useContext(ThemeContext)
+  const { isLightTheme,
+        accessToken,
+        setAccessToken,
+        setIsLoggedIn,
+        setStreamToken,
+        setProfileInfo
+      } = useContext(ThemeContext)
 
   const location = useLocation()
 
@@ -24,6 +30,20 @@ const Layout = (): JSX.Element => {
     }
   }
 
+  const fetchUserData = async (): Promise<void> => {
+    try {
+      const { data } = await axios.get<MyProfileInfoType>('/api/v1/user')
+      setProfileInfo(data)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  useEffect(() => {
+    fetchUserData()
+  },[accessToken])
+
+
   useEffect(() => {
     if (!accessToken && location.pathname !== "/")
       refreshAccessToken()
@@ -34,9 +54,6 @@ const Layout = (): JSX.Element => {
       <div className={isLightTheme ? 'bg-white' : 'bg-black'}>
         <Header />
         <Outlet />
-{/*
-        <Footer />
-*/}
         <MobileBottomNavigation />
       </div>
     </>

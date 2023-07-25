@@ -1,7 +1,7 @@
 import IPost from "./IPost"
 import IUserRequest from "./IUserRequest";
 
-type IProfileInfo = {
+type MyProfileInfoType = {
   id: string,
   username: string,
   lowResImageLink: string
@@ -12,4 +12,4 @@ type IProfileInfo = {
   postBookmarks: string[],
 }
 
-export default IProfileInfo
+export default MyProfileInfoType;

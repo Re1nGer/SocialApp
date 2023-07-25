@@ -1,4 +1,4 @@
-import { useContext } from 'react'
+import { useContext, useEffect, useState } from "react";
 import { ThemeContext } from '../../contexts/ThemeContext'
 import './animations.css'
 import './Drawer.scss'
@@ -13,6 +13,7 @@ import {
   MessageList, useChannelStateContext, useChatContext,
   Window
 } from "stream-chat-react";
+import { axios } from '../../axios';
 
 const ChatDrawer = (): JSX.Element => {
 
@@ -49,27 +50,59 @@ const ChatDrawer = (): JSX.Element => {
     </>
   );
 }
-const CustomChannelHeader = (props: ChannelHeaderProps) => {
-
-  const { title } = props;
+const CustomChannelHeader = () => {
 
   const { channel } = useChannelStateContext();
 
   const { setActiveChannel } = useChatContext();
+  const fetchChannel = async () => {
+    try {
 
-  const { name, member_count } = channel.data || {};
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  //perhaps we'll need one
+  useEffect(() => {
+    fetchChannel();
+  }, [])
 
   return <div className={'bg-white flex justify-center gap-3 w-full flex-col items-center'}>
     <span className={'flex gap-3'}>
       <button onClick={() => setActiveChannel(undefined)}>Go Back</button>
-      Group Name: { title || name }</span>
-    <span>Members: { member_count }</span>
+    </span>
   </div>;
 };
 
+
+interface Chat {
+  id: string,
+  channelId: string,
+  name: string
+}
+
 const ChannelListCustom = ({ loadedChannels }: ChannelListMessengerProps) => {
+
   const { setActiveChannel, channel : activeChannel } = useChatContext();
+
   const { setIsChatDrawerOpen } = useContext(ThemeContext);
+
+  const [chats, setChats] = useState<Chat[]>([]);
+
+  const fetchChats = async () => {
+    try {
+      const { data } = await axios.get<Chat[]>("/api/v1/chat/list");
+      setChats(data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  useEffect(() => {
+    fetchChats()
+  }, []);
+
   if (activeChannel)
     return <div></div>
 
@@ -79,7 +112,7 @@ const ChannelListCustom = ({ loadedChannels }: ChannelListMessengerProps) => {
       { item.data?.image && (
         <img src={item.data?.image} alt={'group'} />
       ) }
-      { item.data?.name  || item.id}
+      { chats.find(chat =>  chat.channelId === item.id)?.name || item.id }
     </div>) }
   </div>
 };

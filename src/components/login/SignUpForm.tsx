@@ -7,7 +7,7 @@ import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import WarframeLoader from "../loader/WarframeLoader";
 import { motion } from "framer-motion";
 import { Icon } from "@iconify/react";
-import TextInputField from "../InputField/TextInputField";
+import TextInputField from "../inputField/TextInputField";
 import IAPIError from "../../types/IAPIError";
 import IError from "../../types/IError";
 
