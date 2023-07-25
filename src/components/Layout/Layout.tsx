@@ -54,10 +54,25 @@ const Layout = (): JSX.Element => {
       <div className={isLightTheme ? 'bg-white' : 'bg-black'}>
         <Header />
         <Outlet />
+        <Footer />
         <MobileBottomNavigation />
       </div>
     </>
   )
 }
+
+
+const Footer = () => {
+
+  return (
+    <footer className={'w-full h-full bottom-0 my-5 flex items-end justify-center text-white text-center font-bold min-h-[250px]'}>
+      <h1 className={'my-5'}>
+        All Rights Reserved
+      </h1>
+    </footer>
+  )
+}
+
+
 
 export default Layout

@@ -10,6 +10,7 @@ type TextInputFieldProps = {
   placeholder: string,
   defaultValue?: string,
   className?: string,
+  labelClassName?: string,
   disabled?: boolean,
   displayError?: boolean,
   required?: boolean,
@@ -30,6 +31,7 @@ const TextInputField = ({
                           type = 'text',
                           placeholder,
                           defaultValue,
+                          labelClassName,
                           className,
                           disabled,
                           displayError = true,
@@ -56,7 +58,7 @@ const TextInputField = ({
 
   return (
     <div className={'flex flex-col justify-start'}>
-      <label htmlFor={id}>{label}</label>
+      <label htmlFor={id} className={labelClassName}>{label}</label>
       <input
         id={id}
         {...register(name, { required: required ? baseRequiredErrorMessage : false, ...validationRules }) }

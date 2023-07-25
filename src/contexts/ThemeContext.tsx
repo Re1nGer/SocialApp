@@ -37,7 +37,8 @@ const defaultProfileInfo: MyProfileInfoType = {
   profileBackgroundImagelink: '',
   userPosts: [],
   userRequests: [],
-  postBookmarks: []
+  postBookmarks: [],
+  intro: ''
 }
 
 export function ThemeContextProvider({ children }: ThemeContextProviderType): JSX.Element {

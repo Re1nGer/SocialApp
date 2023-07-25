@@ -1,6 +1,6 @@
 import { useContext, useState } from 'react'
 import { Icon } from '@iconify/react'
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { ThemeContext } from '../../contexts/ThemeContext'
 import { axios } from '../../axios'
 
@@ -42,6 +42,11 @@ const HeaderProfileMenu = (): JSX.Element => {
     navigate('/', { replace: false })
   }
 
+  const handleNavigate = (navigateTo: string) => {
+    setOpen(false);
+    navigate(navigateTo);
+  }
+
   return (
     <>
       {open ? <div className='profile_menu__overlay z-20' onClick={handleDropdownOverlayClose} /> : null}
@@ -52,14 +57,11 @@ const HeaderProfileMenu = (): JSX.Element => {
           </div>
         </div>
         <div className={`z-10 profile_menu__dropdown ${open ? 'profile_menu__dropdown--open' : ''}`}>
-          <Link to={'/account'} className='profile_menu__dropdown-item'>
+          <div className='profile_menu__dropdown-item' onClick={() => handleNavigate("/account")}>
             <Icon fontSize={16} icon='mdi:user' />
             Account
-          </Link>
-          <div
-            className='profile_menu__dropdown-item'
-            //onClick={() => setIsLightTheme((prevState) => !prevState)}
-          >
+          </div>
+          <div className='profile_menu__dropdown-item' >
             <Icon fontSize={16} icon='mdi:weather-sunset-down' />
             Light Mode
           </div>

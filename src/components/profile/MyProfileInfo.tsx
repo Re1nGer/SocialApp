@@ -1,4 +1,3 @@
-import { Icon } from "@iconify/react";
 import UploadAndDisplayProfileImage from "./UploadAndDisplayProfileImage";
 import DisplayProfileInfo from "./DisplayProfileInfo";
 
@@ -11,13 +10,6 @@ const MyProfileInfo = () => {
           <div className='flex flex-col sm:flex-row items-center sm:items-start gap-3 grow-[.5]'>
             <UploadAndDisplayProfileImage />
             <DisplayProfileInfo />
-          </div>
-          <div className='cursor-pointer'>
-            <Icon
-              icon='material-symbols:edit'
-              fontSize='25px'
-              color='#fff'
-            />
           </div>
         </div>
       </div>

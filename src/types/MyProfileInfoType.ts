@@ -10,6 +10,7 @@ type MyProfileInfoType = {
   userPosts: IPost[],
   userRequests: IUserRequest[],
   postBookmarks: string[],
+  intro?: string
 }
 
 export default MyProfileInfoType;

@@ -1,4 +1,4 @@
-import React, { ChangeEvent, LegacyRef } from 'react'
+import React, { ChangeEvent, LegacyRef, useRef } from "react";
 import { Icon } from '@iconify/react'
 import { useForm, SubmitHandler } from 'react-hook-form'
 import WarframeLoader from "../loader/WarframeLoader";
@@ -20,11 +20,16 @@ export const FeedPostFormModal = (
 ) => {
   const { register, handleSubmit } = useForm<FeedPostModalFormValues>()
 
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
   const [imageSrc, setImageSrc] = React.useState<string | null>(null)
   const onImagePreviewChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files) return
     setImageSrc(URL.createObjectURL(e.target.files[0]))
   }
+  const handleUploadImageClick = () => {
+    fileInputRef.current!.click();
+  };
 
   return (
     <>
@@ -70,12 +75,23 @@ export const FeedPostFormModal = (
           onChange={onImagePreviewChange}
         />
         {imageSrc ? null : (
-          <label htmlFor='postfile' id='postfilelabel'>
-            <span className='feed__post-form_upload-btn'>Upload from computer</span>
-          </label>
+          <>
+            <input
+              ref={fileInputRef}
+              style={{ display: "none" }}
+              aria-labelledby="file-id"
+              id="file"
+              accept="image/*"
+              type="file"
+              onChange={onImagePreviewChange}
+            />
+            <button className="bg-transparent border rounded-xl border-white bg-black text-white p-2 my-5" onClick={handleUploadImageClick}>
+              Upload Image
+            </button>
+          </>
         )}
         { isLoading && <WarframeLoader /> }
-        <button className={`transition-opacity duration-150 feed__post-form_btn ${isLoading ? 'opacity-50' : ''}`}>Submit Post</button>
+        <button className={`rounded-lg p-3 w-full text-white shadow bg-black border min-w-[200px] hover:bg-slate-800 ease-in-out transition-opacity duration-150  ${isLoading ? 'opacity-50' : ''}`}>Submit Post</button>
       </form>
     </>
   )

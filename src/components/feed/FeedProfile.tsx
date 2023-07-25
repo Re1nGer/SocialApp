@@ -22,7 +22,6 @@ export function FeedProfile(): JSX.Element {
           <img className='feed__profile-circle_img' src={lowResImageLink ?? defaultUserImg} alt='avatar' />
         </div>
         <div className='feed__profile-name'>{username}</div>
-        <div className='feed__profile-username'>@megan_cli</div>
         <div className='feed__profile-stats'>
           <div className='feed__profile-following'>
             6684
@@ -36,7 +35,7 @@ export function FeedProfile(): JSX.Element {
             Followers
           </div>
         </div>
-        <div className='feed__profile-link'>
+        <div className='text-white hover:text-neutral my-1 text-center'>
           <Link to='/mypage'>My Profile</Link>
         </div>
       </div>
