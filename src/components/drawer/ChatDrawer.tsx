@@ -98,7 +98,8 @@ const ChannelListCustom = ({ loadedChannels }: ChannelListMessengerProps) => {
 
   return (
       <div className={'flex flex-col gap-3 h-full w-screen'}>
-      <button onClick={() => setIsChatDrawerOpen(false)} className={'transition-colors duration-150 hover:bg-black hover:text-white rounded-3xl p-3 outline-0 border bg-white text-black'}>Close</button>
+      <button onClick={() => setIsChatDrawerOpen(false)}
+              className={'transition-colors duration-150 rounded-3xl p-3 outline-0 border bg-white text-black'}>Close</button>
       { loadedChannels?.map(item => <div
             className={'transition-colors duration-150 m-2 w-full p-3 flex gap-3 cursor-pointer rounded-2xl bg-white hover:bg-black hover:text-white'}
             key={item.id}

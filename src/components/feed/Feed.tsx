@@ -1,6 +1,6 @@
 import './Feed.scss'
 import React from 'react'
-import { AnimatePresence } from 'framer-motion'
+import { AnimatePresence, motion } from 'framer-motion'
 import axios, { AxiosError } from 'axios'
 import FeedMain from './FeedMain'
 import { FeedTrends } from './FeedTrends'
@@ -68,7 +68,7 @@ const Feed = (): JSX.Element => {
         ) : null}
       </AnimatePresence>
 
-      <div className='feed'>
+      <motion.div initial={{opacity: 0}} animate={{ opacity: 1 }} className='feed'>
         <div className='xl:justify-center justify-center xl:flex'>
           <div className='hidden xl:flex flex-col gap-5'>
             <FeedProfile />
@@ -81,7 +81,7 @@ const Feed = (): JSX.Element => {
             <FeedTrends />
           </div>
         </div>
-      </div>
+      </motion.div>
     </>
   )
 }

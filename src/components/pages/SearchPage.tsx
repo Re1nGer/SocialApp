@@ -4,6 +4,7 @@ import IUser from "../../types/IUser";
 import { axios } from "../../axios";
 import useDebounce from "../../hooks/useDebounce";
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 
 const defaultUserImg: string =
   'https://thumbs.dreamstime.com/b/blank-black-white-image-placeholder-icon-design-178700126.jpg'
@@ -46,7 +47,7 @@ const SearchPage = () => {
   }, [debouncedValue])
 
   return (
-      <div className={'w-full h-screen flex items-center my-3 flex-col'}>
+      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className={'w-full h-screen flex items-center my-3 flex-col'}>
         <div className='relative flex justify-center'>
           <Icon icon='material-symbols:search' fontSize={20} className='absolute left-[0] top-[20%]  mx-1' />
           <input
@@ -70,8 +71,8 @@ const SearchPage = () => {
             No Results
           </div>
         )}
-      </div>
-  )
+      </motion.div>
+  );
 }
 
 

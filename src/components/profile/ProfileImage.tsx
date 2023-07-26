@@ -54,15 +54,16 @@ const ProfileBackgroundImage = ({ profileBackgroundImagelink }: ProfileBackgroun
   return (
     <div className='profile-image__wrapper overflow-hidden' onClick={handleClick}>
       <input hidden type='file' ref={fileInputRef} onChange={handleBackgroundImageUpload} />
-      <div className='profile-image__clear h-[400px] max-h-[400px]'>
-        { isLoading ? (
-          <BackgroundProfileImageLoader />
-        ) : null }
-        <img className={`profile-image__cut h-[400px] max-h-[400px] object-contain`}
-             src={backgroundLink || defaultBackgroundImageLink} alt='profile header' />
-      </div>
-      <div className='profile-image__overlay h-[400px] max-h-[400px]' />
-      <img className='profile-image__blur h-[400px] max-h-[400px]' src={backgroundLink || defaultBackgroundImageLink} alt='profile header' />
+      { isLoading ? (
+        <BackgroundProfileImageLoader />
+      ) : <>
+        <div className='profile-image__clear h-[400px] max-h-[400px]'>
+          <img className={`profile-image__cut h-[400px] max-h-[400px] object-contain`}
+               src={backgroundLink || defaultBackgroundImageLink} alt='profile header' />
+        </div>
+        <div className='profile-image__overlay h-[400px] max-h-[400px]' />
+        <img className='profile-image__blur h-[400px] max-h-[400px]' src={backgroundLink || defaultBackgroundImageLink} alt='profile header' />
+      </> }
     </div>
   )
 }
