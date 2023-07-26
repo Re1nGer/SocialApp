@@ -9,7 +9,7 @@ type FeedMainProp = {
 const FeedMain = ({ onClick }: FeedMainProp): JSX.Element => {
 
   return (
-    <div className='feed__main px-2'>
+    <div className='feed__main px-2 h-screen'>
       <FeedMainInput onClick={onClick} />
       <FeedPosts />
     </div>

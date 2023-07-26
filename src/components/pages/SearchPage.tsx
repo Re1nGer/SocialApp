@@ -11,8 +11,6 @@ const SearchPage = () => {
 
   const [users, setUsers] = useState<IUser[]>([])
 
-  const [isResultOpen, setIsResultOpen] = useState<boolean>(false)
-
   const [inputValue, setInputValue] = useState<string>('')
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -45,22 +43,24 @@ const SearchPage = () => {
   }, [debouncedValue])
 
   return (
-      <div className={'w-full h-screen flex items-start my-3 flex-col'}>
-        <div className='relative w-full flex justify-center'>
-          <Icon icon='material-symbols:search' fontSize={20} className='absolute left-[17%] top-[20%]  mx-1' />
+      <div className={'w-full h-screen flex items-center my-3 flex-col'}>
+        <div className='relative flex justify-center'>
+          <Icon icon='material-symbols:search' fontSize={20} className='absolute left-[0] top-[20%]  mx-1' />
           <input
             onChange={handleInputChange}
-            className='py-2 px-10 rounded-2xl text-black transition-transform duration-150'
+            className='p-3 px-10 rounded text-black transition-transform duration-150'
             placeholder='Type in email'
             value={inputValue}
           />
         </div>
-        { users.length > 0 && (
-          <div className='flex flex-col items-center w-full gap-1'>
-            {users.map((item) => (
-              <MobileSearchResult key={item.id} user={item} />
-            ))}
-          </div>
+        { users.length > 0 && showResults && (
+        <div className={'bg-white p-2 w-full max-w-[260px] min-h-[400px] rounded'}>
+            <div className='flex flex-col items-center w-full gap-1'>
+              {users.map((item) => (
+                <MobileSearchResult key={item.id} user={item} />
+              ))}
+            </div>
+        </div>
         )}
         { users.length === 0 && (
           <div className='text-white font-bold m-5 text-center'>
@@ -79,7 +79,7 @@ type MobileSearchResultType = {
 
 const MobileSearchResult = ({ user }: MobileSearchResultType) => {
   return (
-    <Link to={`/user/${user.id}`} className={'flex justify-center gap-5 p-1 text-black bg-white rounded-xl'}>
+    <Link to={`/user/${user.id}`} className={'flex justify-center hover:bg-gray-200 gap-5 p-1 text-black bg-gray-100 rounded max-w-[260px] w-full'}>
       <img src={user.lowResImageLink} alt={'avatar'} className={'rounded-full object-cover max-h-[25px] max-w-[25px]'} height={'25px'} width={'25px'} />
       { user.username }
     </Link>
