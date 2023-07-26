@@ -55,6 +55,10 @@ export const FeedPostFormModal = (
             placeholder={'What is on your mind ?'}
           />
         </div>
+        <div className={'flex sm:flex-row flex-col justify-start gap-3 my-3'}>
+          <button type={'button'} className={'rounded-lg p-3 w-full text-white shadow bg-black border min-w-[200px]'}>Generate Caption</button>
+          <button type={'button'} className={'rounded-lg p-3 w-full text-black  shadow bg-white border min-w-[200px]'}>Generate Image</button>
+        </div>
         <label htmlFor='feed__post-image' className='feed__post-image'>
           {imageSrc ? 'Added Image' : 'Add an Image:'}
         </label>
