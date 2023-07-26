@@ -44,7 +44,7 @@ const ProfileInfo = ({ isLoading, profileInfo }: ProfileInfoPropsType): JSX.Elem
           <CircleLoader />
         ) : (
           <img
-            className='profile-info__image'
+            className='sm:max-w-[300px] sm:max-h-[300px] rounded-full mt-[-5rem] relative z-10 max-h-[150px] max-w-[150px]'
             src={profileInfo?.lowResImageLink || defaultUserImg}
             width={'300px'}
             height={'300px'}

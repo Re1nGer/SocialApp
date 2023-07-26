@@ -47,7 +47,7 @@ export function FeedPosts(): JSX.Element {
               />
             </AnimatePresence>
           ))
-      ) : <span className={'text-white text-center font-bold mt-10'}>No Feed Posts</span> }
+      ) : <span className={'text-white text-center font-bold mt-10 h-full'}>No Feed Posts</span> }
       {isLoading ? <CircleLoader /> : null}
       <div ref={lastPost} />
     </>

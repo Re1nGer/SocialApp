@@ -58,7 +58,7 @@ const ProfileBackgroundImage = ({ profileBackgroundImagelink }: ProfileBackgroun
         { isLoading ? (
           <BackgroundProfileImageLoader />
         ) : null }
-        <img className={`profile-image__cut max-h-[400px] object-contain`}
+        <img className={`profile-image__cut max-h-[300px] object-contain`}
              src={backgroundLink || defaultBackgroundImageLink} alt='profile header' />
       </div>
       <div className='profile-image__overlay' />
