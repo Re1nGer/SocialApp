@@ -67,24 +67,17 @@ export const FeedPostFormModal = (
           <div className='overlay' />
         </div>
         <input
-          accept='image/*'
-          className={'hidden'}
-          type='file'
-          id='postfile'
-          name='postfile'
+          ref={fileInputRef}
+          style={{ display: "none" }}
+          aria-labelledby="file-id"
+          id="file"
+          accept="image/*"
+          name={'postfile'}
+          type="file"
           onChange={onImagePreviewChange}
         />
         {imageSrc ? null : (
           <>
-            <input
-              ref={fileInputRef}
-              style={{ display: "none" }}
-              aria-labelledby="file-id"
-              id="file"
-              accept="image/*"
-              type="file"
-              onChange={onImagePreviewChange}
-            />
             <button className="bg-transparent border rounded-xl border-white bg-black text-white p-2 my-5" onClick={handleUploadImageClick}>
               Upload Image
             </button>
