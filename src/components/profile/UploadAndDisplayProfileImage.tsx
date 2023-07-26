@@ -57,10 +57,13 @@ const UploadAndDisplayProfileImage = () => {
       setIsUploading(false)
     }
   };
+
+  console.log(profileImageSrc, highResImageLink);
+
   return <div className='flex flex-col'>
-    { isUploading ? (
+    { isUploading || highResImageLink === "" ? (
       <div className={'h-[400px] w-[400px] mt-[-8rem] rounded-full bg-gradient-to-r from-transparent via-rose-100/10 to-transparent-translate-x-full animate-[shimmer_2s_infinite]' +
-        'relative before:rounded-full before:max-w-[400px] before:absolute before:inset-0 before:-translate-x-full before:animate-[shimmer_2s_infinite] before:bg-gradient-to-r before:from-transparent before:via-rose-100/10 before:to-transparent' +
+        'relative before:rounded-full before:max-h-[400px] before:max-w-[400px] before:absolute before:inset-0 before:-translate-x-full before:animate-[shimmer_2s_infinite] before:bg-gradient-to-r before:from-transparent before:via-rose-100/10 before:to-transparent' +
         'isolate overflow-hidden shadow-xl shadow-black/5 before:border-t before:border-rose-100/10'}></div>
     ) : (
       <AnimatePresence>
