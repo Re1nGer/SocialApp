@@ -5,6 +5,9 @@ import { axios } from "../../axios";
 import useDebounce from "../../hooks/useDebounce";
 import { Link } from "react-router-dom";
 
+const defaultUserImg: string =
+  'https://thumbs.dreamstime.com/b/blank-black-white-image-placeholder-icon-design-178700126.jpg'
+
 const SearchPage = () => {
 
   const searchTextInputRef = useRef<HTMLInputElement>(null)
@@ -80,7 +83,7 @@ type MobileSearchResultType = {
 const MobileSearchResult = ({ user }: MobileSearchResultType) => {
   return (
     <Link to={`/user/${user.id}`} className={'flex justify-center hover:bg-gray-200 gap-5 p-1 text-black bg-gray-100 rounded max-w-[260px] w-full'}>
-      <img src={user.lowResImageLink} alt={'avatar'} className={'rounded-full object-cover max-h-[25px] max-w-[25px]'} height={'25px'} width={'25px'} />
+      <img src={user.lowResImageLink ?? defaultUserImg} alt={'avatar'} className={'rounded-full object-cover max-h-[25px] max-w-[25px]'} height={'25px'} width={'25px'} />
       { user.username }
     </Link>
   )
