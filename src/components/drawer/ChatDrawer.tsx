@@ -5,12 +5,13 @@ import './Drawer.scss'
 import useChat from "../../hooks/useChat";
 import {
   Channel,
-  ChannelHeaderProps,
-  ChannelList, ChannelListMessengerProps,
+  ChannelList,
+  ChannelListMessengerProps,
   Chat,
   LoadingIndicator,
   MessageInput,
-  MessageList, useChannelStateContext, useChatContext,
+  MessageList,
+  useChatContext,
   Window
 } from "stream-chat-react";
 import { axios } from '../../axios';
@@ -34,15 +35,18 @@ const ChatDrawer = (): JSX.Element => {
       {isChatDrawerOpen ? <div className='drawer__overlay' onClick={handleDrawerClose} /> : null}
       <div
         onClick={(e) => e.stopPropagation()}
-        className={`drawer py-5 ${isChatDrawerOpen ? 'drawer--open' : ''} `}
+        className={`drawer py-5 ${isChatDrawerOpen ? 'drawer--open' : ''}`}
       >
         <Chat client={streamChat} >
-            <ChannelList filters={{ members: { $in: [profileInfo.id] }} } List={ChannelListCustom}  sendChannelsToList={true} />
+            <ChannelList
+              filters={{ members: { $in: [profileInfo.id] }}}
+              List={ChannelListCustom}
+              sendChannelsToList={true} />
             <Channel>
               <Window>
                 <CustomChannelHeader />
                 <MessageList />
-                <MessageInput />
+                <MessageInput focus />
               </Window>
             </Channel>
         </Chat>
@@ -52,21 +56,7 @@ const ChatDrawer = (): JSX.Element => {
 }
 const CustomChannelHeader = () => {
 
-  const { channel } = useChannelStateContext();
-
   const { setActiveChannel } = useChatContext();
-  const fetchChannel = async () => {
-    try {
-
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
-  //perhaps we'll need one
-  useEffect(() => {
-    fetchChannel();
-  }, [])
 
   return <div className={'bg-white flex justify-center gap-3 w-full flex-col items-center'}>
     <span className={'flex gap-3'}>
@@ -92,7 +82,7 @@ const ChannelListCustom = ({ loadedChannels }: ChannelListMessengerProps) => {
 
   const fetchChats = async () => {
     try {
-      const { data } = await axios.get<Chat[]>("/api/v1/chat/list");
+      const { data} = await axios.get<Chat[]>("/api/v1/chat/list");
       setChats(data);
     } catch (error) {
       console.log(error);
@@ -100,22 +90,25 @@ const ChannelListCustom = ({ loadedChannels }: ChannelListMessengerProps) => {
   }
 
   useEffect(() => {
-    fetchChats()
+    fetchChats();
   }, []);
 
   if (activeChannel)
     return <div></div>
 
-  return <div className={'flex flex-col gap-3 h-full w-full min-w-[350px]'}>
-    <button onClick={() => setIsChatDrawerOpen(false)} className={'transition-colors duration-150 hover:bg-black hover:text-white rounded-3xl p-3 outline-0 border bg-white text-black'}>Close</button>
-    { loadedChannels?.map(item => <div className={'transition-colors duration-150  m-2 w-full p-3 flex gap-3 cursor-pointer rounded-2xl bg-white hover:bg-black hover:text-white'} key={item.id} onClick={() => setActiveChannel(item)}>
-      { item.data?.image && (
-        <img src={item.data?.image} alt={'group'} />
-      ) }
-      { chats.find(chat =>  chat.channelId === item.id)?.name || item.id }
-    </div>) }
-  </div>
+  return (
+      <div className={'flex flex-col gap-3 h-full w-screen'}>
+      <button onClick={() => setIsChatDrawerOpen(false)} className={'transition-colors duration-150 hover:bg-black hover:text-white rounded-3xl p-3 outline-0 border bg-white text-black'}>Close</button>
+      { loadedChannels?.map(item => <div
+            className={'transition-colors duration-150 m-2 w-full p-3 flex gap-3 cursor-pointer rounded-2xl bg-white hover:bg-black hover:text-white'}
+            key={item.id}
+            onClick={() => setActiveChannel(item)}>
+            { item.data?.image && (
+              <img src={item.data?.image} alt={'group'} />
+            ) }
+        {chats.find(chat =>  chat.channelId === item.id)?.name || item.id}
+      </div> )}
+  </div>);
 };
 
 export default ChatDrawer
-
