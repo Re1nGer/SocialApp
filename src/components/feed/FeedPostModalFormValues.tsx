@@ -91,6 +91,34 @@ export const FeedPostFormModal = ({ handleClose, setIsFormOpen }: FeedPostModalT
     }
   };
 
+  const handleGenerateCaption = async () => {
+    if (!imageSrc) return;
+    setIsCaptionGeneratingLoading(true);
+    const options = {
+      method: 'GET',
+      url: 'https://image-caption-generator2.p.rapidapi.com/v2/captions',
+      params: {
+        imageUrl: imageSrc,
+        useHashtags: 'true',
+        limit: '1'
+      },
+      headers: {
+        'X-RapidAPI-Key': '9a5a1be861msh67493481267aed0p17e8e7jsnfce71a5193b0',
+        'X-RapidAPI-Host': 'image-caption-generator2.p.rapidapi.com'
+      }
+    };
+
+    try {
+      const response = await axios.request(options);
+      setValue('htmlContent', response.data.captions[0])
+    } catch (error) {
+      console.log(error)
+    }
+    finally {
+      setIsCaptionGeneratingLoading(false);
+    }
+  }
+
   return (
     <>
       <div className='feed__post-form_overlay' onClick={handleClose} />
@@ -120,8 +148,13 @@ export const FeedPostFormModal = ({ handleClose, setIsFormOpen }: FeedPostModalT
             <div className={'text-red-500 mb-2 w-full'}>{ textareaError?.message }</div>
           ) : null }
         </div>
-
-        <button disabled type={'button'} className={'rounded-lg opacity-50 p-3 w-full text-white shadow bg-black border min-w-[200px]'}>
+        { isCaptionGeneratingLoading ? (
+          <>
+            <span className={'text-white'}>Caption is being generated. Please, Stand By</span>
+            <CircleLoader />
+          </>
+        ) : null }
+        <button type={'button'} disabled={isLoading || isImageGeneratingLoading || isCaptionGeneratingLoading} onClick={handleGenerateCaption} className={`rounded-lg p-3 w-full text-white shadow ${isCaptionGeneratingLoading ? 'opacity-50' : ''} bg-black border min-w-[200px]`}>
           Generate Caption From Image
         </button>
 
