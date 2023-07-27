@@ -24,7 +24,8 @@ export const FeedPostFormModal = ({ handleClose, setIsFormOpen }: FeedPostModalT
         getValues,
         formState: { errors },
         setValue,
-        handleSubmit
+        handleSubmit,
+        watch
     } = useForm<FeedPostModalFormValues>();
 
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -38,6 +39,8 @@ export const FeedPostFormModal = ({ handleClose, setIsFormOpen }: FeedPostModalT
   const [isCaptionGeneratingLoading, setIsCaptionGeneratingLoading] = useState<boolean>(false);
 
   const textareaError = get(errors, 'htmlContent') as FieldError;
+
+  const htmlContent = watch('htmlContent');
 
   const handleSubmitForm = async (data: FeedPostModalFormValues, event: any) => {
     if (!event.target[2].files && !data.imageSrc) return;
@@ -90,6 +93,8 @@ export const FeedPostFormModal = ({ handleClose, setIsFormOpen }: FeedPostModalT
       setIsImageGeneratingLoading(false);
     }
   };
+  const handleUploadToCloudinary = () => {};
+  const handleDeleteFromCloudinary = () => {};
 
   const handleGenerateCaption = async () => {
     if (!imageSrc) return;
@@ -154,7 +159,11 @@ export const FeedPostFormModal = ({ handleClose, setIsFormOpen }: FeedPostModalT
             <CircleLoader />
           </>
         ) : null }
-        <button type={'button'} disabled={isLoading || isImageGeneratingLoading || isCaptionGeneratingLoading} onClick={handleGenerateCaption} className={`rounded-lg p-3 w-full text-white shadow ${isCaptionGeneratingLoading ? 'opacity-50' : ''} bg-black border min-w-[200px]`}>
+        <button type={'button'}
+                disabled={isLoading || isImageGeneratingLoading || isCaptionGeneratingLoading || !imageSrc}
+                onClick={handleGenerateCaption}
+                className={`rounded-lg p-3 w-full text-white disabled:opacity-50 shadow ${isCaptionGeneratingLoading ? 'opacity-50' : ''}
+                 bg-black border min-w-[200px]`}>
           Generate Caption From Image
         </button>
 
@@ -206,7 +215,8 @@ export const FeedPostFormModal = ({ handleClose, setIsFormOpen }: FeedPostModalT
         <button
           type={'button'}
           onClick={handleGenerateImage}
-          className={'rounded-lg p-3 w-full text-black shadow bg-white border min-w-[200px]'}
+          className={'rounded-lg disabled:opacity-50 transition-opacity p-3 w-full text-black shadow bg-white border min-w-[200px]'}
+          disabled={!htmlContent}
         >
           Generate Image From Caption
         </button>
