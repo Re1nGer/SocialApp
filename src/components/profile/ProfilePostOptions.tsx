@@ -26,19 +26,19 @@ const ProfilePostOptions = () => {
           <div className="flex justify-center gap-[4rem] mb-[2rem]">
           <div
             onClick={() => setActive(0)}
-            className="hover:text-[#6c757d] duration-150 text-xs sm:text-xl ease-in-out flex gap-[1rem] text-white items-center cursor-pointer">
+            className="hover:text-[#b4d9f4] duration-150 text-xs sm:text-xl ease-in-out flex gap-[1rem] text-white items-center cursor-pointer">
             <Icon fontSize={16} icon="ic:baseline-chat" />
             Posts
           </div>
           <div
             onClick={() => setActive(1)}
-            className="hover:text-[#6c757d] flex-nowrap text-xs sm:text-xl duration-150 ease-in-out flex gap-[1rem] text-white items-center cursor-pointer">
+            className="hover:text-[#b4d9f4] flex-nowrap text-xs sm:text-xl duration-150 ease-in-out flex gap-[1rem] text-white items-center cursor-pointer">
             <Icon fontSize={16} icon="uil:apps" />
             Images
           </div>
           <div
             onClick={() => setActive(2)}
-            className={`hover:text-[#6c757d] duration-150 text-xs sm:text-xl ease-in-out flex gap-[1rem] text-white items-center cursor-pointer ${active === 2 && 'text-[#6c757d]'}`}>
+            className={`hover:text-[#b4d9f4] duration-150 text-xs sm:text-xl ease-in-out flex gap-[1rem] text-white items-center cursor-pointer ${active === 2 && 'text-[#6c757d]'}`}>
             <Icon fontSize={16} icon="material-symbols:bookmark-outline" />
             Saved
           </div>

@@ -242,7 +242,7 @@
   background: var(--gray-extra-dark);
   border-radius: 1rem;
   color: var(--white);
-  padding: 1rem;
+  padding: 1.5rem;
 }
 
 .feed__trends-hash_block {
@@ -259,12 +259,13 @@
 .feed__trends-title {
   color: var(--white);
   font-weight: 600;
+  text-align: center;
 }
 
 .feed__trends-subtitle {
   color: var(--gray-extra-dark);
   text-transform: capitalize;
-  margin: 1rem 0;
+  margin: .5rem 0;
 }
 
 .feed__trends-hash_block-subtitle {

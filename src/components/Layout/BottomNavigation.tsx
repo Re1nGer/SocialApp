@@ -46,19 +46,19 @@ const MobileBottomNavigation = () => {
         id="bottom-navigation"
         className="md:hidden block fixed inset-x-0 bottom-0 z-10 bg-white shadow">
         <div id="tabs" className="flex justify-between gap-1 px-2">
-          <Link to="/mypage" className="w-full flex flex-col items-center focus:text-teal-500 hover:text-black justify-center text-center pt-2 pb-1">
+          <Link to="/mypage" className="w-full flex flex-col items-center focus:text-[#97c0de] hover:text-[#97c0de] justify-center text-center pt-2 pb-1">
             <Icon icon="line-md:home" fontSize={30} />
             <span className="tab tab-home block text-xs font-bold">Home</span>
           </Link>
-          <Link to="/search" className="w-full flex flex-col items-center focus:text-teal-500 hover:text-teal-500 justify-center text-center pt-2 pb-1">
+          <Link to="/search" className="w-full flex flex-col items-center focus:text-[#97c0de] hover:text-[#97c0de] justify-center text-center pt-2 pb-1">
             <Icon icon="mingcute:user-search-line" fontSize={30} />
             <span className="tab tab-kategori block text-xs font-bold">Search</span>
           </Link>
-          <Link to="/feed" className="w-full flex flex-col items-center focus:text-teal-500 hover:text-teal-500 justify-center text-center pt-2 pb-1">
+          <Link to="/feed" className="w-full flex flex-col items-center focus:text-[#97c0de] hover:text-[#97c0de] justify-center text-center pt-2 pb-1">
             <Icon icon="solar:posts-carousel-vertical-outline" fontSize={30} />
             <span className="tab tab-explore block text-xs font-bold">Feed</span>
           </Link>
-          <Link to="/account" className="w-full flex flex-col items-center focus:text-teal-500 hover:text-teal-500 justify-center text-center pt-2 pb-1">
+          <Link to="/account" className="w-full flex flex-col items-center focus:text-[#97c0de] hover:text-[#97c0de] justify-center text-center pt-2 pb-1">
             <Icon icon="codicon:account" fontSize={30} />
             <span className="tab tab-account block text-xs font-bold">Account</span>
           </Link>

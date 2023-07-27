@@ -15,7 +15,10 @@ const CommentSection = ({ postId }: CommentSectionPropType): JSX.Element => {
 
   return <>
     <div className="post__comments-preview" onClick={handleShowCommentSection}>
-      {isCommentShown ? "Close Comments" : "View Comments"}
+      {isCommentShown ?
+        <p className={'text-[#a3abb3]'}>Close Comments</p>
+        : <p className={'text-[#a3abb3]'}>Open Comments</p>
+        }
     </div>
     { isCommentShown && <Comments postId={postId} />  }
   </>;

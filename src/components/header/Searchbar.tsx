@@ -48,7 +48,7 @@ const Searchbar = (): JSX.Element => {
       <Icon icon='material-symbols:search' fontSize={20} className='searchbar__input-icon' />
       <input
         onChange={handleInputChange}
-        className='searchbar__input rounded-2xl text-black transition-transform duration-150'
+        className='searchbar__input text-black transition-transform duration-150'
         placeholder='Type in email'
         onFocus={handleOnFocus}
         value={inputValue}
