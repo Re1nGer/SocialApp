@@ -33,13 +33,11 @@ const Header = (): JSX.Element => {
           {isLoggedIn ? (
             <>
               <HeaderNotificationMenu />
+              <div className='header__right-chat_icon'>
+                <Icon icon='ph:paper-plane-tilt-bold' onClick={handleDrawerOpen} fontSize='25px' />
+              </div>
               <HeaderProfileMenu />
             </>
-          ) : null}
-          {isLoggedIn ? (
-            <div className='header__right-chat_icon'>
-              <Icon icon='ph:paper-plane-tilt-bold' onClick={handleDrawerOpen} fontSize='25px' />
-            </div>
           ) : null}
         </div>
       </header>

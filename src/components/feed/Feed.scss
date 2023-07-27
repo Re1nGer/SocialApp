@@ -1,8 +1,9 @@
 .feed {
   max-width: 1440px;
   width: 100%;
-  margin: 0 auto;
+  margin: 1rem auto;
   position: relative;
+
 }
 
 .feed__inner {
@@ -328,7 +329,6 @@
   padding: 10px;
   width: 100%;
   font-size: 16px;
-  margin-bottom: 20px;
   color: var(--black);
   resize: none;
   border: 1px solid var(--white);

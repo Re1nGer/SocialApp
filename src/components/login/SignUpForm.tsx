@@ -47,7 +47,7 @@ const SignUpForm = (): JSX.Element => {
       setStreamToken(data.streamToken);
       call.defaults.headers.common.Authorization = `Bearer ${data.token}`;
       sessionStorage.setItem('isAuthenticated', 'true');
-      navigate('/mypage', { replace: true });
+      navigate('/feed', { replace: true });
     } catch (error) {
       if (axios.isAxiosError(error)) {
         formatErrors(error?.response?.data.error);

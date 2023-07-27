@@ -23,6 +23,7 @@ type TextInputFieldProps = {
 const baseErrorStyles: string = "text-red-500 text-small";
 const baseApiError: IAPIError = { type: '', message: '' };
 const baseInputStyles: string = "transition:opacity duration-200 w-full p-3 mb-2 text-base text-gray-700 placeholder-gray-600 border rounded-lg";
+const errorInputStyles: string = "transition:opacity outline-0 placeholder:text-red-500 focus:border-red-500 border-red-500 duration-200 w-full p-3 text-base text-gray-700 placeholder-gray-600 border rounded-lg";
 
 const TextInputField = ({
                           id,
@@ -46,6 +47,8 @@ const TextInputField = ({
   const [apiErrorInner, setApiErrorInner] = useState<IAPIError>(baseApiError);
   const error = get(errors, name) as FieldError;
   const baseRequiredErrorMessage: string = `${label ?? name} is required`;
+  const hasErrors = error?.message || apiErrorInner.type === name;
+  const errorMessage = error?.message ? error.message : apiErrorInner.message;
 
   const handleOnFocus = () => {
       if (apiErrorInner.type === name)
@@ -63,16 +66,14 @@ const TextInputField = ({
         id={id}
         {...register(name, { required: required ? baseRequiredErrorMessage : false, ...validationRules }) }
         type={type}
-        placeholder={placeholder}
+        placeholder={hasErrors ? errorMessage : placeholder}
         defaultValue={defaultValue}
-        className={`${baseInputStyles} ${className} ${disabled ? 'opacity-50' : ''}}`}
+        className={`${hasErrors ? errorInputStyles : baseInputStyles} ${className} ${disabled ? 'opacity-50' : ''}}`}
         disabled={disabled}
         onFocus={onFocus ?? handleOnFocus}
         onBlur={onBlur}
       />
-      { displayError && error?.message ? ( <small className={baseErrorStyles}>{error.message}</small> ) :
-        <small className={baseErrorStyles}>{displayError && apiErrorInner.type === name && apiErrorInner?.message}</small>
-      }
+     <small className={baseErrorStyles}>{apiErrorInner.type === name && apiErrorInner?.message}</small>
     </div>
   );
 }

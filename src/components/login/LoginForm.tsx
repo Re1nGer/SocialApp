@@ -51,11 +51,10 @@ const LoginForm = (): JSX.Element => {
       setIsLoggedIn(true);
       sessionStorage.setItem('isAuthenticated', 'true');
       
-      navigate('/mypage', { replace: true });
+      navigate('/feed', { replace: true });
     } catch (error) {
       if (axios.isAxiosError(error))
         formatErrors(error?.response?.data.error);
-      console.log(error);
     } finally {
       setIsLoading(false);
     }

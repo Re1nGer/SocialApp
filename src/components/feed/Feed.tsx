@@ -1,55 +1,21 @@
 import './Feed.scss'
 import React from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
-import axios, { AxiosError } from 'axios'
 import FeedMain from './FeedMain'
 import { FeedTrends } from './FeedTrends'
 import { FeedProfile } from './FeedProfile'
 import { FeedFollow } from './FeedFollow'
-import { axios as call } from '../../axios'
-import { FeedPostModalFormValues } from './FeedPostModalFormValues'
 import AnimatedPostForm from "./AnimatedPostForm";
 
 const Feed = (): JSX.Element => {
   const [isPostFormOpen, setIsPostFormOpen] = React.useState<boolean>(false)
 
-  const [isLoading, setIsLoading] = React.useState<boolean>(false)
-
-  const [error, setError] = React.useState<AxiosError | null>(null)
-
   const handleClose = () => {
-    setIsPostFormOpen(false)
+    setIsPostFormOpen(false);
   }
 
   const handleOpen = () => {
-    setIsPostFormOpen(true)
-  }
-
-  //TODO: Can potentially extract this out into PostForm
-  const handleSubmit = async (data: FeedPostModalFormValues, event: any) => {
-    if (!event.target[1].files[0]) return
-    event.preventDefault()
-    const { htmlContent } = data || {}
-    const image = event.target[1].files[0]
-    try {
-      setIsLoading(true)
-      const formData = new FormData()
-      formData.append('image', image)
-      formData.append('htmlContent', htmlContent)
-      await call.post('/api/v1/post', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      })
-      setIsPostFormOpen(false)
-    } catch (error) {
-      if (axios.isAxiosError(error)) {
-        setError(error)
-      }
-      console.log(error)
-    } finally {
-      setIsLoading(false)
-    }
+    setIsPostFormOpen(true);
   }
 
   return (
@@ -62,8 +28,7 @@ const Feed = (): JSX.Element => {
             initial={{ opacity: 0, scale: 0.5 }}
             animate={{ opacity: 1, scale: 1 }}
             handleClose={handleClose}
-            handleSubmitForm={handleSubmit}
-            isLoading={isLoading}
+            setIsFormOpen={setIsPostFormOpen}
           />
         ) : null}
       </AnimatePresence>
