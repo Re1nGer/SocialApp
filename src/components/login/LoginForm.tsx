@@ -71,6 +71,7 @@ const LoginForm = (): JSX.Element => {
         >
           <section className='flex flex-col'>
               <h2 className='text-lg my-3 text-center font-semibold'>Log In</h2>
+            <div className={'flex flex-col gap-2'}>
               <TextInputField
                 required
                 type={'email'}
@@ -82,16 +83,17 @@ const LoginForm = (): JSX.Element => {
                 apiError={apiErrors}
               />
 
-            <TextInputField
-              required
-              name={'password'}
-              placeholder={'Password'}
-              disabled={isLoading}
-              type={'password'}
-              id={'input-password'}
-              label={'Password'}
-              apiError={apiErrors}
-            />
+              <TextInputField
+                required
+                name={'password'}
+                placeholder={'Password'}
+                disabled={isLoading}
+                type={'password'}
+                id={'input-password'}
+                label={'Password'}
+                apiError={apiErrors}
+              />
+            </div>
 
             <div className='flex justify-center my-4'>
               <button

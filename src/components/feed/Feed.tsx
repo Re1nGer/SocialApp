@@ -1,5 +1,5 @@
 import './Feed.scss'
-import React from 'react'
+import React, { useEffect } from "react";
 import { AnimatePresence, motion } from 'framer-motion'
 import FeedMain from './FeedMain'
 import { FeedTrends } from './FeedTrends'
@@ -8,6 +8,7 @@ import { FeedFollow } from './FeedFollow'
 import AnimatedPostForm from "./AnimatedPostForm";
 
 const Feed = (): JSX.Element => {
+
   const [isPostFormOpen, setIsPostFormOpen] = React.useState<boolean>(false)
 
   const handleClose = () => {
@@ -17,6 +18,11 @@ const Feed = (): JSX.Element => {
   const handleOpen = () => {
     setIsPostFormOpen(true);
   }
+
+  //necessary to work smoothly on mobile devices
+  useEffect(() => {
+    window.scroll({ top: 0, left: 0, behavior: 'smooth'  });
+  }, [])
 
   return (
     <>

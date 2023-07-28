@@ -22,8 +22,8 @@ type TextInputFieldProps = {
 
 const baseErrorStyles: string = "text-red-500 text-small";
 const baseApiError: IAPIError = { type: '', message: '' };
-const baseInputStyles: string = "transition:opacity duration-200 w-full p-3 mb-2 text-base text-gray-700 placeholder-gray-600 border rounded-lg";
-const errorInputStyles: string = "transition:opacity outline-0 placeholder:text-red-500 focus:border-red-500 border-red-500 duration-200 w-full p-3 text-base text-gray-700 placeholder-gray-600 border rounded-lg";
+const baseInputStyles: string = "transition:opacity duration-200 w-full p-3 text-base text-gray-700 placeholder-gray-600 border rounded-lg";
+const errorInputStyles: string = "transition:opacity duration-200 outline-0 placeholder:text-red-500 focus:border-red-500 border-red-500 duration-200 w-full p-3 text-base text-gray-700 placeholder-gray-600 border rounded-lg";
 
 const TextInputField = ({
                           id,
@@ -73,7 +73,7 @@ const TextInputField = ({
         onFocus={onFocus ?? handleOnFocus}
         onBlur={onBlur}
       />
-     <small className={baseErrorStyles}>{apiErrorInner.type === name && apiErrorInner?.message}</small>
+      <small className={baseErrorStyles}>{apiErrorInner.type === name && apiErrorInner?.message}</small>
     </div>
   );
 }

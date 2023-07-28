@@ -2,7 +2,6 @@ import Polaroid from '../polaroid/Polaroid';
 import Girl from '../../assets/girl1.jpg';
 import Girl1 from '../../assets/girl2.jpg';
 import Girl2 from '../../assets/girl3.jpg';
-//import Girl3 from '../../assets/girl4.jpg';
 import { useLayoutEffect, useRef, useState } from 'react';
 import { gsap, Power3 } from 'gsap'
 

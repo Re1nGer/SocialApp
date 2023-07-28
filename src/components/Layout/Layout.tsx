@@ -15,7 +15,7 @@ const Layout = (): JSX.Element => {
         setProfileInfo
       } = useContext(ThemeContext)
 
-  const location = useLocation()
+  const location = useLocation();
 
   const refreshAccessToken = async () => {
     try {
