@@ -62,7 +62,7 @@ const LoginForm = (): JSX.Element => {
 
   return (
     <FormProvider {...form}>
-      <div className='flex justify-center items-center h-[50%]'>
+      <div className='flex justify-center items-end sm:items-center h-[65%] sm:h-[50%]'>
         <motion.form
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}

@@ -1,5 +1,5 @@
 import { AnimatePresence, motion, useAnimation, useMotionValueEvent, useScroll } from "framer-motion";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import useDebounce from "../../hooks/useDebounce";
 import { Link, useLocation } from "react-router-dom";
 import { Icon } from "@iconify/react";
@@ -33,6 +33,10 @@ const MobileBottomNavigation = () => {
       controls.start({ height: 0 }, { duration: .1, delay: .1 })
     }
   })
+
+  useEffect(() => {
+    controls.start({ height: '58px' }, { duration: .1, delay: 0.3 });
+  }, [location.pathname])
 
   const isLoginPages = location.pathname === "/login" || location.pathname === "/signup" || location.pathname === "/";
 

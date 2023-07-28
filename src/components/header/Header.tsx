@@ -7,7 +7,6 @@ import HeaderProfileMenu from './HeaderProfileMenu'
 import Searchbar from './Searchbar'
 import HeaderNotificationMenu from './HeaderNotificationMenu'
 import HeaderLogoIcon from '../svg/HeaderLogoIcon'
-import HeaderHamburgerMenu from "./HeaderHamburgerMenu";
 import ChatDrawer from "../drawer/ChatDrawer";
 
 const Header = (): JSX.Element => {
@@ -25,7 +24,6 @@ const Header = (): JSX.Element => {
       ) }
       <header className={`header ${isLightTheme ? 'header--light' : ''}`}>
         <div className='header__left'>
-          <HeaderHamburgerMenu />
           <HeaderLogoIcon />
         </div>
         {isLoggedIn ? <Searchbar /> : null}
