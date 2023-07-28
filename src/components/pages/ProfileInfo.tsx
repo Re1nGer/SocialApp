@@ -44,7 +44,7 @@ const ProfileInfo = ({ isLoading, profileInfo }: ProfileInfoPropsType): JSX.Elem
           <CircleLoader />
         ) : (
           <img
-            className='sm:max-w-[300px] sm:max-h-[300px] rounded-full mt-[-5rem] relative z-10 max-h-[150px] max-w-[150px]'
+            className='sm:max-w-[300px] sm:max-h-[300px] rounded-full mt-[-5rem] relative z-10 h-[150px] w-[150px]'
             src={profileInfo?.lowResImageLink || defaultUserImg}
             width={'300px'}
             height={'300px'}
@@ -55,13 +55,7 @@ const ProfileInfo = ({ isLoading, profileInfo }: ProfileInfoPropsType): JSX.Elem
         <div className='profile-info__details'>
           <h1 className='profile-info__username'>{profileInfo?.username}</h1>
           <p className='profile-info__bio'>
-            Welcome to my profile ♡
-            <br />
-            Follow me plz
-            <br />
-            <a className='profile-info__link' href='#'>
-              @Otheruser
-            </a>
+            { profileInfo.intro }
           </p>
           {profileInfo.isFollowing ? (
               <button className='profile-info__follow-btn'>

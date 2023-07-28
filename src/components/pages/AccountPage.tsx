@@ -39,8 +39,23 @@ const AccountPage = () => {
               <h1 className={'text-white text-3xl my-5'}>Account Settings</h1>
             </div>
             <div className='flex-col flex w-full items-center justify-center gap-2'>
-              <TextInputField name={'username'} required label={'Username'} labelClassName={'text-white'} placeholder={'Username'} disabled={isLoading} defaultValue={username} />
-              <TextInputField maxLength={150} name={'intro'} label={'Intro'} labelClassName={'text-white'} placeholder={'Intro'} disabled={isLoading} defaultValue={intro} />
+              <TextInputField
+                  name={'username'}
+                  required label={'Username'}
+                  labelClassName={'text-white'}
+                  placeholder={'Username'}
+                  disabled={isLoading}
+                  defaultValue={username}
+              />
+              <TextInputField
+                  maxLength={150}
+                  name={'intro'}
+                  label={'Intro'}
+                  labelClassName={'text-white'}
+                  placeholder={'Intro'}
+                  disabled={isLoading}
+                  defaultValue={intro}
+              />
             </div>
             <div className='flex justify-center my-4'>
               <button

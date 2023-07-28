@@ -5,6 +5,7 @@ import AnimatedCommentForm from "./AnimatedCommentForm";
 import { SubmitHandler } from "react-hook-form";
 import { CommentFormDefaultValuesType } from "../comment/CommentForm";
 import { axios } from "../../axios";
+import dayjs from 'dayjs'
 
 type PostComponentPropsType = {
   post: IPost,
@@ -24,7 +25,7 @@ const PostComponent = ({
   const [isCommentFormShown, setIsCommentFormShown] = useState<boolean>(false)
 
   const handleShowComment = () => {
-    setIsCommentFormShown(true)
+    setIsCommentFormShown(!isCommentFormShown);
   }
 
   const handleCommentFormSubmit: SubmitHandler<CommentFormDefaultValuesType>
@@ -71,12 +72,14 @@ const PostComponent = ({
     </div>
     { isCommentFormShown ? (
       <AnimatedCommentForm
+        layout
         onSubmit={handleCommentFormSubmit}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
       />
     ) : null}
     <div className='post__description'>{post.message}</div>
+    <div className={'text-[#6c757d] text-sm mt-1'}>{dayjs(post.dateCreated).format('YYYY.MM.DD : hh:mm')}</div>
   </>
 }
 

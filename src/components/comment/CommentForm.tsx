@@ -25,7 +25,7 @@ const CommentForm = ({ onSubmit }: CommentFormPropType, ref: Ref) => {
       />
       <button
         type={'submit'}
-        className={'outline-0 border text-white rounded-xl p-2 my-2 hover:bg-white transition-colors duration-150 hover:text-black'}>
+        className={'outline-0 border text-white rounded-lg p-2 my-2 hover:bg-white transition-colors duration-150 hover:text-black'}>
         Post Comment
       </button>
     </form>

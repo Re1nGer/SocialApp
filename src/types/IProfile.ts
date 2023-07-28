@@ -10,7 +10,8 @@ type IProfileInfo = {
   userPosts: IPost[],
   userRequests: IUserRequest[],
   postBookmarks: string[],
-  isFollowing: boolean
+  isFollowing: boolean,
+  intro?: string
 }
 
 export default IProfileInfo;

@@ -34,12 +34,12 @@ const Comments = ({ postId }: CommentSectionPropType): JSX.Element => {
     fetchComments()
   }, [])
 
-  if (comments.length === 0) {
-    return <h5 className={'text-white'}>No Comments Yet</h5>
-  }
-
   if (isLoading) {
     return <CircleLoader />
+  }
+
+  if (comments.length === 0) {
+    return <h5 className={'text-white'}>No Comments Yet</h5>
   }
 
   return (

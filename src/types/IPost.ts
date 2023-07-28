@@ -19,6 +19,7 @@ interface IPost {
   comments: IComment[],
   username?: string,
   userImageLink?: string,
+  dateCreated?: string
 }
 
 export default IPost

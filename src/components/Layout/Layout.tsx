@@ -40,7 +40,7 @@ const Layout = (): JSX.Element => {
   }
 
   useEffect(() => {
-    fetchUserData()
+    if (accessToken) fetchUserData();
   },[accessToken])
 
 
