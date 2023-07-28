@@ -70,7 +70,7 @@ const LoginForm = (): JSX.Element => {
           onSubmit={handleSubmit(onSubmit)}
         >
           <section className='flex flex-col'>
-              <h2 className='text-lg my-3 text-center font-semibold'>Log In</h2>
+            <h2 className='text-lg my-3 text-center font-semibold'>Log In</h2>
             <div className={'flex flex-col gap-2'}>
               <TextInputField
                 required
