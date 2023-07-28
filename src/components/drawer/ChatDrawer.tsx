@@ -14,6 +14,7 @@ import {
   Window
 } from "stream-chat-react";
 import { axios } from '../../axios';
+import { Icon } from "@iconify/react";
 
 const ChatDrawer = (): JSX.Element => {
 
@@ -40,7 +41,8 @@ const ChatDrawer = (): JSX.Element => {
             <ChannelList
               filters={{ members: { $in: [profileInfo.id] }}}
               List={ChannelListCustom}
-              sendChannelsToList={true} />
+              sendChannelsToList={true}
+            />
             <Channel>
               <Window>
                 <CustomChannelHeader />
@@ -57,10 +59,10 @@ const CustomChannelHeader = () => {
 
   const { setActiveChannel } = useChatContext();
 
-  return <div className={'bg-white flex justify-center gap-3 w-full flex-col items-center'}>
-    <span className={'flex gap-3'}>
-      <button onClick={() => setActiveChannel(undefined)}>Go Back</button>
-    </span>
+  return <div className={'bg-white flex justify-start gap-3 w-full items-center'}>
+      <button className={'p-3'} onClick={() => setActiveChannel(undefined)}>
+        <Icon icon="fa6-solid:arrow-left" fontSize={30} />
+      </button>
   </div>;
 };
 
