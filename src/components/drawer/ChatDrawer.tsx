@@ -1,6 +1,5 @@
 import { useContext, useEffect, useState } from "react";
 import { ThemeContext } from '../../contexts/ThemeContext'
-import './animations.css'
 import './Drawer.scss'
 import useChat from "../../hooks/useChat";
 import {

@@ -123,7 +123,12 @@ const FeedPost = ({ post }: FeedPostPropType, ref: any): JSX.Element => {
           </div>
         </div>
         <div>
-          <Icon icon={localPost.hasUserSaved ? 'mdi:bookmark' : 'mdi:bookmark-outline'} className={'cursor-pointer'} fontSize={30} onClick={handleBookmark} />
+          <Icon
+            icon={localPost.hasUserSaved ? 'mdi:bookmark' : 'mdi:bookmark-outline'}
+            className={'cursor-pointer'}
+            fontSize={30}
+            onClick={handleBookmark}
+          />
         </div>
       </div>
       <div className={'text-white'}>

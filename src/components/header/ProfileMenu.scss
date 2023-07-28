@@ -38,6 +38,10 @@
   background: var(--bc-bright);
   padding-right: 1rem;
   padding-left: 0.5rem;
+
+    @media screen and (max-width: 786px) {
+      width: 150px;
+  }
 }
 
 .profile_menu__dropdown::after {

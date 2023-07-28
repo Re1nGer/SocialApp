@@ -65,12 +65,18 @@ export const FeedPostFormModal = ({ handleClose, setIsFormOpen }: FeedPostModalT
     }
   }
 
-  const onImagePreviewChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleCloseModal = async () => {
+    await handleDeleteFromCloudinary();
+    handleClose();
+  }
+
+  const onImagePreviewChange = async (e: ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files) return;
-    setImageSrc(URL.createObjectURL(e.target.files[0]))
+    await handleUploadToCloudinary(e.target.files[0]);
   };
 
-  const handleRemoveImage = () => {
+  const handleRemoveImage = async () => {
+    await handleDeleteFromCloudinary();
     setImageSrc(null);
     setValue('imageSrc', '');
   }
@@ -93,8 +99,28 @@ export const FeedPostFormModal = ({ handleClose, setIsFormOpen }: FeedPostModalT
       setIsImageGeneratingLoading(false);
     }
   };
-  const handleUploadToCloudinary = () => {};
-  const handleDeleteFromCloudinary = () => {};
+  const handleUploadToCloudinary = async (image: Blob) => {
+    try {
+      const formData = new FormData();
+      formData.append('image', image);
+      const { data } = await axios.post("/api/v1/post/image", formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        }
+      });
+      setImageSrc(data.url);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const handleDeleteFromCloudinary = async () => {
+    try {
+      await axios.put(`/api/v1/post/image`, { url: imageSrc?.split('/').at(-1)?.split('.').at(0) });
+    }
+    catch (error) {
+      console.log(error);
+    }
+  };
 
   const handleGenerateCaption = async () => {
     if (!imageSrc) return;
@@ -126,7 +152,7 @@ export const FeedPostFormModal = ({ handleClose, setIsFormOpen }: FeedPostModalT
 
   return (
     <>
-      <div className='feed__post-form_overlay' onClick={handleClose} />
+      <div className='feed__post-form_overlay' onClick={handleCloseModal} />
       <form
         onSubmit={handleSubmit(handleSubmitForm)}
         className='feed__post-form'
@@ -212,18 +238,18 @@ export const FeedPostFormModal = ({ handleClose, setIsFormOpen }: FeedPostModalT
           onChange={onImagePreviewChange}
         />
         <input {...register("imageSrc")} hidden />
+        <button type={'button'} className="bg-transparent border rounded-lg border-white bg-black text-white w-full p-3" onClick={handleUploadImageClick}>
+          Upload Image
+        </button>
+        <div className={'w-full text-center text-white my-1'}>OR</div>
         <button
           type={'button'}
           onClick={handleGenerateImage}
-          className={'rounded-lg disabled:opacity-50 transition-opacity p-3 w-full text-black shadow bg-white border min-w-[200px]'}
+          className={'rounded-lg disabled:opacity-50 transition-opacity p-3 w-full text-black mb-5 shadow bg-white border min-w-[200px]'}
           disabled={!htmlContent}
         >
           Generate Image From Caption
         </button>
-        <div className={'w-full text-center text-white my-1'}>OR</div>
-          <button type={'button'} className="bg-transparent border rounded-lg border-white bg-black text-white w-full p-3 mb-5" onClick={handleUploadImageClick}>
-            Upload Image
-          </button>
         { isLoading && <WarframeLoader /> }
         <button
           className={`rounded-lg p-3 w-full text-white shadow bg-black border min-w-[200px] hover:bg-slate-800 ease-in-out transition-opacity duration-150  ${isLoading || isImageGeneratingLoading || isCaptionGeneratingLoading ? 'opacity-50' : ''}`}>

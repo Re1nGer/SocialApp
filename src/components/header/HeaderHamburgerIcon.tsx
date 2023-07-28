@@ -6,7 +6,7 @@ type HeaderHamburgerIconType = {
 const HeaderHamburgerIcon = ({ open, handleOpen }: HeaderHamburgerIconType) => {
 
   return (
-    <nav className='sm:hidden block ham_menu ' onClick={handleOpen}>
+    <nav className='lg:hidden block ham_menu ' onClick={handleOpen}>
       <span
         role='button'
         className={`ham_menu__bar ham_menu__bar_first

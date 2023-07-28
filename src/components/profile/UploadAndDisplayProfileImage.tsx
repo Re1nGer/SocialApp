@@ -53,35 +53,35 @@ const UploadAndDisplayProfileImage = () => {
 
   return <div className='flex flex-col relative'>
     { isUploading ? (
-      <div className={'h-[150px] w-[150px] mt-[-8rem] sm:h-[400px] sm:w-[400px] rounded-full bg-gradient-to-r from-transparent via-rose-100/10 to-transparent-translate-x-full animate-[shimmer_2s_infinite]' +
-        'relative before:rounded-full before:max-h-[150px] before:max-w-[150px] sm:before:max-w-[400px] sm:before:max-h-[400px] before:absolute before:inset-0 before:-translate-x-full before:animate-[shimmer_2s_infinite] before:bg-gradient-to-r before:from-transparent before:via-rose-100/10 before:to-transparent' +
-        'isolate overflow-hidden shadow-xl shadow-black/5 before:border-t before:border-rose-100/10'}></div>
+      <div className={'h-[150px] w-[150px] mt-[-8rem] sm:h-[300px] sm:w-[300px] animate-[pulse_2s_infinite] rounded-full bg-gradient-to-r from-transparent via-rose-100/10 to-transparent-translate-x-full' +
+        'relative isolate overflow-hidden shadow-xl shadow-black/5'}></div>
     ) : (
       <AnimatePresence>
         <motion.img
           transition={{ ease: 'easeOut', duration: 0.2 }}
-          height={'300px'}
-          width={'300px'}
           initial={{ scale: 0.5 }}
           animate={{ scale: 1 }}
-          className={'sm:max-w-[300px] rounded-full mt-[-8rem] relative z-10 max-h-[300px] max-w-[150px]'}
+          className={'sm:w-[300px] sm:h-[300px] h-[150px] w-[150px] rounded-full mt-[-8rem] relative z-10'}
           src={profileImageSrc || highResImageLink || defaultUserImg}
           alt='profile'
         />
       </AnimatePresence>
     ) }
-    <Icon icon="icons8:plus" onClick={handleUploadImageClick} fontSize={25} className={'absolute text-3xl sm:text-3xl bottom-0 z-10 text-white right-5 sm:right-14 sm:bottom-5'} />
-      <>
-        <input
-          ref={fileInputRef}
-          style={{ display: 'none' }}
-          aria-labelledby="file-id"
-          id="file"
-          accept="image/*"
-          type="file"
-          onChange={handleProfileImageUpload}
-        />
-      </>
+    <Icon
+          icon="icons8:plus"
+          onClick={handleUploadImageClick}
+          fontSize={25}
+          className={'absolute text-3xl sm:text-3xl bottom-0 z-10 text-white right-0 sm:right-5 sm:bottom-5 cursor-pointer'}
+    />
+    <input
+      ref={fileInputRef}
+      style={{ display: 'none' }}
+      aria-labelledby="file-id"
+      id="file"
+      accept="image/*"
+      type="file"
+      onChange={handleProfileImageUpload}
+    />
   </div>;
 };
 
