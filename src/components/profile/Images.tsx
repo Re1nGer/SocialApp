@@ -2,7 +2,7 @@ const Images = () => {
 
 
   return <>
-    <span className={'text-white font-bold'}>No Images</span>
+    <span className={'text-white font-bold min-h-[500px]'}>No Images</span>
   </>
 }
 

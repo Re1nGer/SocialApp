@@ -36,7 +36,7 @@ export function FeedProfile(): JSX.Element {
           </div>
         </div>
         <div className='text-white hover:text-neutral my-1 text-center'>
-          <Link to='/mypage'>My Profile</Link>
+          <Link to='/mypage' className={'text-[#6c757d] hover:text-[#b4d9f4] transition-colors'}>My Profile</Link>
         </div>
       </div>
     </div>

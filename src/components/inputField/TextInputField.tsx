@@ -14,6 +14,7 @@ type TextInputFieldProps = {
   disabled?: boolean,
   displayError?: boolean,
   required?: boolean,
+  maxLength?: number,
   validationRules?: RegisterOptions,
   apiError?: IAPIError,
   onFocus?: React.FocusEventHandler<HTMLInputElement>,
@@ -40,7 +41,8 @@ const TextInputField = ({
                           validationRules,
                           apiError,
                           onFocus,
-                          onBlur
+                          onBlur,
+                          maxLength
 }: TextInputFieldProps): JSX.Element => {
 
   const { register, formState: { errors } } = useFormContext();
@@ -72,6 +74,7 @@ const TextInputField = ({
         disabled={disabled}
         onFocus={onFocus ?? handleOnFocus}
         onBlur={onBlur}
+        maxLength={maxLength}
       />
       <small className={baseErrorStyles}>{apiErrorInner.type === name && apiErrorInner?.message}</small>
     </div>

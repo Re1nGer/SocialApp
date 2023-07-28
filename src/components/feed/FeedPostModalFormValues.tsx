@@ -38,6 +38,8 @@ export const FeedPostFormModal = ({ handleClose, setIsFormOpen }: FeedPostModalT
 
   const [isCaptionGeneratingLoading, setIsCaptionGeneratingLoading] = useState<boolean>(false);
 
+  const [isImageUploadLoading, setIsImageUploadLoading] = useState<boolean>(false);
+
   const textareaError = get(errors, 'htmlContent') as FieldError;
 
   const htmlContent = watch('htmlContent');
@@ -66,7 +68,7 @@ export const FeedPostFormModal = ({ handleClose, setIsFormOpen }: FeedPostModalT
   }
 
   const handleCloseModal = async () => {
-    await handleDeleteFromCloudinary();
+    if (imageSrc) await handleDeleteFromCloudinary();
     handleClose();
   }
 
@@ -101,6 +103,7 @@ export const FeedPostFormModal = ({ handleClose, setIsFormOpen }: FeedPostModalT
   };
   const handleUploadToCloudinary = async (image: Blob) => {
     try {
+      setIsImageUploadLoading(true);
       const formData = new FormData();
       formData.append('image', image);
       const { data } = await axios.post("/api/v1/post/image", formData, {
@@ -111,6 +114,9 @@ export const FeedPostFormModal = ({ handleClose, setIsFormOpen }: FeedPostModalT
       setImageSrc(data.url);
     } catch (error) {
       console.log(error);
+    }
+    finally {
+      setIsImageUploadLoading(false);
     }
   };
   const handleDeleteFromCloudinary = async () => {
@@ -127,15 +133,15 @@ export const FeedPostFormModal = ({ handleClose, setIsFormOpen }: FeedPostModalT
     setIsCaptionGeneratingLoading(true);
     const options = {
       method: 'GET',
-      url: 'https://image-caption-generator2.p.rapidapi.com/v2/captions',
+      url: import.meta.env.VITE_RAPID_URL,
       params: {
         imageUrl: imageSrc,
         useHashtags: 'true',
         limit: '1'
       },
       headers: {
-        'X-RapidAPI-Key': '9a5a1be861msh67493481267aed0p17e8e7jsnfce71a5193b0',
-        'X-RapidAPI-Host': 'image-caption-generator2.p.rapidapi.com'
+        'X-RapidAPI-Key': import.meta.env.VITE_RAPID_KEY,
+        'X-RapidAPI-Host': import.meta.env.VITE_RAPID_HOST
       }
     };
 
@@ -164,7 +170,7 @@ export const FeedPostFormModal = ({ handleClose, setIsFormOpen }: FeedPostModalT
           <Icon
             className='feed__post-form_title-icon'
             icon='material-symbols:close'
-            onClick={handleClose}
+            onClick={handleCloseModal}
           />
         </div>
         <div className='feed__post-form_input-container'>
@@ -185,11 +191,12 @@ export const FeedPostFormModal = ({ handleClose, setIsFormOpen }: FeedPostModalT
             <CircleLoader />
           </>
         ) : null }
-        <button type={'button'}
-                disabled={isLoading || isImageGeneratingLoading || isCaptionGeneratingLoading || !imageSrc}
-                onClick={handleGenerateCaption}
-                className={`rounded-lg p-3 w-full text-white disabled:opacity-50 shadow ${isCaptionGeneratingLoading ? 'opacity-50' : ''}
-                 bg-black border min-w-[200px]`}>
+        <button
+          type={'button'}
+          disabled={isLoading || isImageGeneratingLoading || isCaptionGeneratingLoading || !imageSrc}
+          onClick={handleGenerateCaption}
+          className={`rounded-lg p-3 w-full text-white disabled:opacity-50 shadow ${isCaptionGeneratingLoading ? 'opacity-50' : ''}
+           bg-black border min-w-[200px]`}>
           Generate Caption From Image
         </button>
 
@@ -212,6 +219,10 @@ export const FeedPostFormModal = ({ handleClose, setIsFormOpen }: FeedPostModalT
             <CircleLoader />
           ) : null }
 
+          { isImageUploadLoading ? (
+            <CircleLoader />
+          ) : null }
+
           {imageSrc ? (
             <motion.img
                 initial={{opacity: 0}}
@@ -221,12 +232,9 @@ export const FeedPostFormModal = ({ handleClose, setIsFormOpen }: FeedPostModalT
                 alt='post form'
             />
 
-          ) : ( isImageGeneratingLoading ? <p>Generating Image, Please Stand By </p> : <p>Drag and drop your files here</p> )}
-
+          ) : ( isImageGeneratingLoading ? <p>Generating Image, Please Stand By </p> : <p>Added Content Will Be Shown Here</p> )}
           <div className='overlay' />
-
         </div>
-
         <input
           ref={fileInputRef}
           style={{ display: "none" }}
@@ -238,7 +246,11 @@ export const FeedPostFormModal = ({ handleClose, setIsFormOpen }: FeedPostModalT
           onChange={onImagePreviewChange}
         />
         <input {...register("imageSrc")} hidden />
-        <button type={'button'} className="bg-transparent border rounded-lg border-white bg-black text-white w-full p-3" onClick={handleUploadImageClick}>
+        <button
+          type={'button'}
+          className="bg-transparent border rounded-lg border-white bg-black text-white w-full p-3"
+          onClick={handleUploadImageClick}
+        >
           Upload Image
         </button>
         <div className={'w-full text-center text-white my-1'}>OR</div>
@@ -246,7 +258,7 @@ export const FeedPostFormModal = ({ handleClose, setIsFormOpen }: FeedPostModalT
           type={'button'}
           onClick={handleGenerateImage}
           className={'rounded-lg disabled:opacity-50 transition-opacity p-3 w-full text-black mb-5 shadow bg-white border min-w-[200px]'}
-          disabled={!htmlContent}
+          disabled={!htmlContent?.trim()}
         >
           Generate Image From Caption
         </button>

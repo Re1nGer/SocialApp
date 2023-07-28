@@ -48,7 +48,7 @@ const MobileBottomNavigation = () => {
         initial={{ height: 0 }}
         animate={controls}
         id="bottom-navigation"
-        className="md:hidden block fixed inset-x-0 bottom-0 z-10 bg-white shadow">
+        className="lg:hidden block fixed inset-x-0 bottom-0 z-10 bg-white shadow">
         <div id="tabs" className="flex justify-between gap-1 px-2 h-full">
           <Link to="/mypage" className="w-full flex flex-col items-center focus:text-[#97c0de] hover:text-[#97c0de] justify-center text-center">
             <Icon icon="line-md:home" fontSize={30} />
