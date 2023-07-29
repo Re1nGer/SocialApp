@@ -10,13 +10,14 @@ import { axios as call } from '../../axios';
 import axios from 'axios';
 import IError from "../../types/IError";
 import TextInputField from "../inputField/TextInputField";
+import { signInWithGoogle } from "../../utils/firebase";
 
 export type LoginFormType = {
   email: string
   password: string
 }
 
-const defaultValues: LoginFormType = { email: '', password: '' }
+const defaultValues: LoginFormType = { email: '', password: '' };
 
 const LoginForm = (): JSX.Element => {
 
@@ -50,13 +51,34 @@ const LoginForm = (): JSX.Element => {
       call.defaults.headers.common.Authorization = `Bearer ${data.token}`;
       setIsLoggedIn(true);
       sessionStorage.setItem('isAuthenticated', 'true');
-      
       navigate('/feed', { replace: true });
+
     } catch (error) {
       if (axios.isAxiosError(error))
         formatErrors(error?.response?.data.error);
     } finally {
       setIsLoading(false);
+    }
+  }
+
+  const handleGoogleSignIn = async () => {
+    try {
+      const response = await signInWithGoogle();
+
+      const token = await response?.user.getIdToken();
+
+      const { data } =  await call.get(`/api/v1/google/test/${token}`);
+
+      setAccessToken(data.token);
+      setStreamToken(data.streamToken);
+      call.defaults.headers.common.Authorization = `Bearer ${data.token}`;
+      setIsLoggedIn(true);
+      sessionStorage.setItem('isAuthenticated', 'true');
+      navigate('/feed', { replace: true });
+
+
+    } catch (error) {
+      console.log(error);
     }
   }
 
@@ -110,7 +132,7 @@ const LoginForm = (): JSX.Element => {
             </div>
             <section className='text-center my-2'>OR</section>
             <section className='flex justify-center my-3'>
-              <button className='bg-white p-2 text-black flex items-center gap-2 border rounded-lg'>
+              <button type={'button'} className='bg-white p-2 text-black flex items-center gap-2 border rounded-lg' onClick={handleGoogleSignIn}>
                 <Icon icon="uit:google" />
                 Log In With Google
               </button>

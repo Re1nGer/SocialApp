@@ -1,1 +1,0 @@
-export const toImgSrc = (base64Str: string) => `data:image/jpeg;base64,${base64Str}`

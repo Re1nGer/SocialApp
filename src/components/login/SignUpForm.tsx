@@ -10,6 +10,7 @@ import { Icon } from "@iconify/react";
 import TextInputField from "../inputField/TextInputField";
 import IAPIError from "../../types/IAPIError";
 import IError from "../../types/IError";
+import { signInWithGoogle } from "../../utils/firebase";
 
 type SignUpFormType = {
   email: string
@@ -59,6 +60,24 @@ const SignUpForm = (): JSX.Element => {
     }
   }
 
+  const signUpWithGoogle = async () => {
+    try {
+      const response = await signInWithGoogle();
+      const token = await response?.user.getIdToken();
+
+      const { data } = await call.get(`/api/v1/google/signup/${token}`);
+
+      setIsLoggedIn(true);
+      setAccessToken(data.token);
+      setStreamToken(data.streamToken);
+      call.defaults.headers.common.Authorization = `Bearer ${data.token}`;
+      sessionStorage.setItem('isAuthenticated', 'true');
+      navigate('/feed', { replace: true });
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   return (
     <FormProvider {...form}>
       <div className='flex justify-center items-center h-[50%]'>
@@ -99,7 +118,7 @@ const SignUpForm = (): JSX.Element => {
           </div>
           <section className='text-center my-2'>OR</section>
           <section className='flex justify-center my-3'>
-            <button className='bg-white p-2 text-black flex items-center gap-2 border rounded-lg'>
+            <button type={'button'} onClick={signUpWithGoogle} className='bg-white p-2 text-black flex items-center gap-2 border rounded-lg'>
               <Icon icon="uit:google" />
               Sign Up With Google
             </button>
