@@ -63,6 +63,7 @@ const LoginForm = (): JSX.Element => {
 
   const handleGoogleSignIn = async () => {
     try {
+      setIsLoading(true);
       const response = await signInWithGoogle();
 
       const token = await response?.user.getIdToken();
@@ -79,6 +80,9 @@ const LoginForm = (): JSX.Element => {
 
     } catch (error) {
       console.log(error);
+    }
+    finally {
+      setIsLoading(false);
     }
   }
 
