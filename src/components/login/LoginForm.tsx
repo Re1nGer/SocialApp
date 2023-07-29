@@ -67,7 +67,7 @@ const LoginForm = (): JSX.Element => {
 
       const token = await response?.user.getIdToken();
 
-      const { data } =  await call.get(`/api/v1/google/test/${token}`);
+      const { data } =  await call.get(`/api/v1/google/signin/${token}`);
 
       setAccessToken(data.token);
       setStreamToken(data.streamToken);
