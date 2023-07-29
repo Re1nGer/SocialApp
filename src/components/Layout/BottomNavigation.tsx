@@ -1,8 +1,9 @@
 import { AnimatePresence, motion, useAnimation, useMotionValueEvent, useScroll } from "framer-motion";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import useDebounce from "../../hooks/useDebounce";
 import { Link, useLocation } from "react-router-dom";
 import { Icon } from "@iconify/react";
+import { ThemeContext } from "../../contexts/ThemeContext";
 
 const MobileBottomNavigation = () => {
 
@@ -13,6 +14,8 @@ const MobileBottomNavigation = () => {
   const [isUp, setIsUp] = useState<boolean>(false)
 
   const controls = useAnimation();
+
+  const { isInputFocused } = useContext(ThemeContext);
 
   useDebounce(isUp, 100)
   const getIsUp = (latest: number) => {
@@ -37,6 +40,11 @@ const MobileBottomNavigation = () => {
   useEffect(() => {
     controls.start({ height: '58px' }, { duration: .1, delay: 0.3 });
   }, [location.pathname])
+
+  useEffect(() => {
+    if (isInputFocused)
+      controls.start({ height: 0 }, { duration: .1, delay: .1 })
+  },[isInputFocused])
 
   const isLoginPages = location.pathname === "/login" || location.pathname === "/signup" || location.pathname === "/";
 

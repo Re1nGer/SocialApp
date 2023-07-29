@@ -15,6 +15,9 @@ export type FeedPostPropType = {
   post: IPost
 }
 
+const defaultUserImg: string =
+  'https://thumbs.dreamstime.com/b/blank-black-white-image-placeholder-icon-design-178700126.jpg'
+
 const FeedPost = ({ post }: FeedPostPropType, ref: any): JSX.Element => {
 
   const { profileInfo: { id } } = useContext(ThemeContext)
@@ -97,7 +100,7 @@ const FeedPost = ({ post }: FeedPostPropType, ref: any): JSX.Element => {
     <div className='flex flex-col gap-[1rem] relative' ref={ref}>
       <span className={'flex gap-1 items-center'}>
         <Link to={id === localPost.userId ? '/mypage' : `/user/${localPost.userId}`}>
-          <img src={localPost?.userImageLink} alt={'profile'} className={'w-[40px] h-[40px] rounded-full'} />
+          <img src={localPost?.userImageLink ?? defaultUserImg} loading={'lazy'} alt={'profile'} className={'w-[40px] h-[40px] rounded-full'} />
         </Link>
         <span className={'text-white'}>{localPost.username}</span>
       </span>

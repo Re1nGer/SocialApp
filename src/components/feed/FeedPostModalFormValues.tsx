@@ -1,10 +1,11 @@
-import React, { ChangeEvent, Dispatch, LegacyRef, SetStateAction, useRef, useState } from "react";
+import React, { ChangeEvent, Dispatch, LegacyRef, SetStateAction, useContext, useRef, useState } from "react";
 import { Icon } from '@iconify/react'
 import { useForm, get, FieldError } from "react-hook-form";
 import WarframeLoader from "../loader/WarframeLoader";
 import { axios as call, axios } from "../../axios";
 import CircleLoader from "../loader/CircleLoader";
 import { motion } from "framer-motion";
+import { ThemeContext } from "../../contexts/ThemeContext";
 
 type FeedPostModalType = {
   handleClose: () => void,
@@ -27,6 +28,8 @@ export const FeedPostFormModal = ({ handleClose, setIsFormOpen }: FeedPostModalT
         handleSubmit,
         watch
     } = useForm<FeedPostModalFormValues>();
+
+  const { setIsInputFocused } = useContext(ThemeContext);
 
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -174,23 +177,30 @@ export const FeedPostFormModal = ({ handleClose, setIsFormOpen }: FeedPostModalT
           />
         </div>
         <div className='feed__post-form_input-container'>
+
           <label htmlFor={'caption'} className={'text-white py-1'}>Add Caption:</label>
+
           <textarea
             id={'caption'}
             className='feed__post-form_input m-0'
             {...register('htmlContent', { required: "Caption cannot be empty" })}
             placeholder={'What is on your mind?'}
+            onFocus={() => setIsInputFocused(true)}
+            onBlur={() => setIsInputFocused(false)}
           />
+
           { textareaError?.message ? (
             <div className={'text-red-500 mb-2 w-full'}>{ textareaError?.message }</div>
           ) : null }
         </div>
+
         { isCaptionGeneratingLoading ? (
           <>
             <span className={'text-white'}>Caption is being generated. Please, Stand By</span>
             <CircleLoader />
           </>
         ) : null }
+
         <button
           type={'button'}
           disabled={isLoading || isImageGeneratingLoading || isCaptionGeneratingLoading || !imageSrc}
@@ -200,7 +210,7 @@ export const FeedPostFormModal = ({ handleClose, setIsFormOpen }: FeedPostModalT
           Generate Caption From Image
         </button>
 
-        <label htmlFor='feed__post-image' className='feed__post-image'>
+        <label className='text-white'>
           <div className={'flex justify-between items-center mt-2'}>
             {imageSrc ? 'Added Content' : 'Add Content:'}
             { imageSrc ? (
@@ -223,16 +233,16 @@ export const FeedPostFormModal = ({ handleClose, setIsFormOpen }: FeedPostModalT
             <CircleLoader />
           ) : null }
 
-          {imageSrc ? (
+          { imageSrc ? (
             <motion.img
-                initial={{opacity: 0}}
-                animate={{opacity: 1}}
-                className={`transition-opacity duration-150 feed__post-drag ${isLoading ? 'opacity-50' : ''}`}
-                src={imageSrc}
-                alt='post form'
+              initial={{opacity: 0}}
+              animate={{opacity: 1}}
+              className={`transition-opacity duration-150 feed__post-drag ${isLoading ? 'opacity-50' : ''}`}
+              src={imageSrc}
+              alt='post form'
             />
-
           ) : ( isImageGeneratingLoading ? <p>Generating Image, Please Stand By </p> : <p>Added Content Will Be Shown Here</p> )}
+
           <div className='overlay' />
         </div>
         <input
@@ -245,10 +255,11 @@ export const FeedPostFormModal = ({ handleClose, setIsFormOpen }: FeedPostModalT
           type="file"
           onChange={onImagePreviewChange}
         />
-        <input {...register("imageSrc")} hidden />
+        <input {...register('imageSrc', { required: 'Image cannot be empty' })} hidden />
+        <small className={'text-red-500'}>{ errors?.imageSrc?.message }</small>
         <button
           type={'button'}
-          className="bg-transparent border rounded-lg border-white bg-black text-white w-full p-3"
+          className='bg-transparent border rounded-lg border-white bg-black text-white w-full p-3'
           onClick={handleUploadImageClick}
         >
           Upload Image

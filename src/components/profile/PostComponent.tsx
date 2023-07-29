@@ -6,6 +6,7 @@ import { SubmitHandler } from "react-hook-form";
 import { CommentFormDefaultValuesType } from "../comment/CommentForm";
 import { axios } from "../../axios";
 import dayjs from 'dayjs'
+import { motion } from "framer-motion";
 
 type PostComponentPropsType = {
   post: IPost,
@@ -41,7 +42,13 @@ const PostComponent = ({
 
   return <>
     <div className={'flex gap-2 my-2 items-center'}>
-      <img src={post.userImageLink ?? defaultUserImg} className={'rounded-full h-[50px] w-[50px]'} alt={'user'} />
+      <motion.img
+        initial={{ opacity:0 }}
+        animate={{ opacity:1 }}
+        src={post.userImageLink ?? defaultUserImg}
+        className={'rounded-full h-[50px] w-[50px]'}
+        alt={'user'}
+      />
       <span className={'text-white'}>{post.username}</span>
     </div>
     <div className='post__img-container'>

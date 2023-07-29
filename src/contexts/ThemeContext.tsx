@@ -9,6 +9,7 @@ export type ThemeContextType = {
   isLightTheme: boolean
   isLoggedIn: boolean
   isChatDrawerOpen: boolean
+  isInputFocused: boolean //this variable is needed for mobile; if any input is focused than bottom navigation should stay down
   accessToken: string
   streamToken: string
   chatId: string | null
@@ -23,6 +24,7 @@ export type ThemeContextType = {
   setStreamChat: (state: StreamChat | undefined) => void
   setStreamToken: (state: string) => void
   setIsLoading: (state: boolean) => void
+  setIsInputFocused: Dispatch<SetStateAction<boolean>>
 }
 
 type ThemeContextProviderType = {
@@ -51,12 +53,15 @@ export function ThemeContextProvider({ children }: ThemeContextProviderType): JS
   const [streamToken, setStreamToken] = useState<string>('');
   const [streamChat, setStreamChat] = useState<StreamChat | undefined>(undefined);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isInputFocused, setIsInputFocused] = useState<boolean>(false);
+
 
   const value: ThemeContextType = {
     isLoading,
     isLightTheme,
     isLoggedIn,
     isChatDrawerOpen,
+    isInputFocused,
     accessToken,
     chatId,
     profileInfo,
@@ -70,7 +75,8 @@ export function ThemeContextProvider({ children }: ThemeContextProviderType): JS
     setChatId,
     setStreamChat,
     setStreamToken,
-    setIsLoading
+    setIsLoading,
+    setIsInputFocused
   };
 
   return <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>
