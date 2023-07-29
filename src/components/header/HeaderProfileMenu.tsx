@@ -50,7 +50,15 @@ const HeaderProfileMenu = (): JSX.Element => {
 
   return (
     <>
-      {open ? <div className='profile_menu__overlay z-20' onClick={handleDropdownOverlayClose} /> : null}
+      {open ? <>
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{opacity: 1}}
+            exit={{ opacity:0 }}
+            className='profile_menu__overlay z-10'
+            onClick={handleDropdownOverlayClose} />
+        </>
+        : null}
       <div className='profile_menu__container'>
         <div className='profile_menu' onClick={handleDropdownMenuOpen}>
           <div className='profile_menu__picture_container'>
@@ -64,12 +72,12 @@ const HeaderProfileMenu = (): JSX.Element => {
             />
           </div>
         </div>
-        <div className={`z-10 profile_menu__dropdown ${open ? 'profile_menu__dropdown--open' : ''}`}>
+        <motion.div className={`z-10 profile_menu__dropdown ${open ? 'profile_menu__dropdown--open' : ''}`}>
           <div className='profile_menu__dropdown-item' onClick={() => handleNavigate("/account")}>
             <Icon fontSize={16} icon='mdi:user' />
             Account
           </div>
-          <div className='profile_menu__dropdown-item' >
+          <div className='profile_menu__dropdown-item opacity-50' >
             <Icon fontSize={16} icon='mdi:weather-sunset-down' />
             Light Mode
           </div>
@@ -77,7 +85,7 @@ const HeaderProfileMenu = (): JSX.Element => {
             <Icon fontSize={16} icon='mdi:arrow-right-thick' />
             Logout
           </div>
-        </div>
+        </motion.div>
       </div>
     </>
   )

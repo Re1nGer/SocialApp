@@ -132,7 +132,7 @@ const LoginForm = (): JSX.Element => {
             </div>
             {isLoading ? <WarframeLoader /> : null}
             <div className='text-sm'>
-              Don`&apos;t have an account yet? {''} <Link to='/signup'>Sign Up</Link>
+              Don`t have an account yet? {''} <Link to='/signup'>Sign Up</Link>
             </div>
             <section className='text-center my-2'>OR</section>
             <section className='flex justify-center my-3'>

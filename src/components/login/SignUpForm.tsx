@@ -32,6 +32,7 @@ const SignUpForm = (): JSX.Element => {
   const { handleSubmit} = form;
 
   const [apiErrors, setApiErrors] = useState<IAPIError>({ message: '', type: '' });
+
   const formatErrors = (error: IError) => {
     if (error.message === "INVALID_PASSWORD")
       setApiErrors({ message: "Invalid Password", type: "password" })
@@ -39,6 +40,7 @@ const SignUpForm = (): JSX.Element => {
       setApiErrors({ message: "Email Not Found", type: "email" })
     else setApiErrors({ message: "Something Went Wrong", type: "unknown" })
   };
+
   const signUp: SubmitHandler<SignUpFormType> = async (body, _): Promise<void> => {
     try {
       setIsLoading(true);
@@ -62,19 +64,26 @@ const SignUpForm = (): JSX.Element => {
 
   const signUpWithGoogle = async () => {
     try {
+      setIsLoading(true);
+
       const response = await signInWithGoogle();
+
       const token = await response?.user.getIdToken();
 
       const { data } = await call.get(`/api/v1/google/signup/${token}`);
 
-      setIsLoggedIn(true);
       setAccessToken(data.token);
       setStreamToken(data.streamToken);
       call.defaults.headers.common.Authorization = `Bearer ${data.token}`;
+      setIsLoggedIn(true);
       sessionStorage.setItem('isAuthenticated', 'true');
       navigate('/feed', { replace: true });
+
     } catch (error) {
       console.log(error);
+    }
+    finally {
+      setIsLoading(false);
     }
   }
 

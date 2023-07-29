@@ -225,18 +225,16 @@ export const FeedPostFormModal = ({ handleClose, setIsFormOpen }: FeedPostModalT
           Generate Caption From Image
         </button>
 
-        <label className='text-white'>
-          <div className={'flex justify-between items-center mt-2'}>
-            {imageSrc ? 'Added Content' : 'Add Content:'}
-            { imageSrc ? (
-              <Icon
-                className='feed__post-form_title-icon'
-                icon='material-symbols:close'
-                onClick={handleRemoveImage}
-              />
-            ) : null }
-          </div>
-        </label>
+        <div className={'flex justify-between items-center mt-2 text-white'}>
+          {imageSrc ? 'Added Content' : 'Add Content:'}
+          { imageSrc ? (
+            <Icon
+              className='feed__post-form_title-icon'
+              icon='material-symbols:close'
+              onClick={handleRemoveImage}
+            />
+          ) : null }
+        </div>
 
         <div className='feed__post-drag-drop mb-2'>
 
@@ -250,8 +248,8 @@ export const FeedPostFormModal = ({ handleClose, setIsFormOpen }: FeedPostModalT
 
           { imageSrc ? (
             <motion.img
-              initial={{opacity: 0}}
-              animate={{opacity: 1}}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
               className={`transition-opacity duration-150 feed__post-drag ${isLoading ? 'opacity-50' : ''}`}
               src={imageSrc}
               alt='post form'
@@ -274,8 +272,9 @@ export const FeedPostFormModal = ({ handleClose, setIsFormOpen }: FeedPostModalT
         <small className={'text-red-500'}>{ errors?.imageSrc?.message }</small>
         <button
           type={'button'}
-          className='bg-transparent border rounded-lg border-white bg-black text-white w-full p-3'
+          className={`bg-transparent border rounded-lg border-white bg-black text-white w-full p-3 ${isLoading || isImageGeneratingLoading || isCaptionGeneratingLoading ? 'opacity-50' : ''}`}
           onClick={handleUploadImageClick}
+          disabled={isImageUploadLoading || isImageGeneratingLoading || isCaptionGeneratingLoading}
         >
           Upload Image
         </button>
@@ -283,8 +282,8 @@ export const FeedPostFormModal = ({ handleClose, setIsFormOpen }: FeedPostModalT
         <button
           type={'button'}
           onClick={handleGenerateImage}
-          className={'rounded-lg disabled:opacity-50 transition-opacity p-3 w-full text-black mb-5 shadow bg-white border min-w-[200px]'}
-          disabled={!htmlContent?.trim()}
+          className={`rounded-lg disabled:opacity-50 transition-opacity p-3 w-full text-black mb-5 shadow bg-white border min-w-[200px] ${isLoading || isImageGeneratingLoading || isCaptionGeneratingLoading ? 'opacity-50' : ''}`}
+          disabled={!htmlContent?.trim() || isImageUploadLoading || isImageGeneratingLoading || isCaptionGeneratingLoading}
         >
           Generate Image From Caption
         </button>
