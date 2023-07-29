@@ -3,6 +3,7 @@ import { Icon } from '@iconify/react'
 import { useNavigate } from "react-router-dom";
 import { ThemeContext } from '../../contexts/ThemeContext'
 import { axios } from '../../axios'
+import { motion } from "framer-motion";
 
 const defaultUserImg: string =
   'https://thumbs.dreamstime.com/b/blank-black-white-image-placeholder-icon-design-178700126.jpg'
@@ -53,7 +54,14 @@ const HeaderProfileMenu = (): JSX.Element => {
       <div className='profile_menu__container'>
         <div className='profile_menu' onClick={handleDropdownMenuOpen}>
           <div className='profile_menu__picture_container'>
-            <img className='profile_menu__picture' src={lowResImageLink || defaultUserImg} alt='profile' />
+            <motion.img
+              transition={{ ease: 'easeIn', duration: 1.5 }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              className='profile_menu__picture'
+              src={lowResImageLink || defaultUserImg}
+              alt='profile'
+            />
           </div>
         </div>
         <div className={`z-10 profile_menu__dropdown ${open ? 'profile_menu__dropdown--open' : ''}`}>

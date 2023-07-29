@@ -12,6 +12,7 @@ export function FeedMainInput(props: { onClick: React.MouseEventHandler }) {
 
   return <div className="feed__input-container">
         <motion.img
+           transition={{ ease: 'easeIn', duration: 1.5 }}
            initial={{ opacity: 0 }}
            animate={{ opacity: 1 }}
            className={'feed__input-img'}

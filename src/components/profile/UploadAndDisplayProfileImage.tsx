@@ -59,8 +59,8 @@ const UploadAndDisplayProfileImage = () => {
       <AnimatePresence>
         <motion.img
           transition={{ ease: 'easeOut', duration: 0.2 }}
-          initial={{ scale: 0.5 }}
-          animate={{ scale: 1 }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
           className={'sm:w-[300px] sm:h-[300px] h-[150px] w-[150px] rounded-full mt-[-8rem] relative z-10'}
           src={profileImageSrc || highResImageLink || defaultUserImg}
           alt='profile'

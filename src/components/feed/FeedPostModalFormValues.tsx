@@ -1,4 +1,13 @@
-import React, { ChangeEvent, Dispatch, LegacyRef, SetStateAction, useContext, useRef, useState } from "react";
+import React, {
+  ChangeEvent,
+  Dispatch,
+  LegacyRef,
+  SetStateAction,
+  useContext,
+  useEffect,
+  useRef,
+  useState
+} from "react";
 import { Icon } from '@iconify/react'
 import { useForm, get, FieldError } from "react-hook-form";
 import WarframeLoader from "../loader/WarframeLoader";
@@ -46,6 +55,8 @@ export const FeedPostFormModal = ({ handleClose, setIsFormOpen }: FeedPostModalT
   const textareaError = get(errors, 'htmlContent') as FieldError;
 
   const htmlContent = watch('htmlContent');
+
+  const topElement = useRef<HTMLDivElement>(null);
 
   const handleSubmitForm = async (data: FeedPostModalFormValues, event: any) => {
     if (!event.target[2].files && !data.imageSrc) return;
@@ -159,9 +170,13 @@ export const FeedPostFormModal = ({ handleClose, setIsFormOpen }: FeedPostModalT
     }
   }
 
+  useEffect(() => {
+    topElement.current?.scrollIntoView({ behavior: 'smooth' })
+  }, []);
+
   return (
     <>
-      <div className='feed__post-form_overlay' onClick={handleCloseModal} />
+      <div className='feed__post-form_overlay' ref={topElement} onClick={handleCloseModal} />
       <form
         onSubmit={handleSubmit(handleSubmitForm)}
         className='feed__post-form'
