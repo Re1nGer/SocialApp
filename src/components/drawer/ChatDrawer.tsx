@@ -98,7 +98,7 @@ const ChannelListCustom = ({ loadedChannels }: ChannelListMessengerProps) => {
     return <div></div>
 
   return (
-      <div className={'flex flex-col gap-3 h-full w-screen'}>
+      <div className={'flex flex-col gap-3 my-3 h-full w-screen'}>
       <button onClick={() => setIsChatDrawerOpen(false)}
               className={'transition-colors duration-150 rounded-3xl p-3 outline-0 border bg-white text-black'}>Close</button>
       { loadedChannels?.map(item => <div
