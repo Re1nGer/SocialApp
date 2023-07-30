@@ -8,7 +8,7 @@ export const ProfilePosts = (): JSX.Element => {
 
   const { profileInfo: { userPosts } } = useContext(ThemeContext)
 
-  if (userPosts.length === 0) return <h2>No Posts</h2>
+  if (userPosts.length === 0) return <h2 className={'text-white font-bold'}>No Posts</h2>
 
   return (
     <>

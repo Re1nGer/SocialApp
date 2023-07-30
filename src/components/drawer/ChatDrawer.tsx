@@ -60,7 +60,7 @@ const CustomChannelHeader = () => {
   const { setActiveChannel } = useChatContext();
 
   return <div className={'bg-white flex justify-start gap-3 w-full items-center'}>
-      <button className={'p-3'} onClick={() => setActiveChannel(undefined)}>
+      <button className={'px-3 py-10'} onClick={() => setActiveChannel(undefined)}>
         <Icon icon="fa6-solid:arrow-left" fontSize={30} />
       </button>
   </div>;

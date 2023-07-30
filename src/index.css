@@ -63,5 +63,8 @@ body {
     box-shadow: 7px 0 9px 0 var(--black5),1px 0 0 0 var(--black5);
     transition: left 200ms ease-in-out;
   }
+  .str-chat__input-flat-wrapper {
+    margin: 1rem 0;
+  }
 }
 
