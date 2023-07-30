@@ -38,6 +38,8 @@ const SignUpForm = (): JSX.Element => {
       setApiErrors({ message: "Invalid Password", type: "password" })
     else if (error.message === "EMAIL_NOT_FOUND")
       setApiErrors({ message: "Email Not Found", type: "email" })
+    else if (error.message === "INVALID_EMAIL")
+      setApiErrors({ message: "Invalid Email", type: "email" })
     else setApiErrors({ message: "Something Went Wrong", type: "unknown" })
   };
 

@@ -35,7 +35,9 @@ export const FeedPostFormModal = ({ handleClose, setIsFormOpen }: FeedPostModalT
         formState: { errors },
         setValue,
         handleSubmit,
-        watch
+        watch,
+        setError,
+        clearErrors
     } = useForm<FeedPostModalFormValues>();
 
   const { setIsInputFocused } = useContext(ThemeContext);
@@ -88,7 +90,12 @@ export const FeedPostFormModal = ({ handleClose, setIsFormOpen }: FeedPostModalT
 
   const onImagePreviewChange = async (e: ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files) return;
+    if (e.target.files[0].size > 10000000) {
+      setError('imageSrc', { message: 'Size of the image is too huge' });
+      return;
+    }
     await handleUploadToCloudinary(e.target.files[0]);
+    clearErrors('imageSrc')
   };
 
   const handleRemoveImage = async () => {
@@ -126,6 +133,7 @@ export const FeedPostFormModal = ({ handleClose, setIsFormOpen }: FeedPostModalT
         }
       });
       setImageSrc(data.url);
+      setValue('imageSrc', data.url);
     } catch (error) {
       console.log(error);
     }
@@ -164,6 +172,7 @@ export const FeedPostFormModal = ({ handleClose, setIsFormOpen }: FeedPostModalT
       setValue('htmlContent', response.data.captions[0])
     } catch (error) {
       console.log(error)
+      setError('imageSrc', { message: 'Could not generate image caption. Try again later' }, { shouldFocus: true } );
     }
     finally {
       setIsCaptionGeneratingLoading(false);
@@ -218,12 +227,14 @@ export const FeedPostFormModal = ({ handleClose, setIsFormOpen }: FeedPostModalT
 
         <button
           type={'button'}
-          disabled={isLoading || isImageGeneratingLoading || isCaptionGeneratingLoading || !imageSrc}
+          disabled={true || isLoading || isImageGeneratingLoading || isCaptionGeneratingLoading || !imageSrc}
           onClick={handleGenerateCaption}
-          className={`rounded-lg p-3 w-full text-white disabled:opacity-50 shadow ${isCaptionGeneratingLoading ? 'opacity-50' : ''}
+          className={`rounded-lg p-3 w-full text-white disabled:opacity-50 shadow ${true || isCaptionGeneratingLoading ? 'opacity-50' : ''}
            bg-black border min-w-[200px]`}>
           Generate Caption From Image
         </button>
+
+        <small className={'text-yellow-500'}>For technical reasons, image caption is not working at the moment</small>
 
         <div className={'flex justify-between items-center mt-2 text-white'}>
           {imageSrc ? 'Added Content' : 'Add Content:'}
@@ -268,7 +279,7 @@ export const FeedPostFormModal = ({ handleClose, setIsFormOpen }: FeedPostModalT
           type="file"
           onChange={onImagePreviewChange}
         />
-        <input {...register('imageSrc', { required: 'Image cannot be empty' })} hidden />
+        <input {...register('imageSrc', { required: "Image cannot be empty", value: imageSrc! })} hidden />
         <small className={'text-red-500'}>{ errors?.imageSrc?.message }</small>
         <button
           type={'button'}
