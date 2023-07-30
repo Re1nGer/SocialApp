@@ -89,7 +89,7 @@ const SignUpForm = (): JSX.Element => {
 
   return (
     <FormProvider {...form}>
-      <div className='flex justify-center items-center h-[50%]'>
+      <div className='flex justify-center items-end h-[60%] sm:items-center sm:h-[50%]'>
         <motion.form
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -125,8 +125,8 @@ const SignUpForm = (): JSX.Element => {
           <div className='text-sm'>
             Already have an account ?  <Link className={'text-black'} to='/login'>Log In</Link>
           </div>
-          <section className='text-center my-2'>OR</section>
-          <section className='flex justify-center my-3'>
+          <section className='text-center'>OR</section>
+          <section className='flex justify-center my-1'>
             <button type={'button'} onClick={signUpWithGoogle} className='bg-white p-2 text-black flex items-center gap-2 border rounded-lg'>
               <Icon icon="uit:google" />
               Sign Up With Google
