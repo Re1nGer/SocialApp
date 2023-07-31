@@ -14,23 +14,13 @@ import useChat from "../../hooks/useChat";
 const Header = (): JSX.Element => {
 
   const { isLightTheme, isLoggedIn, setIsChatDrawerOpen, newChatMessagesCount } = useContext(ThemeContext)
-
-  const { streamChat } = useChat();
   const handleDrawerOpen = () => {
     setIsChatDrawerOpen(true);
   };
 
-  if (streamChat == null) {
-    return <LoadingIndicator />
-  }
-
   return (
     <>
-      { isLoggedIn && (
-        <Chat client={streamChat!}>
-          <ChatDrawer />
-        </Chat>
-      ) }
+      <StreamChatDrawer />
       <header className={`header ${isLightTheme ? 'header--light' : ''}`}>
         <div className='header__left'>
           <HeaderLogoIcon />
@@ -53,6 +43,21 @@ const Header = (): JSX.Element => {
       </header>
     </>
   )
+}
+
+const StreamChatDrawer = () => {
+
+  const { streamChat } = useChat();
+
+  if (streamChat == null) {
+    return <LoadingIndicator />
+  }
+
+  return (
+    <Chat client={streamChat!}>
+      <ChatDrawer />
+    </Chat>
+  );
 }
 
 export default Header

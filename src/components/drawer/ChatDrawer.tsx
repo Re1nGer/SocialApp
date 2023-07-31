@@ -46,7 +46,7 @@ const ChatDrawer = (): JSX.Element => {
             <Window>
               <CustomChannelHeader />
               <MessageList />
-              <MessageInput />
+              <MessageInput  />
             </Window>
           </Channel>
         ) }
