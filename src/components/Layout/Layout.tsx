@@ -8,7 +8,8 @@ import MyProfileInfoType from "../../types/MyProfileInfoType";
 import { Icon } from "@iconify/react";
 
 const Layout = (): JSX.Element => {
-  const { isLightTheme,
+  const {
+        isLightTheme,
         accessToken,
         setAccessToken,
         setIsLoggedIn,

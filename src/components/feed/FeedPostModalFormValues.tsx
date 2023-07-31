@@ -227,14 +227,12 @@ export const FeedPostFormModal = ({ handleClose, setIsFormOpen }: FeedPostModalT
 
         <button
           type={'button'}
-          disabled={true || isLoading || isImageGeneratingLoading || isCaptionGeneratingLoading || !imageSrc}
+          disabled={isLoading || isImageGeneratingLoading || isCaptionGeneratingLoading || !imageSrc}
           onClick={handleGenerateCaption}
-          className={`rounded-lg p-3 w-full text-white disabled:opacity-50 shadow ${true || isCaptionGeneratingLoading ? 'opacity-50' : ''}
+          className={`rounded-lg p-3 w-full text-white disabled:opacity-50 shadow ${isCaptionGeneratingLoading ? 'opacity-50' : ''}
            bg-black border min-w-[200px]`}>
           Generate Caption From Image
         </button>
-
-        <small className={'text-yellow-500'}>For technical reasons, image caption is not working at the moment</small>
 
         <div className={'flex justify-between items-center mt-2 text-white'}>
           {imageSrc ? 'Added Content' : 'Add Content:'}
