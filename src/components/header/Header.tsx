@@ -8,7 +8,7 @@ import Searchbar from './Searchbar'
 import HeaderNotificationMenu from './HeaderNotificationMenu'
 import HeaderLogoIcon from '../svg/HeaderLogoIcon'
 import ChatDrawer from "../drawer/ChatDrawer";
-import { Chat, LoadingIndicator } from "stream-chat-react";
+import { Chat } from "stream-chat-react";
 import useChat from "../../hooks/useChat";
 
 const Header = (): JSX.Element => {
@@ -50,7 +50,7 @@ const StreamChatDrawer = () => {
   const { streamChat } = useChat();
 
   if (streamChat == null) {
-    return <LoadingIndicator />
+    return <div></div>;
   }
 
   return (
