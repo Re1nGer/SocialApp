@@ -32,7 +32,7 @@ type ProfilePostsProp = {
 const ProfilePosts = ({ children }: ProfilePostsProp) => {
   return (
     <div className="max-w-[1150px] mx-auto">
-      <div className="flex flex-wrap gap-[1rem]">
+      <div className="flex flex-wrap gap-[1rem] flex-col sm:flex-row items-center">
         { children }
       </div>
     </div>

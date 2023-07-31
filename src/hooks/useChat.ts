@@ -4,7 +4,14 @@ import { StreamChat } from "stream-chat";
 
 const useChat = () => {
 
-  const { streamToken, profileInfo, setStreamChat, streamChat, accessToken } = useContext(ThemeContext);
+  const {
+          streamToken,
+          profileInfo,
+          setStreamChat,
+          streamChat,
+          accessToken,
+          setNewChatMessagesCount,
+        } = useContext(ThemeContext);
 
   useEffect(() => {
     if (!streamToken) return;
@@ -12,11 +19,10 @@ const useChat = () => {
     chat.on((event) => {
       if (event.total_unread_count !== undefined) {
         console.log(event.total_unread_count);
+        setNewChatMessagesCount(event.total_unread_count);
       }
-
-      if (event.unread_channels !== undefined) {
-        console.log(event.unread_channels);
-      }
+      if (event.me?.total_unread_count)
+        setNewChatMessagesCount(event.me.total_unread_count);
     });
     const connect = chat.connectUser(profileInfo, streamToken).then(() => {
       setStreamChat(chat);

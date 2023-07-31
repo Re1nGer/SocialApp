@@ -5,6 +5,7 @@ import { axios } from "../../axios";
 import { ThemeContext } from '../../contexts/ThemeContext'
 import MobileBottomNavigation from "./BottomNavigation";
 import MyProfileInfoType from "../../types/MyProfileInfoType";
+import { Icon } from "@iconify/react";
 
 const Layout = (): JSX.Element => {
   const { isLightTheme,
@@ -65,10 +66,15 @@ const Layout = (): JSX.Element => {
 const Footer = () => {
 
   return (
-    <footer className={'flex w-full h-full bottom-0 my-5 items-end justify-center text-white text-center font-bold min-h-[62px]'}>
-      <h1 className={'my-5 hidden sm:block'}>
+    <footer className={'flex w-full flex-col justify-end text-white gap-1 text-center font-bold min-h-[200px]'}>
+      <h1 className={'my-1 hidden sm:block'}>
         All Rights Reserved
       </h1>
+      <span className={'flex items-center justify-center gap-2'}>
+        <h1 className={'text-white'}>Keep In Touch</h1>
+        <Icon icon="mdi:github" fontSize={20} />
+        <Icon icon="simple-icons:linkedin" fontSize={20} />
+      </span>
     </footer>
   )
 }

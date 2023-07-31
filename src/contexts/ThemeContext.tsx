@@ -1,6 +1,6 @@
 import { createContext, Dispatch, SetStateAction, useState } from "react";
 import MyProfileInfoType from "../types/MyProfileInfoType";
-import { StreamChat } from "stream-chat";
+import { Channel, StreamChat } from "stream-chat";
 
 export const ThemeContext = createContext<ThemeContextType>(null!)
 
@@ -13,7 +13,9 @@ export type ThemeContextType = {
   accessToken: string
   streamToken: string
   chatId: string | null
-  streamChat: StreamChat | undefined,
+  newChatMessagesCount: number
+  streamChat: StreamChat | undefined
+  channels: Channel[]
   profileInfo: MyProfileInfoType
   setProfileInfo: Dispatch<SetStateAction<MyProfileInfoType>>,
   setIsLightTheme: (state: boolean) => void
@@ -25,6 +27,8 @@ export type ThemeContextType = {
   setStreamToken: (state: string) => void
   setIsLoading: (state: boolean) => void
   setIsInputFocused: Dispatch<SetStateAction<boolean>>
+  setNewChatMessagesCount: Dispatch<SetStateAction<number>>
+  setChannels: Dispatch<SetStateAction<Channel[]>>
 }
 
 type ThemeContextProviderType = {
@@ -54,6 +58,8 @@ export function ThemeContextProvider({ children }: ThemeContextProviderType): JS
   const [streamChat, setStreamChat] = useState<StreamChat | undefined>(undefined);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isInputFocused, setIsInputFocused] = useState<boolean>(false);
+  const [newChatMessagesCount, setNewChatMessagesCount] = useState<number>(0);
+  const [channels, setChannels] = useState<Channel[]>([]);
 
 
   const value: ThemeContextType = {
@@ -67,6 +73,8 @@ export function ThemeContextProvider({ children }: ThemeContextProviderType): JS
     profileInfo,
     streamToken,
     streamChat,
+    newChatMessagesCount,
+    channels,
     setProfileInfo,
     setIsLightTheme,
     setIsLoggedIn,
@@ -76,7 +84,9 @@ export function ThemeContextProvider({ children }: ThemeContextProviderType): JS
     setStreamChat,
     setStreamToken,
     setIsLoading,
-    setIsInputFocused
+    setIsInputFocused,
+    setNewChatMessagesCount,
+    setChannels
   };
 
   return <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>

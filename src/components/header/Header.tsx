@@ -8,19 +8,28 @@ import Searchbar from './Searchbar'
 import HeaderNotificationMenu from './HeaderNotificationMenu'
 import HeaderLogoIcon from '../svg/HeaderLogoIcon'
 import ChatDrawer from "../drawer/ChatDrawer";
+import { Chat, LoadingIndicator } from "stream-chat-react";
+import useChat from "../../hooks/useChat";
 
 const Header = (): JSX.Element => {
 
-  const { isLightTheme, isLoggedIn, setIsChatDrawerOpen, } = useContext(ThemeContext)
+  const { isLightTheme, isLoggedIn, setIsChatDrawerOpen, newChatMessagesCount } = useContext(ThemeContext)
 
+  const { streamChat } = useChat();
   const handleDrawerOpen = () => {
     setIsChatDrawerOpen(true);
   };
 
+  if (streamChat == null) {
+    return <LoadingIndicator />
+  }
+
   return (
     <>
       { isLoggedIn && (
-        <ChatDrawer />
+        <Chat client={streamChat!}>
+          <ChatDrawer />
+        </Chat>
       ) }
       <header className={`header ${isLightTheme ? 'header--light' : ''}`}>
         <div className='header__left'>
@@ -32,6 +41,9 @@ const Header = (): JSX.Element => {
             <>
               <HeaderNotificationMenu />
               <div className='header__right-chat_icon'>
+                <div className='h-full relative'>
+                  <button className="notification__badge">{newChatMessagesCount}</button>
+                </div>
                 <Icon icon='ph:paper-plane-tilt-bold' onClick={handleDrawerOpen} fontSize='25px' />
               </div>
               <HeaderProfileMenu />

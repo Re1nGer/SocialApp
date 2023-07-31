@@ -1,17 +1,16 @@
-import { ChangeEvent, useEffect, useMemo, useRef, useState } from "react";
+import { ChangeEvent, useContext, useEffect, useMemo, useState } from "react";
 import { Icon } from "@iconify/react";
 import IUser from "../../types/IUser";
 import { axios } from "../../axios";
 import useDebounce from "../../hooks/useDebounce";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import { ThemeContext } from "../../contexts/ThemeContext";
 
 const defaultUserImg: string =
   'https://thumbs.dreamstime.com/b/blank-black-white-image-placeholder-icon-design-178700126.jpg'
 
 const SearchPage = () => {
-
-  const searchTextInputRef = useRef<HTMLInputElement>(null)
 
   const [users, setUsers] = useState<IUser[]>([])
 
@@ -82,8 +81,9 @@ type MobileSearchResultType = {
 }
 
 const MobileSearchResult = ({ user }: MobileSearchResultType) => {
+  const { profileInfo: { id } } = useContext(ThemeContext);
   return (
-    <Link to={`/user/${user.id}`} className={'flex justify-center hover:bg-gray-200 gap-5 p-1 text-black bg-gray-100 rounded max-w-[260px] w-full'}>
+    <Link to={user.id === id ? '/mypage' : `/user/${user.id}`} className={'flex justify-center hover:bg-gray-200 gap-5 p-1 text-black bg-gray-100 rounded max-w-[260px] w-full'}>
       <img src={user.lowResImageLink ?? defaultUserImg} alt={'avatar'} className={'rounded-full object-cover max-h-[25px] max-w-[25px]'} height={'25px'} width={'25px'} />
       { user.username }
     </Link>
