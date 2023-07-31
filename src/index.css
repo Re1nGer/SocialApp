@@ -73,11 +73,8 @@ body {
     width: 100% !important;
   }
   .str-chat__input-flat-wrapper {
-    margin: 3rem 0;
-  }
-
-  .str-chat__input-flat-wrapper .rta__textarea:focus {
-    padding: 2rem 4rem !important;
+    margin-bottom: 6rem;
+    margin-top: 0;
   }
 }
 
