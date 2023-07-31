@@ -1,4 +1,4 @@
-import { Outlet, useLocation } from "react-router-dom";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import Header from '../header/Header'
 import { useContext, useEffect } from "react";
 import { axios } from "../../axios";
@@ -18,6 +18,8 @@ const Layout = (): JSX.Element => {
 
   const location = useLocation();
 
+  const navigate = useNavigate();
+
   const refreshAccessToken = async () => {
     try {
       const { data } = await axios.get("/api/v1/account/refresh")
@@ -27,7 +29,8 @@ const Layout = (): JSX.Element => {
       axios.defaults.headers.common.Authorization = `Bearer ${data.token}`
     }
     catch (error) {
-      console.log(error)
+      setIsLoggedIn(false)
+      navigate('/', { replace: true });
     }
   }
 
@@ -49,6 +52,7 @@ const Layout = (): JSX.Element => {
     if (!accessToken && location.pathname !== "/")
       refreshAccessToken()
   },[accessToken])
+
 
   return (
     <>
