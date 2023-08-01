@@ -348,7 +348,7 @@ export const FeedPostFormModal = ({ handleClose, setIsFormOpen }: FeedPostModalT
           type={'button'}
           onClick={handleGenerateImage}
           className={`rounded-lg disabled:opacity-50 transition-opacity p-3 w-full text-black mb-5 shadow bg-white border min-w-[200px] ${isLoading || isImageGeneratingLoading || isCaptionGeneratingLoading ? 'opacity-50' : ''}`}
-          disabled={!htmlContent?.trim() || isImageUploadLoading || isImageGeneratingLoading || isCaptionGeneratingLoading || video}
+          disabled={!htmlContent?.trim() || isImageUploadLoading || isImageGeneratingLoading || isCaptionGeneratingLoading}
         >
           Generate Image From Caption
         </button>
