@@ -1,4 +1,4 @@
-import { Outlet, useLocation, useNavigate } from "react-router-dom";
+import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 import Header from '../header/Header'
 import { useContext, useEffect } from "react";
 import { axios } from "../../axios";
@@ -77,8 +77,12 @@ const Footer = () => {
       </h1>
       <span className={'flex items-center justify-center gap-2'}>
         <h1 className={'text-white'}>Keep In Touch</h1>
-        <Icon icon="mdi:github" fontSize={20} />
-        <Icon icon="simple-icons:linkedin" fontSize={20} />
+        <Link to={'https://github.com/Re1nGer'}  target="_blank" rel="noopener noreferrer">
+          <Icon icon="mdi:github" fontSize={20} />
+        </Link>
+        <Link to={'https://www.linkedin.com/in/bekjon-ibragimov-31112b197'}>
+          <Icon icon="simple-icons:linkedin" fontSize={20} />
+        </Link>
       </span>
     </footer>
   )
