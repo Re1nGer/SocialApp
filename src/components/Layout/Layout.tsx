@@ -9,13 +9,13 @@ import { Icon } from "@iconify/react";
 
 const Layout = (): JSX.Element => {
   const {
-        isLightTheme,
-        accessToken,
-        setAccessToken,
-        setIsLoggedIn,
-        setStreamToken,
-        setProfileInfo
-      } = useContext(ThemeContext)
+          isLightTheme,
+          accessToken,
+          setAccessToken,
+          setIsLoggedIn,
+          setStreamToken,
+          setProfileInfo
+        } = useContext(ThemeContext);
 
   const location = useLocation();
 
@@ -51,7 +51,7 @@ const Layout = (): JSX.Element => {
 
   useEffect(() => {
     if (!accessToken && location.pathname !== "/")
-      refreshAccessToken()
+      refreshAccessToken();
   },[accessToken])
 
 
@@ -64,7 +64,7 @@ const Layout = (): JSX.Element => {
         <MobileBottomNavigation />
       </div>
     </>
-  )
+  );
 }
 
 
@@ -80,7 +80,7 @@ const Footer = () => {
         <Link to={'https://github.com/Re1nGer'}  target="_blank" rel="noopener noreferrer">
           <Icon icon="mdi:github" fontSize={20} />
         </Link>
-        <Link to={'https://www.linkedin.com/in/bekjon-ibragimov-31112b197'}>
+        <Link to={'https://www.linkedin.com/in/bekjon-ibragimov-31112b197'} target="_blank" rel="noopener noreferrer">
           <Icon icon="simple-icons:linkedin" fontSize={20} />
         </Link>
       </span>

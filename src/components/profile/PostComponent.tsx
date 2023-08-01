@@ -1,6 +1,6 @@
 import IPost from "../../types/IPost";
 import { Icon } from "@iconify/react";
-import { useState } from "react";
+import React, { useState } from "react";
 import AnimatedCommentForm from "./AnimatedCommentForm";
 import { SubmitHandler } from "react-hook-form";
 import { CommentFormDefaultValuesType } from "../comment/CommentForm";
@@ -52,7 +52,14 @@ const PostComponent = ({
       <span className={'text-white'}>{post.username}</span>
     </div>
     <div className='post__img-container'>
-      <img className='post__img' src={post.mediaUrl} alt='post' loading='lazy' />
+      { post.hasVideo ? (
+        <video controls id="video-tag" muted className={'h-full'}>
+          <source id="video-source" src={post.mediaUrl} className={'h-full'} />
+          Your browser does not support the video tag.
+        </video>
+      ) : (
+        <img className='post__img' src={post.mediaUrl} alt='post' loading='lazy' />
+      ) }
     </div>
     <div className='post__info'>
       <div className='post__likes'>

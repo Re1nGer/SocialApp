@@ -19,7 +19,8 @@ interface IPost {
   comments: IComment[],
   username?: string,
   userImageLink?: string,
-  dateCreated?: string
+  dateCreated?: string,
+  hasVideo?:boolean
 }
 
 export default IPost

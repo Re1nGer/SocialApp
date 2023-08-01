@@ -1,7 +1,7 @@
 import './Feed.scss'
 import IPost from "../../types/IPost";
 import { Icon } from "@iconify/react";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { ThemeContext } from "../../contexts/ThemeContext";
 import { Link } from "react-router-dom";
 import CommentSection from "../post/CommentSection";
@@ -9,7 +9,7 @@ import { axios } from "../../axios";
 import AnimatedCommentForm from "../profile/AnimatedCommentForm";
 import { SubmitHandler } from "react-hook-form";
 import { CommentFormDefaultValuesType } from "../comment/CommentForm";
-import { AnimatePresence, useAnimation } from "framer-motion";
+import { AnimatePresence, useAnimation, useInView } from "framer-motion";
 
 export type FeedPostPropType = {
   post: IPost
@@ -26,7 +26,14 @@ const FeedPost = ({ post }: FeedPostPropType, ref: any): JSX.Element => {
 
   const [isCommentFormShown, setIsCommentFormShown] = useState<boolean>(false)
 
+  const [isVideoMuted, setIsVideoMuted] = useState(true);
+
+  const videoRef = useRef<HTMLVideoElement>(null);
+
   const animation = useAnimation();
+
+  const videoInView = useInView(videoRef);
+
   const putLike = async () => {
     try {
       await axios.put(`/api/v1/like/${post.id}`)
@@ -77,7 +84,6 @@ const FeedPost = ({ post }: FeedPostPropType, ref: any): JSX.Element => {
       console.log(error)
     }
   }
-
   //TODO: probably props assignment is not appropriate
   const handleCommentFormSubmit: SubmitHandler<CommentFormDefaultValuesType>
     = async ( data: CommentFormDefaultValuesType, _ ): Promise<void> => {
@@ -91,9 +97,20 @@ const FeedPost = ({ post }: FeedPostPropType, ref: any): JSX.Element => {
     }
   }
 
+  const handleVideoClick = () => {
+    setIsVideoMuted(!isVideoMuted);
+  }
+
   useEffect(() => {
     setLocalPost(post)
   }, [post.id])
+
+  useEffect(() => {
+    if (videoInView) {
+      videoRef.current?.play();
+    }
+    else videoRef.current?.pause();
+  }, [videoInView])
 
 
   return (
@@ -105,24 +122,33 @@ const FeedPost = ({ post }: FeedPostPropType, ref: any): JSX.Element => {
         <span className={'text-white'}>{localPost.username}</span>
       </span>
       <div className='relative h-full w-full cursor-pointer' onDoubleClick={handleDoubleClickLike}>
-        <img src={post.mediaUrl} alt={'post'} className={'max-h-[400px] w-full object-contain '}  />
+        { post.hasVideo ? (
+          <video controls id="video-tag" muted={isVideoMuted} onClick={handleVideoClick} ref={videoRef}>
+            <source id="video-source" src={post.mediaUrl} />
+            Your browser does not support the video tag.
+          </video>
+        ) : (
+          <img src={post.mediaUrl} alt={'post'} className={'max-h-[400px] w-full object-contain '}  />
+        ) }
       </div>
       <div className={'flex gap-1 text-white justify-between'}>
         <div className={'flex gap-1'}>
           <div className='flex gap-2 items-center'>
             {localPost.likeCount}
-            <Icon fontSize={20}
-                  icon={localPost.hasUserLike ? 'mdi:cards-heart' : 'mdi:cards-heart-outline'}
-                  className={'cursor-pointer'}
-                  onClick={localPost.hasUserLike ? deleteLike : putLike}
+            <Icon
+              fontSize={20}
+              icon={localPost.hasUserLike ? 'mdi:cards-heart' : 'mdi:cards-heart-outline'}
+              className={'cursor-pointer'}
+              onClick={localPost.hasUserLike ? deleteLike : putLike}
             />
           </div>
           <div className='flex gap-2 items-center'>
             {localPost.commentCount}
-            <Icon fontSize={20}
-                  onClick={handleFormShow}
-                  icon='uil:comment'
-                  className={'cursor-pointer'} />
+            <Icon
+              fontSize={20}
+              onClick={handleFormShow}
+              icon='uil:comment'
+              className={'cursor-pointer'} />
           </div>
         </div>
         <div>

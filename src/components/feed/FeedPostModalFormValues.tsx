@@ -24,7 +24,8 @@ type Ref = LegacyRef<HTMLFormElement> | undefined
 
 export type FeedPostModalFormValues = {
   htmlContent: string,
-  imageSrc?: string
+  imageSrc?: string,
+  video?: File
 };
 
 export const FeedPostFormModal = ({ handleClose, setIsFormOpen }: FeedPostModalType, ref: Ref) => {
@@ -43,6 +44,10 @@ export const FeedPostFormModal = ({ handleClose, setIsFormOpen }: FeedPostModalT
   const { setIsInputFocused } = useContext(ThemeContext);
 
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const [image, setImage] = useState<Blob | null>(null);
+
+  const [video, setVideo] = useState<Blob | null>(null);
 
   const [imageSrc, setImageSrc] = useState<string | null>(null);
 
@@ -69,12 +74,13 @@ export const FeedPostFormModal = ({ handleClose, setIsFormOpen }: FeedPostModalT
   const handleSubmitForm = async (data: FeedPostModalFormValues, event: any) => {
     if (!event.target[2].files && !data.imageSrc) return;
     event.preventDefault()
-    const { htmlContent } = data || {}
+    const { htmlContent } = data || {};
     try {
       setIsLoading(true)
       const formData = new FormData();
       formData.append('htmlContent', htmlContent)
-      if (fileInputRef.current?.files) formData.append('image', fileInputRef.current.files[0]);
+      if (image) formData.append('image', image);
+      if (video) formData.append('video', video);
       if (data.imageSrc) formData.append('imageSrc', data.imageSrc);
       await call.post('/api/v1/post', formData, {
         headers: {
@@ -94,37 +100,46 @@ export const FeedPostFormModal = ({ handleClose, setIsFormOpen }: FeedPostModalT
     handleClose();
   }
 
-  const onImagePreviewChange = async (e: ChangeEvent<HTMLInputElement>) => {
-    if (!e.target.files) return;
+  const onImagePreviewChange = async (event: ChangeEvent<HTMLInputElement>) => {
 
-    if (e.target.files[0].size > 10000000) {
+    if (!event.target.files) return;
+
+    if (event.target.files[0].size > 10000000) {
       setError('imageSrc', { message: 'Size of the image is too huge' });
       return;
     }
 
-    if (e.target.files[0].type.match('image/*')) {
-      await handleUploadToCloudinary(e.target.files[0]);
+    if (event.target.files[0].type.match('image/*')) {
+      setImage(event.target.files[0]);
+      await handleUploadToCloudinary(event.target.files[0]);
       clearErrors('imageSrc')
       return
     }
 
-/*
-    if (e.target.files[0].type.match('video/!*')) {
+    if (event.target.files[0].type.match('video/*')) {
       const reader = new FileReader();
       reader.onload = function(e: any) {
         setVideoSrc(e.target.result);
-        videoTagElement.current!.load()
-
-      }.bind(this)
-      reader.readAsDataURL(e.target.files[0]);
+        if (event.target.files) {
+          setValue('video', event.target.files[0]);
+          setVideo(event.target.files[0]);
+        }
+      }.bind(this);
+      reader.readAsDataURL(event.target.files[0]);
     }
-*/
 
   };
+
   const handleRemoveImage = async () => {
-    await handleDeleteFromCloudinary();
-    setImageSrc(null);
-    setValue('imageSrc', '');
+    if (imageSrc) {
+      await handleDeleteFromCloudinary();
+      setImageSrc(null);
+      setValue('imageSrc', '');
+    }
+    else if (videoSrc) {
+      setVideoSrc(null);
+      setVideo(null)
+    }
   }
 
   const handleUploadImageClick = () => {
@@ -166,6 +181,7 @@ export const FeedPostFormModal = ({ handleClose, setIsFormOpen }: FeedPostModalT
       setIsImageUploadLoading(false);
     }
   };
+
   const handleDeleteFromCloudinary = async () => {
     try {
       setIsRemovingImage(true);
@@ -268,7 +284,7 @@ export const FeedPostFormModal = ({ handleClose, setIsFormOpen }: FeedPostModalT
           { isRemovingImage && (
             <div className={'text-whtie animate-pulse'}>Removing Content</div>
           ) }
-          { imageSrc ? (
+          { (imageSrc || videoSrc) ? (
             <Icon
               className='feed__post-form_title-icon'
               icon='material-symbols:close'
@@ -311,12 +327,13 @@ export const FeedPostFormModal = ({ handleClose, setIsFormOpen }: FeedPostModalT
           style={{ display: "none" }}
           aria-labelledby="file-id"
           id="file"
-          accept="image/*"
+          accept="image/*, video/*"
           name={'postfile'}
           type="file"
           onChange={onImagePreviewChange}
         />
-        <input {...register('imageSrc', { required: "Image cannot be empty", value: imageSrc! })} hidden />
+        <input {...register('imageSrc')} hidden />
+        <input {...register('video')} hidden />
         <small className={'text-red-500'}>{ errors?.imageSrc?.message }</small>
         <button
           type={'button'}
@@ -324,14 +341,14 @@ export const FeedPostFormModal = ({ handleClose, setIsFormOpen }: FeedPostModalT
           onClick={handleUploadImageClick}
           disabled={isImageUploadLoading || isImageGeneratingLoading || isCaptionGeneratingLoading}
         >
-          Upload Image
+          Upload Content
         </button>
         <div className={'w-full text-center text-white my-1'}>OR</div>
         <button
           type={'button'}
           onClick={handleGenerateImage}
           className={`rounded-lg disabled:opacity-50 transition-opacity p-3 w-full text-black mb-5 shadow bg-white border min-w-[200px] ${isLoading || isImageGeneratingLoading || isCaptionGeneratingLoading ? 'opacity-50' : ''}`}
-          disabled={!htmlContent?.trim() || isImageUploadLoading || isImageGeneratingLoading || isCaptionGeneratingLoading}
+          disabled={!htmlContent?.trim() || isImageUploadLoading || isImageGeneratingLoading || isCaptionGeneratingLoading || !video}
         >
           Generate Image From Caption
         </button>
