@@ -25,7 +25,7 @@ type Ref = LegacyRef<HTMLFormElement> | undefined
 export type FeedPostModalFormValues = {
   htmlContent: string,
   imageSrc?: string
-}
+};
 
 export const FeedPostFormModal = ({ handleClose, setIsFormOpen }: FeedPostModalType, ref: Ref) => {
 
@@ -44,9 +44,13 @@ export const FeedPostFormModal = ({ handleClose, setIsFormOpen }: FeedPostModalT
 
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const [imageSrc, setImageSrc] = React.useState<string | null>(null);
+  const [imageSrc, setImageSrc] = useState<string | null>(null);
+
+  const [videoSrc, setVideoSrc] = useState<any>();
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  const [isRemovingImage, setIsRemovingImage] = useState<boolean>(false);
 
   const [isImageGeneratingLoading, setIsImageGeneratingLoading] = useState<boolean>(false);
 
@@ -59,6 +63,8 @@ export const FeedPostFormModal = ({ handleClose, setIsFormOpen }: FeedPostModalT
   const htmlContent = watch('htmlContent');
 
   const topElement = useRef<HTMLDivElement>(null);
+
+  const videoTagElement = useRef<HTMLVideoElement>(null);
 
   const handleSubmitForm = async (data: FeedPostModalFormValues, event: any) => {
     if (!event.target[2].files && !data.imageSrc) return;
@@ -90,14 +96,31 @@ export const FeedPostFormModal = ({ handleClose, setIsFormOpen }: FeedPostModalT
 
   const onImagePreviewChange = async (e: ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files) return;
+
     if (e.target.files[0].size > 10000000) {
       setError('imageSrc', { message: 'Size of the image is too huge' });
       return;
     }
-    await handleUploadToCloudinary(e.target.files[0]);
-    clearErrors('imageSrc')
-  };
 
+    if (e.target.files[0].type.match('image/*')) {
+      await handleUploadToCloudinary(e.target.files[0]);
+      clearErrors('imageSrc')
+      return
+    }
+
+/*
+    if (e.target.files[0].type.match('video/!*')) {
+      const reader = new FileReader();
+      reader.onload = function(e: any) {
+        setVideoSrc(e.target.result);
+        videoTagElement.current!.load()
+
+      }.bind(this)
+      reader.readAsDataURL(e.target.files[0]);
+    }
+*/
+
+  };
   const handleRemoveImage = async () => {
     await handleDeleteFromCloudinary();
     setImageSrc(null);
@@ -117,11 +140,13 @@ export const FeedPostFormModal = ({ handleClose, setIsFormOpen }: FeedPostModalT
       setValue('imageSrc', data.url);
     } catch (error) {
       console.log(error);
+      setError('imageSrc', { message: 'Could not generate image' });
     }
     finally {
       setIsImageGeneratingLoading(false);
     }
   };
+
   const handleUploadToCloudinary = async (image: Blob) => {
     try {
       setIsImageUploadLoading(true);
@@ -143,10 +168,14 @@ export const FeedPostFormModal = ({ handleClose, setIsFormOpen }: FeedPostModalT
   };
   const handleDeleteFromCloudinary = async () => {
     try {
+      setIsRemovingImage(true);
       await axios.put(`/api/v1/post/image`, { url: imageSrc?.split('/').at(-1)?.split('.').at(0) });
     }
     catch (error) {
       console.log(error);
+    }
+    finally {
+      setIsRemovingImage(false);
     }
   };
 
@@ -236,6 +265,9 @@ export const FeedPostFormModal = ({ handleClose, setIsFormOpen }: FeedPostModalT
 
         <div className={'flex justify-between items-center mt-2 text-white'}>
           {imageSrc ? 'Added Content' : 'Add Content:'}
+          { isRemovingImage && (
+            <div className={'text-whtie animate-pulse'}>Removing Content</div>
+          ) }
           { imageSrc ? (
             <Icon
               className='feed__post-form_title-icon'
@@ -264,6 +296,13 @@ export const FeedPostFormModal = ({ handleClose, setIsFormOpen }: FeedPostModalT
               alt='post form'
             />
           ) : ( isImageGeneratingLoading ? <p>Generating Image, Please Stand By </p> : <p>Added Content Will Be Shown Here</p> )}
+
+          { videoSrc ? (
+            <video ref={videoTagElement} controls id="video-tag">
+              <source id="video-source" src={videoSrc} />
+              Your browser does not support the video tag.
+            </video>
+          ) : null }
 
           <div className='overlay' />
         </div>
