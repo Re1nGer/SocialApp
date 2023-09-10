@@ -26,8 +26,6 @@ const FeedPost = ({ post }: FeedPostPropType, ref: any): JSX.Element => {
 
   const [isCommentFormShown, setIsCommentFormShown] = useState<boolean>(false)
 
-  const [isVideoMuted, setIsVideoMuted] = useState(true);
-
   const videoRef = useRef<HTMLVideoElement>(null);
 
   const animation = useAnimation();
@@ -98,7 +96,7 @@ const FeedPost = ({ post }: FeedPostPropType, ref: any): JSX.Element => {
   }
 
   const handleVideoClick = () => {
-    setIsVideoMuted(!isVideoMuted);
+    videoRef.current?.play();
   }
 
   useEffect(() => {
@@ -110,7 +108,7 @@ const FeedPost = ({ post }: FeedPostPropType, ref: any): JSX.Element => {
       videoRef.current?.play();
     }
     else videoRef.current?.pause();
-  }, [videoInView])
+  }, [videoInView]);
 
 
   return (
@@ -123,7 +121,7 @@ const FeedPost = ({ post }: FeedPostPropType, ref: any): JSX.Element => {
       </span>
       <div className='relative h-full w-full cursor-pointer' onDoubleClick={handleDoubleClickLike}>
         { post.hasVideo ? (
-          <video controls id="video-tag" muted={isVideoMuted} onClick={handleVideoClick} ref={videoRef}>
+          <video controls id="video-tag" onClick={handleVideoClick} ref={videoRef}>
             <source id="video-source" src={post.mediaUrl} />
             Your browser does not support the video tag.
           </video>

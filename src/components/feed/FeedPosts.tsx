@@ -20,7 +20,7 @@ export function FeedPosts(): JSX.Element {
     try {
       setIsLoading(true)
       // for some weird reason mode property fixes cors issue but it complains in typescript
-      const { data } = await call.get<IPost[]>("/api/v1/feed")
+      const { data} = await call.get<IPost[]>("/api/v1/feed")
       setPosts(data)
     } catch (error) {
       console.log(error)
@@ -30,7 +30,7 @@ export function FeedPosts(): JSX.Element {
   }
 
   useEffect(() => {
-    fetchLatestPosts()
+    fetchLatestPosts();
   }, [accessToken])
 
   return (

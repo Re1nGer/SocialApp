@@ -72,7 +72,7 @@ export const FeedPostFormModal = ({ handleClose, setIsFormOpen }: FeedPostModalT
   const videoTagElement = useRef<HTMLVideoElement>(null);
 
   const handleSubmitForm = async (data: FeedPostModalFormValues, event: any) => {
-    if (!event.target[2].files && !data.imageSrc) return;
+    if (!event.target[2].files && !data.imageSrc && !data.video) return;
     event.preventDefault()
     const { htmlContent } = data || {};
     try {
@@ -105,7 +105,7 @@ export const FeedPostFormModal = ({ handleClose, setIsFormOpen }: FeedPostModalT
     if (!event.target.files) return;
 
     if (event.target.files[0].size > 10000000) {
-      setError('imageSrc', { message: 'Size of the image is too huge' });
+      setError('imageSrc', { message: 'Size of the content is too huge. Allowed size is up to 10mb' });
       return;
     }
 
@@ -167,7 +167,7 @@ export const FeedPostFormModal = ({ handleClose, setIsFormOpen }: FeedPostModalT
       setIsImageUploadLoading(true);
       const formData = new FormData();
       formData.append('image', image);
-      const { data } = await axios.post("/api/v1/post/image", formData, {
+      const { data } = await axios.post('/api/v1/post/image', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         }
@@ -311,7 +311,9 @@ export const FeedPostFormModal = ({ handleClose, setIsFormOpen }: FeedPostModalT
               src={imageSrc}
               alt='post form'
             />
-          ) : ( isImageGeneratingLoading ? <p>Generating Image, Please Stand By </p> : <p>Added Content Will Be Shown Here</p> )}
+          ) : null}
+
+          {( isImageGeneratingLoading ? <p>Generating Image, Please Stand By </p> : !video ? <p>Added Content Will Be Shown Here</p> : "" )}
 
           { videoSrc ? (
             <video ref={videoTagElement} controls id="video-tag">
@@ -337,7 +339,7 @@ export const FeedPostFormModal = ({ handleClose, setIsFormOpen }: FeedPostModalT
         <small className={'text-red-500'}>{ errors?.imageSrc?.message }</small>
         <button
           type={'button'}
-          className={`bg-transparent border rounded-lg border-white bg-black text-white w-full p-3 ${isLoading || isImageGeneratingLoading || isCaptionGeneratingLoading ? 'opacity-50' : ''}`}
+          className={`transition-colors hover:bg-white hover:text-black bg-transparent border rounded-lg border-white bg-black text-white w-full p-3 ${isLoading || isImageGeneratingLoading || isCaptionGeneratingLoading ? 'opacity-50' : ''}`}
           onClick={handleUploadImageClick}
           disabled={isImageUploadLoading || isImageGeneratingLoading || isCaptionGeneratingLoading}
         >
